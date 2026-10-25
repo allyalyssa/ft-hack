@@ -59,7 +59,8 @@ def main():
     report("PASS" if code and "offline guard" in out else "FAIL", "offline guard blocks outside connections")
     log.unlink(missing_ok=True)
 
-    for suite in ("triage/test_triage.py", "disputes/test_disputes.py", "agent/test_agent.py"):
+    for suite in ("triage/test_triage.py", "triage/test_revalidate.py", "disputes/test_disputes.py", "disputes/test_cases.py",
+                  "agent/test_agent.py"):
         code, out, _ = run([suite], env)
         passed = re.search(r"\d+ passed", out)
         report("PASS" if code == 0 and passed else "FAIL", f"tests {suite}", passed.group(0) if code == 0 and passed else out[-1500:])

@@ -3,7 +3,8 @@
 python3 platform/run.py                # dashboard on :8080 and a cycle every 120 s; Ctrl-C stops both
 python3 platform/run.py --once         # one cycle, then exit (for cron or a systemd timer)
 
-A cycle is: triage, disputes, draft the next few invoices, post new packages if a channel is configured.
+A cycle is: triage, revalidate existing drafts, disputes, draft the next few invoices, post new packages if a
+channel is configured.
 """
 import argparse
 import signal
@@ -35,6 +36,7 @@ def cycle(limit):
     print(f"{datetime.now():%Y-%m-%d %H:%M:%S} cycle")
     if not step(["triage/triage.py"], quiet=True):
         return False
+    step(["triage/revalidate.py"])
     step(["disputes/disputes.py"])
     drafted = step(["agent/actions.py", "--limit", str(limit)])
     step(["channel/post.py"])
