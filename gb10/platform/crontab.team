@@ -1,0 +1,11 @@
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+HOME=/home/dell
+# Team build from github main in ~/ft-hack-git: one cycle every 2 minutes (triage, revalidate, disputes, 5 drafts, post)
+*/2 * * * * cd $HOME/ft-hack-git && flock -n /tmp/team-cycle.lock python3 platform/run.py --once >> logs/cycle.log 2>&1
+# services come back on their own after a reboot
+@reboot cd $HOME/ft-hack-git && sleep 20 && nohup python3 channel/agent_desk.py --host 0.0.0.0 --port 8091 >> logs/agent_desk.log 2>&1 &
+@reboot cd $HOME/ft-hack-git && sleep 20 && nohup python3 channel/dashboard.py --host 0.0.0.0 --port 8092 >> logs/dashboard.log 2>&1 &
+@reboot cd $HOME/ft-hack-git && sleep 22 && nohup python3 app/server.py --host 0.0.0.0 --port 8090 --approvals-port 8092 >> logs/workspace.log 2>&1 &
+@reboot cd $HOME/ft-hack && sleep 25 && nohup python3 platform/ollama_relay.py 172.18.0.1 11436 >> logs/relay.log 2>&1 &
+*/3 * * * * for m in gpt-oss-120b-64k gpt-oss-20b-64k; do curl -s -m 120 http://127.0.0.1:11434/api/generate -d "{\"model\":\"$m\",\"keep_alive\":-1}" > /dev/null; done

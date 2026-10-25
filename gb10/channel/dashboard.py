@@ -147,7 +147,6 @@ textarea{display:block;width:100%;min-height:200px;margin:0 0 10px;font:13px/1.5
 .empty{padding:28px 16px;text-align:center;color:var(--muted)}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;background:var(--chip);padding:1px 5px;border-radius:4px}
 @media (max-width:640px){.wrap{padding:0 16px}.cards{grid-template-columns:1fr}.who{margin-left:0}.kv{grid-template-columns:1fr}}.ask{padding:16px}.ask textarea{min-height:76px;font:14px/1.5 inherit;font-family:inherit}.ask-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.suggest{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}.suggest button{font:inherit;font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--line-strong);background:var(--chip);color:var(--text);cursor:pointer}.suggest button:hover{border-color:var(--accent-line);background:var(--accent-soft)}.ask-state{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}.qa{border-top:1px solid var(--line);padding:14px 16px}.qa:first-child{border-top:0}.qa .q{font-weight:600;margin:0 0 6px}.qa .when{color:var(--faint);font-size:12px;font-weight:400;margin-left:8px}.qa .a{color:var(--text)}.qa .a p{margin:0 0 8px}.qa .a ul{margin:0 0 8px;padding-left:20px}.qa .err{color:#a8321f}.sandbox-note{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:999px;padding:2px 10px;margin-bottom:14px}.agent-fab{position:fixed;right:20px;bottom:20px;z-index:50;display:flex;align-items:center;gap:8px;font:inherit;font-weight:600;padding:11px 18px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer;box-shadow:0 6px 20px rgba(20,40,80,.25)}.agent-fab:hover{background:var(--accent-hover)}.agent-fab .dot{width:8px;height:8px;border-radius:50%;background:#7ee2a8}.agent-fab.busy .dot{background:#ffd166;animation:pulse 1s infinite}@keyframes pulse{50%{opacity:.35}}.agent-panel{position:fixed;right:20px;bottom:76px;z-index:51;width:400px;max-width:calc(100vw - 32px);height:min(640px,calc(100vh - 110px));display:none;flex-direction:column;background:var(--panel);border:1px solid var(--line-strong);border-radius:12px;box-shadow:0 18px 50px rgba(20,40,80,.28);overflow:hidden}.agent-panel.open{display:flex}.ap-head{padding:12px 14px;border-bottom:1px solid var(--line)}.ap-head .t{font-weight:650;display:flex;align-items:center;gap:8px}.ap-head .x{margin-left:auto;border:0;background:none;font-size:20px;line-height:1;color:var(--muted);cursor:pointer}.ap-head .n{font-size:12px;color:var(--accent-ink);margin-top:3px}.ap-body{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;background:#fafbfc}.ap-msg{max-width:88%;padding:8px 11px;border-radius:10px;font-size:13.5px;line-height:1.45;word-wrap:break-word}.ap-msg.me{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:3px}.ap-msg.bot{align-self:flex-start;background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:3px}.ap-msg.bot p{margin:0 0 6px}.ap-msg.bot p:last-child{margin:0}.ap-msg.bot ul{margin:0 0 6px;padding-left:18px}.ap-msg.err{border-color:#f0c4bb;color:#a8321f}.ap-msg .meta{display:block;font-size:11px;color:var(--faint);margin-top:4px}.ap-msg.work{color:var(--muted);font-variant-numeric:tabular-nums}.ap-suggest{display:flex;gap:6px;flex-wrap:wrap;padding:8px 14px 0;border-top:1px solid var(--line)}.ap-suggest button{font:inherit;font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line-strong);background:var(--chip);color:var(--text);cursor:pointer}.ap-suggest button:hover{border-color:var(--accent-line);background:var(--accent-soft)}.ap-input{display:flex;gap:8px;padding:10px 14px 12px}.ap-input textarea{min-height:0;height:40px;margin:0;flex:1;font:13.5px/1.4 inherit;font-family:inherit;resize:none;padding:9px 10px}.ap-input .btn{padding:7px 14px}.ap-refresh{align-self:flex-start;font-size:12px}.ap-select{position:absolute;z-index:60;display:none;font:inherit;font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(20,40,80,.25)}.ap-select:hover{background:var(--accent-hover)}.ap-ctx{display:none;margin:8px 14px 0;padding:7px 30px 7px 10px;position:relative;font-size:12.5px;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:8px;max-height:72px;overflow:hidden}.ap-ctx.on{display:block}.ap-ctx b{display:block;font-size:11px;font-weight:600;margin-bottom:2px}.ap-ctx .rm{position:absolute;right:6px;top:4px;border:0;background:none;color:var(--muted);font-size:16px;cursor:pointer}.ap-msg .quote{display:block;border-left:2px solid rgba(255,255,255,.6);padding-left:7px;margin-bottom:5px;opacity:.9;font-size:12.5px}
-
 :root{--selection-ink:#6d465b;--selection-bg:#f2e7ed;--selection-line:#d4b9c8}
 ::selection{background:var(--selection-bg);color:var(--selection-ink)}
 .ap-select,.ap-select:hover{background:var(--selection-bg);color:var(--selection-ink);border:1px solid var(--selection-line);box-shadow:0 4px 16px rgba(45,30,40,.1)}
@@ -267,10 +266,20 @@ def bucket_of(item):
 
 
 def invoice_of(item):
-    return item.get("invoice") if item and isinstance(item.get("invoice"), dict) else {}
+    """Nested contract shape ({"invoice": {...}}) or the flat shape the root build writes (fields on the item)."""
+    if not item:
+        return {}
+    return item["invoice"] if isinstance(item.get("invoice"), dict) else item
+
+
+def amount_of(item):
+    inv = invoice_of(item)
+    return to_float(inv.get("balance") if inv.get("balance") is not None else inv.get("amount"))
 
 
 def days_past_due(item, as_of):
+    if isinstance(item.get("days_past_due"), (int, float)):
+        return int(item["days_past_due"])
     for reason in item.get("reasons") or []:
         m = re.match(r"past_due_(\d+)", str(reason))
         if m:
@@ -809,7 +818,7 @@ def api_summary():
             continue
         entry = buckets[bucket_of(item)]
         entry["queued"] += 1
-        entry["dollars"] += to_float(invoice_of(item).get("amount"))
+        entry["dollars"] += amount_of(item)
         status = packages.get(item_id(item))
         state = status.get("state") if status else "not_drafted"
         if state in entry:
@@ -862,9 +871,14 @@ def api_queue(query):
         if state and state != "awaiting" and row_state != state:
             continue
         inv = invoice_of(item)
-        rows.append({"invoice_id": item_id(item), "bucket": bucket_of(item), "amount": round(to_float(inv.get("amount")), 2),
+        rows.append({"invoice_id": item_id(item), "bucket": bucket_of(item), "amount": round(amount_of(item), 2),
                      "account_name": inv.get("account_name") or "", "days_past_due": days_past_due(item, queue.get("as_of")),
                      "state": row_state, "action_id": status.get("action_id") if status else None})
+    sort = query.get("sort", [""])[0]
+    if sort in ("amount", "amount_desc"):
+        rows.sort(key=lambda r: r["amount"], reverse=True)
+    elif sort == "days_past_due":
+        rows.sort(key=lambda r: r["days_past_due"] or 0, reverse=True)
     return 200, {"ok": True, "as_of": queue.get("as_of"), "snapshot_id": queue.get("snapshot_id"),
                  "total": len(rows), "returned": min(len(rows), limit), "rows": rows[:limit]}
 
@@ -964,10 +978,55 @@ def agent_record(job):
         traceback.print_exc()
 
 
+INV_IN_TEXT = re.compile(r"\bINV-\d{3,6}\b", re.I)
+ITEM_KEEP = ("invoice_id", "bucket", "reason", "reasons", "account_name", "account_owner", "amount", "amount_paid", "balance",
+             "status", "dispute_flag", "issue_date", "due_date", "days_past_due", "last_touch_date", "last_touch_source",
+             "days_since_touch", "never_touched", "conflict", "sheet_notes", "notes", "slack", "slack_thread", "last_touch")
+
+
+def _trim(value, limit=700):
+    text = value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, default=str)
+    return text if len(text) <= limit else text[:limit] + " ..."
+
+
+def agent_context(question):
+    """Live desk data handed to the agent with the question, so it answers in one pass and never runs a command."""
+    summary = api_summary()
+    parts = ["SUMMARY " + json.dumps({k: summary.get(k) for k in ("as_of", "totals", "buckets", "review", "last_run")},
+                                     ensure_ascii=False, default=str)]
+    for invoice_id in list(dict.fromkeys(m.upper() for m in INV_IN_TEXT.findall(question)))[:3]:
+        status, data = api_invoice(invoice_id)
+        if status != 200:
+            parts.append(f"INVOICE {invoice_id}: not in the queue or the drafts")
+            continue
+        item = data.get("item") or {}
+        inv = invoice_of(item)
+        compact = {k: inv.get(k, item.get(k)) for k in ITEM_KEEP if inv.get(k, item.get(k)) not in (None, "", [])}
+        compact.update(bucket=data.get("bucket"), days_past_due=data.get("days_past_due"),
+                       review_state=(data.get("status") or {}).get("state", "not drafted yet"))
+        drafts = {name: _trim(text, 900) for name, text in (data.get("artifacts") or {}).items()}
+        parts.append(f"INVOICE {invoice_id} " + _trim(compact, 1500) + (" DRAFTS " + json.dumps(drafts, ensure_ascii=False) if drafts else ""))
+    _, waiting = api_queue({"state": ["awaiting"], "sort": ["amount"], "limit": ["10"]})
+    if waiting.get("ok"):
+        parts.append("TOP 10 AWAITING REVIEW BY AMOUNT " + json.dumps(waiting.get("rows"), ensure_ascii=False, default=str))
+    _, oldest = api_queue({"sort": ["days_past_due"], "limit": ["5"]})
+    if oldest.get("ok"):
+        parts.append("OLDEST 5 QUEUED " + json.dumps(oldest.get("rows"), ensure_ascii=False, default=str))
+    return "\n".join(parts)
+
+
+def agent_prompt(question):
+    return ("You are the collections agent for the approval desk. The desk looked up the live data below just now. "
+            "Answer only from it, in at most eight short lines or a small table. Use plain numbers with commas and dollars to the cent. "
+            "Do not run commands or tools; everything you need is here. If the data does not cover the question, say what is missing. "
+            "You cannot approve or reject; tell the collector to type approve INV-... or reject INV-... because ... in this chat, "
+            "or press the button on the invoice page.\n\nDATA\n" + agent_context(question) + "\n\nQUESTION\n" + question)
+
+
 def run_agent_job(job, binary):
     started = time.time()
     cmd = [binary, "sandbox", "exec", "--", "openclaw", "agent",
-           "--session-id", f"dash-{job['id']}", "--timeout", "280", "-m", job["question"]]
+           "--session-id", f"dash-{job['id']}", "--timeout", "280", "-m", agent_prompt(job["question"])]
     try:
         proc = subprocess.run(cmd, capture_output=True, text=True, timeout=330, stdin=subprocess.DEVNULL)
         lines = [l for l in (proc.stdout or "").splitlines() if not any(n in l for n in AGENT_NOISE)]
@@ -994,10 +1053,38 @@ def agent_running():
     return next((j for j in AGENT_JOBS.values() if j.get("state") == "running"), None)
 
 
+DECISION_RE = re.compile(r"^\s*(approve|reject)\s+(INV-\d{3,6})\b[\s,.:;-]*(?:(?:because|reason|as)\s+)?(.*)$", re.I | re.S)
+
+
+def desk_decision(question, by):
+    """A reviewer typing 'approve INV-1' or 'reject INV-1 because ...' in the chat is a human decision.
+    The desk records it under the reviewer's name. The sandboxed agent never writes."""
+    m = DECISION_RE.match(question)
+    if not m:
+        return None
+    action, invoice_id, reason = m.group(1).lower(), m.group(2).upper(), m.group(3).strip().rstrip(".") or None
+    job = {"id": uuid.uuid4().hex[:12], "question": question, "asked_at": now_iso(), "by": by, "model": "desk", "elapsed_s": 0.0}
+    status, data = api_post(invoice_id, action, {"by": by, "reason": reason})
+    if status == 200:
+        verb = "Approved" if action == "approve" else "Rejected"
+        case = f" Salesforce case #{data['crm_case_id']} updated." if data.get("crm_case_id") else ""
+        why = f' Reason: "{reason}".' if reason and action == "reject" else ""
+        job.update(state="done", answer=f"**{verb} {invoice_id}** as {by}.{why}{case} Recorded by the desk under your name; the agent only reads.")
+    else:
+        job.update(state="error", error=data.get("error") or f"could not {action} {invoice_id}")
+    AGENT_JOBS[job["id"]] = job
+    agent_record(job)
+    return job
+
+
 def api_agent_ask(body):
     question = str(body.get("message") or "").strip()
     if not question:
         return 400, {"ok": False, "error": "message is required"}
+    by = str(body.get("by") or "").strip()[:60] or "reviewer"
+    decided = desk_decision(question, by)
+    if decided:
+        return 200, {"ok": True, "job": decided["id"]}
     if len(question) > 2000:
         return 400, {"ok": False, "error": "keep the question under 2,000 characters"}
     binary = openshell_bin()
@@ -1051,8 +1138,30 @@ def render_agent():
     return page("Ask the agent", body, "agent")
 
 
+def agent_suggestions():
+    """Suggestion chips that name real invoices from the live queue, so they work on any data set."""
+    try:
+        _, top = api_queue({"state": ["awaiting"], "sort": ["amount"], "limit": ["1"]})
+        _, wo = api_queue({"bucket": ["writeoff"], "state": ["awaiting"], "limit": ["1"]})
+        if not (wo.get("rows") or []):
+            _, wo = api_queue({"bucket": ["writeoff"], "limit": ["1"]})
+        _, esc_rows = api_queue({"bucket": ["escalate"], "limit": ["1"]})
+    except Exception:
+        return AGENT_SUGGESTIONS
+    first = lambda d: ((d.get("rows") or [{}])[0]).get("invoice_id") if d.get("ok") else None
+    big, small, disputed = first(top), first(wo), first(esc_rows)
+    out = ["How is collections doing today?", "What's waiting for approval? Show me the five biggest."]
+    if big:
+        out += [f"Show me {big}. What did the agent draft?", f"Approve {big}."]
+    if disputed:
+        out.append(f"Why is {disputed} escalated?")
+    if small:
+        out.append(f"Should we write off {small}?")
+    return tuple(out)
+
+
 def agent_panel():
-    chips = "".join(f'<button type="button" data-q="{esc(t)}">{esc(t)}</button>' for t in AGENT_SUGGESTIONS)
+    chips = "".join(f'<button type="button" data-q="{esc(t)}">{esc(t)}</button>' for t in agent_suggestions())
     return (
         '<button class="agent-fab" id="agent-fab" type="button" aria-controls="agent-panel" aria-expanded="false">'
         '<img class="collex-face" src="/assets/collex-companion.png" alt="" width="42" height="42">Ask Collex</button>'
@@ -1068,6 +1177,29 @@ def agent_panel():
         '</section>'
         '<button class="ap-select" id="agent-select" type="button">Ask about this</button>'
     )
+
+
+WIDGET_CSS = (
+    "#agent-panel,.agent-fab,.ap-select{--accent:#1e5c3a;--accent-hover:#174a2e;--accent-soft:#e8f2ec;--accent-line:#bcd9c7;"
+    "--accent-ink:#174a2e;--panel:#fff;--line:#e3e6ea;--line-strong:#cdd2d9;--text:#1c2128;--muted:#5b6470;--faint:#8b939d;--chip:#eff1f4;"
+    "font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;box-sizing:border-box}"
+    "#agent-panel *{box-sizing:border-box}"
+    "#agent-panel .btn{font:inherit;font-weight:550;padding:7px 14px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}"
+    "#agent-panel .btn:hover{background:var(--accent-hover)}#agent-panel .btn:disabled{opacity:.6;cursor:default}"
+    "#agent-panel textarea{display:block;width:100%;color:var(--text);border:1px solid var(--line-strong);border-radius:6px}"
+    "#agent-panel code{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:var(--chip);padding:1px 4px;border-radius:4px}"
+    "#agent-panel a{color:var(--accent)}"
+)
+
+
+def agent_widget_js():
+    kf = "@keyframes pulse{50%{opacity:.35}}"
+    base = CSS.replace(kf, "")
+    css = WIDGET_CSS + kf + "".join(rule + "}" for rule in base.split("}") if any(k in rule for k in (".agent-", ".ap-", ".collex-face", "--selection")))
+    return ("(function(){if(document.getElementById('agent-panel'))return;"
+            f"var st=document.createElement('style');st.textContent={json.dumps(css)};document.head.appendChild(st);"
+            f"document.body.insertAdjacentHTML('beforeend',{json.dumps(agent_panel())});"
+            "})();\n" + AGENT_PANEL_JS)
 
 
 AGENT_PANEL_JS = r"""
@@ -1283,11 +1415,15 @@ class Handler(BaseHTTPRequestHandler):
         parts = urllib.parse.urlsplit(self.path)
         path, query = parts.path, urllib.parse.parse_qs(parts.query)
         if path == "/assets/collex-companion.png":
-            asset = Path(__file__).resolve().parent / "assets" / "collex-companion.png"
+            here = Path(__file__).resolve().parent
+            asset = next((c for c in (here / "assets" / "collex-companion.png", here.parent / "app" / "assets" / "collex-companion.png") if c.exists()), None)
+            if asset is None:
+                self.send_response(404); self.send_header("Content-Length", "0"); self.end_headers(); return
             data = asset.read_bytes()
             self.send_response(200)
             self.send_header("Content-Type", "image/png")
             self.send_header("Content-Length", str(len(data)))
+            self.send_header("Cache-Control", "max-age=3600")
             self.end_headers()
             self.wfile.write(data)
             return
@@ -1316,6 +1452,14 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_html(render_queue(query))
             elif path == "/agent":
                 self.redirect("/?ask=1")
+            elif path == "/agent-widget.js":
+                data = agent_widget_js().encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "application/javascript; charset=utf-8")
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(data)
             elif path == "/cases":
                 self.send_html(render_cases())
             elif path == "/summary":
