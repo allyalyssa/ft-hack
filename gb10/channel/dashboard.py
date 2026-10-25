@@ -154,7 +154,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:
 .ap-ctx{background:var(--selection-bg);color:var(--selection-ink);border-color:var(--selection-line)}.ap-ctx .rm{color:var(--selection-ink)}
 .brand{display:inline-flex;align-items:center;gap:8px}.brand small{margin-left:0}.brand .collex-face{width:48px;height:48px}
 .collex-face{width:56px;height:56px;object-fit:contain;flex:none}.agent-fab{gap:10px}.agent-fab .collex-face{width:42px;height:42px}.ap-head .t{align-items:center}.ap-head .collex-face{width:68px;height:68px}
-.ap-msg.bot .collex-face{display:block;width:38px;height:38px;margin-bottom:6px}.agent-live{position:fixed;left:20px;bottom:20px;z-index:49;width:310px;background:#14201a;color:#e7efe9;border-radius:12px;padding:11px 14px;box-shadow:0 10px 30px rgba(10,20,15,.3);font-size:12.5px;line-height:1.45;cursor:pointer;user-select:none}.agent-live .al-top{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px}.agent-live .al-dot{width:9px;height:9px;border-radius:50%;background:#7b8a81;flex:none}.agent-live.busy .al-dot{background:#5fe39a;animation:pulse 1s infinite}.agent-live .al-num{font-size:22px;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums;transition:color .4s}.agent-live .al-num.bump{color:#5fe39a}.agent-live .al-row{display:flex;align-items:baseline;gap:8px;margin-top:4px}.agent-live .al-sub{color:#a9bcb0}.agent-live .al-plus{color:#5fe39a;font-weight:600;opacity:0;transition:opacity .3s}.agent-live .al-plus.on{opacity:1}.agent-live .al-list{display:none;margin-top:8px;border-top:1px solid rgba(255,255,255,.12);padding-top:6px}.agent-live.expanded .al-list{display:block}.agent-live .al-list div{display:flex;justify-content:space-between;gap:8px;color:#cfdcd3}.agent-live .al-list span:last-child{color:#8fa597;white-space:nowrap}#asktoggle,aside#ask,#ask-selection{display:none!important}.chat-open .shell{grid-template-columns:minmax(0,1fr)!important}
+.ap-msg.bot .collex-face{display:block;width:38px;height:38px;margin-bottom:6px}.agent-live{position:fixed;left:20px;bottom:20px;z-index:49;width:288px;background:#1d1d1f;color:#f5f5f7;border-radius:10px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.2),0 12px 32px rgba(0,0,0,.22);font:12px/1.45 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;cursor:pointer;text-align:left}.agent-live:focus-visible{outline:2px solid #2997ff;outline-offset:2px}.agent-live .al-top{display:flex;align-items:center;gap:7px;color:#a1a1a6;font-size:11.5px;font-weight:500}.agent-live .al-dot{width:7px;height:7px;border-radius:50%;background:#6e6e73;flex:none}.agent-live.busy .al-dot{background:#30d158;animation:alping 1.4s cubic-bezier(.16,1,.3,1) infinite}@keyframes alping{0%{box-shadow:0 0 0 0 rgba(48,209,88,.55)}100%{box-shadow:0 0 0 7px rgba(48,209,88,0)}}.agent-live.busy #al-state{color:#f5f5f7}.agent-live .al-bar{height:2px;background:#3a3a3c;border-radius:2px;margin:9px 0 10px;overflow:hidden}.agent-live .al-bar i{display:block;height:100%;width:0;background:#a1a1a6;border-radius:2px;transition:width 1s linear}.agent-live.busy .al-bar i{width:35%!important;background:#30d158;animation:alrun 1.2s cubic-bezier(.65,0,.35,1) infinite}@keyframes alrun{0%{transform:translateX(-100%)}100%{transform:translateX(290%)}}.agent-live .al-row{display:flex;align-items:baseline;gap:6px}.agent-live .al-num{font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#f5f5f7;transition:color .25s cubic-bezier(.16,1,.3,1)}.agent-live .al-num.bump{color:#30d158}.agent-live .al-unit{color:#a1a1a6}.agent-live .al-plus{margin-left:auto;color:#30d158;font-weight:600;font-variant-numeric:tabular-nums;opacity:0;transition:opacity .2s}.agent-live .al-plus.on{opacity:1}.agent-live .al-sub{color:#a1a1a6;margin-top:2px}.agent-live .al-sub b{color:#f5f5f7;font-weight:500}.agent-live .al-mem{display:flex;align-items:center;gap:8px;margin-top:9px;padding-top:9px;border-top:1px solid #333336;color:#a1a1a6}.agent-live .al-mem .m{flex:1;height:4px;background:#3a3a3c;border-radius:2px;overflow:hidden}.agent-live .al-mem .m i{display:block;height:100%;background:#2997ff;border-radius:2px;width:0;transition:width .6s cubic-bezier(.16,1,.3,1)}.agent-live .al-mem span{font-variant-numeric:tabular-nums;white-space:nowrap}.agent-live .al-models{color:#86868b;font-size:11px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.agent-live .al-list{display:none;margin-top:9px;padding-top:8px;border-top:1px solid #333336}.agent-live.expanded .al-list{display:block}.agent-live .al-list div{display:flex;justify-content:space-between;gap:10px;padding:2px 0;color:#d2d2d7}.agent-live .al-list span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.agent-live .al-list span:last-child{color:#86868b;white-space:nowrap;font-variant-numeric:tabular-nums}.agent-live .al-hint{color:#6e6e73;font-size:10.5px;margin-top:6px}.agent-live.expanded .al-hint{display:none}.agent-live.compact:not(:hover):not(:focus-visible):not(.expanded){width:auto;min-width:210px;padding:9px 13px}.agent-live.compact:not(:hover):not(:focus-visible):not(.expanded) .al-bar,.agent-live.compact:not(:hover):not(:focus-visible):not(.expanded) .al-sub,.agent-live.compact:not(:hover):not(:focus-visible):not(.expanded) .al-mem,.agent-live.compact:not(:hover):not(:focus-visible):not(.expanded) .al-models,.agent-live.compact:not(:hover):not(:focus-visible):not(.expanded) .al-hint{display:none}.agent-live.compact:not(:hover):not(:focus-visible):not(.expanded) .al-row{margin-top:3px}.agent-live.compact:not(:hover):not(:focus-visible):not(.expanded) .al-num{font-size:18px}@media (prefers-reduced-motion:reduce){.agent-live *,.agent-live{animation:none!important;transition:none!important}}@media (max-width:760px){.agent-live{left:12px;bottom:12px;width:calc(100vw - 150px);min-width:200px}}
 """
 
 JS = """
@@ -1257,18 +1257,20 @@ def agent_panel():
         '<button class="btn primary" id="agent-ask" type="button">Ask</button></div>'
         '</section>'
         '<button class="ap-select" id="agent-select" type="button">Ask about this</button>'
-        '<div class="agent-live" id="agent-live" title="Click for the latest drafts" role="status" aria-live="polite">'
-        '<div class="al-top"><span class="al-dot"></span><span id="al-state">Local agent</span></div>'
-        '<div class="al-row"><span class="al-num" id="al-num">\u2013</span><span class="al-sub">drafts</span>'
-        '<span class="al-plus" id="al-plus"></span></div>'
-        '<div class="al-sub" id="al-latest"></div><div class="al-sub" id="al-model"></div>'
-        '<div class="al-list" id="al-list"></div></div>'
+        '<div class="agent-live" id="agent-live" role="button" tabindex="0" aria-expanded="false" aria-label="Local agent activity">'
+        '<div class="al-top"><span class="al-dot"></span><span id="al-state" aria-live="polite">Local agent</span></div>'
+        '<div class="al-bar"><i id="al-cycle"></i></div>'
+        '<div class="al-row"><span class="al-num" id="al-num">\u2013</span><span class="al-unit">drafts written</span><span class="al-plus" id="al-plus"></span></div>'
+        '<div class="al-sub" id="al-latest"></div>'
+        '<div class="al-mem"><div class="m"><i id="al-memfill"></i></div><span id="al-mem"></span></div>'
+        '<div class="al-models" id="al-model"></div>'
+        '<div class="al-list" id="al-list"></div><div class="al-hint">Click for the latest drafts</div></div>'
     )
 
 
 WIDGET_CSS = (
-    "#agent-panel,.agent-fab,.ap-select{--accent:#1e5c3a;--accent-hover:#174a2e;--accent-soft:#e8f2ec;--accent-line:#bcd9c7;"
-    "--accent-ink:#174a2e;--panel:#fff;--line:#e3e6ea;--line-strong:#cdd2d9;--text:#1c2128;--muted:#5b6470;--faint:#8b939d;--chip:#eff1f4;"
+    "#agent-panel,.agent-fab,.ap-select{--accent:#0071e3;--accent-hover:#0066cc;--accent-soft:#f0f4f9;--accent-line:#c9daf0;"
+    "--accent-ink:#0058b0;--panel:#fff;--line:#e3e6ea;--line-strong:#cdd2d9;--text:#1c2128;--muted:#5b6470;--faint:#8b939d;--chip:#eff1f4;"
     "font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;box-sizing:border-box}"
     "#agent-panel *{box-sizing:border-box}"
     "#agent-panel .btn{font:inherit;font-weight:550;padding:7px 14px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}"
@@ -1279,13 +1281,28 @@ WIDGET_CSS = (
 )
 
 
+HOST_FIX_CSS = (
+    "#asktoggle,aside#ask,#ask-selection{display:none!important}"
+    ".chat-open .shell,body.chat-open .shell{grid-template-columns:minmax(0,1fr)!important}"
+    "main{padding-bottom:132px}"
+)
+
+
 def agent_widget_js():
-    kf = "@keyframes pulse{50%{opacity:.35}}"
-    base = CSS.replace(kf, "")
-    css = WIDGET_CSS + kf + "".join(rule + "}" for rule in base.split("}") if any(k in rule for k in (".agent-", ".ap-", ".collex-face", "--selection", "#asktoggle")))
+    frames = re.findall(r"@keyframes [\w-]+\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}", CSS)
+    kf = "".join(frames)
+    base = CSS
+    for block in frames:
+        base = base.replace(block, "")
+    base = re.sub(r"@media \([^)]*\)\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}", lambda m: m.group(0) if ".agent-live" in m.group(0) else "", base)
+    media = "".join(re.findall(r"@media \([^)]*\)\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}", base))
+    for block in re.findall(r"@media \([^)]*\)\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}", base):
+        base = base.replace(block, "")
+    css = WIDGET_CSS + HOST_FIX_CSS + kf + "".join(rule + "}" for rule in base.split("}") if any(k in rule for k in (".agent-", ".ap-", ".collex-face", "--selection"))) + media
     return ("(function(){if(document.getElementById('agent-panel'))return;"
             f"var st=document.createElement('style');st.textContent={json.dumps(css)};document.head.appendChild(st);"
             f"document.body.insertAdjacentHTML('beforeend',{json.dumps(agent_panel())});"
+            "document.body.classList.remove('chat-open');"
             "})();\n" + AGENT_PANEL_JS)
 
 
@@ -1426,20 +1443,29 @@ AGENT_PANEL_JS = r"""
       clearInterval(anim); var from = shown; shown = n; var step = 0;
       anim = setInterval(function () { step++; var v = Math.round(from + (n - from) * step / 12); el.textContent = v.toLocaleString(); if (step >= 12) { clearInterval(anim); } }, 40);
     }
-    box.addEventListener("click", function () { box.classList.toggle("expanded"); });
+    function toggle() { var on = box.classList.toggle("expanded"); box.setAttribute("aria-expanded", on ? "true" : "false"); }
+    function fit() { var h = (location.hash || "").replace("#", "").split("/")[0]; box.classList.toggle("compact", !!document.querySelector(".shell") && h !== "" && h !== "today"); }
+    window.addEventListener("hashchange", fit); fit();
+    box.addEventListener("click", toggle);
+    box.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
     function tick() {
       fetch("/api/agent/activity").then(function (r) { return r.json(); }).then(function (a) {
         if (!a.ok) { return; }
         box.classList.toggle("busy", !!a.drafting_now);
-        document.getElementById("al-state").textContent = a.drafting_now ? "Local agent is drafting now" : "Local agent idle · next cycle in " + a.next_cycle_s + "s";
+        document.getElementById("al-state").textContent = a.drafting_now ? "Drafting now on the GB10" : "Idle · next cycle in " + a.next_cycle_s + "s";
+        document.getElementById("al-cycle").style.width = a.drafting_now ? "" : Math.max(0, Math.min(100, (120 - a.next_cycle_s) / 120 * 100)) + "%";
         countTo(a.packages);
         var l = (a.latest || [])[0];
-        document.getElementById("al-latest").textContent = (a.awaiting || 0).toLocaleString() + " awaiting review · " + (a.drafted_last_hour || 0) + " drafted in the last hour" +
-          (l ? " · latest " + l.invoice_id + " " + ago(l.ago_s) : "");
-        var models = (a.loaded || []).map(function (m) { return m.name.replace(":latest", ""); }).join(", ");
-        document.getElementById("al-model").textContent = (models || a.model || "") + (a.memory ? " · " + a.memory.used + " of " + a.memory.total + " GB in use" : "");
+        document.getElementById("al-latest").innerHTML = "<b>" + (a.awaiting || 0).toLocaleString() + "</b> awaiting review · <b>" + (a.drafted_last_hour || 0) + "</b> in the last hour" +
+          (l ? "<br>Latest " + esc(l.invoice_id) + (l.amount != null ? " · " + money(l.amount) : "") + " · " + ago(l.ago_s) : "");
+        if (a.memory) {
+          document.getElementById("al-mem").textContent = Math.round(a.memory.used) + " of " + Math.round(a.memory.total) + " GB memory";
+          document.getElementById("al-memfill").style.width = Math.min(100, a.memory.used / a.memory.total * 100) + "%";
+        }
+        var models = (a.loaded || []).map(function (m) { return m.name.replace(":latest", "").replace("-64k", ""); });
+        document.getElementById("al-model").textContent = models.length ? models.join(" + ") + " loaded, local only" : (a.model || "");
         document.getElementById("al-list").innerHTML = (a.latest || []).map(function (x) {
-          return "<div><span>" + esc(x.invoice_id) + " " + esc(x.account_name || "") + " " + money(x.amount) + "</span><span>" + esc(x.state) + " · " + ago(x.ago_s) + "</span></div>";
+          return "<div><span>" + esc(x.invoice_id) + " " + esc(x.account_name || "") + "</span><span>" + money(x.amount) + " · " + ago(x.ago_s) + "</span></div>";
         }).join("");
       }).catch(function () {}).then(function () { setTimeout(tick, 3000); });
     }
