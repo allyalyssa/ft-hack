@@ -1,4 +1,4 @@
-# Collections agent
+# Collex
 
 A collections agent that runs offline on an NVIDIA GB10. It finds the small invoices that collectors have lost track
 of, drafts the follow-ups and proposes write-offs, all for a person to approve.
@@ -17,8 +17,13 @@ python platform/run.py             # dashboard on http://localhost:8080 plus a c
 python app/server.py               # http://<box>:8000 ; approvals are forwarded to channel/dashboard.py on :8080
 ```
 
-One page for the demo: Today (what needs you and what the agent did), Approvals (stale drafts withdrawn in red),
-Accounts (invoices grouped by customer), PO cases, Disputes and Write-offs, with **Ask the agent** docked on the right.
+The invoice board covers the complete export, with search across invoice IDs, accounts and owners, status and owner
+filters, sortable columns, and 50 invoices per page. Portfolio totals reflect the full snapshot. On phones, invoice
+identity and balance stay visible together; remaining columns scroll horizontally.
+
+Approvals, Accounts (invoices grouped by customer), PO cases, Disputes and Write-offs retain their review workflows.
+**Ask Collex** uses the plush companion as its face and opens a persistent chat sidebar beside the ledger on desktop.
+On smaller screens it opens as a collapsible panel. Escape or the close button collapses chat.
 Ask "Has INV-112347 been approved?", "Why hasn't INV-100036 been drafted?", "Which PO cases are ready?" or an account
 name; every answer comes from lookups on the agent's own files and lists them under "How I found this". Approve,
 reject and "draft it now" go through the approval dashboard, which owns those decisions.

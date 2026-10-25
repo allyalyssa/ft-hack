@@ -3,222 +3,88 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Greenbar Collections</title>
+<title>Collex | Collections</title>
 <style>
-/* Greenbar, done properly: a forest-green sidebar (the ledger cover), a warm paper canvas with greenbar-striped
-   lists, and green as the action colour. Amber = a person must look, red = don't send / blocked. */
 :root {
-  --forest:#0F2A1F; --forest-2:#163828; --forest-3:#1F4A36; --forest-ink:#E3F0E8; --forest-muted:#93B8A3; --lime:#A6EBC0;
-  --paper:#F3F5EF; --surface:#FFFFFF; --band:#EDF4E8; --line:#DDE4D8; --line-2:#C9D3C4;
-  --ink:#14201A; --muted:#566259; --faint:#7D887F;
-  --green:#1F7A4D; --green-2:#176240; --green-soft:#E1F1E6; --green-line:#B9DEC6;
-  --amber:#8A5A12; --amber-soft:#FAEFD9; --amber-line:#EBD3A3;
-  --red:#A8402C; --red-soft:#F8E4DE; --red-line:#EBC2B7;
-  --sans:Inter, "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
-  --display:"Segoe UI Variable Display", Inter, "Segoe UI", system-ui, sans-serif;
-  --mono:"JetBrains Mono", "Cascadia Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --shadow:0 1px 2px rgba(20, 32, 26, .05), 0 4px 14px rgba(20, 32, 26, .05);
+  color-scheme:light; --paper:#fafafa; --surface:#fff; --band:#fafafa; --line:#e2e2e5; --line-2:#d2d2d7;
+  --ink:#1d1d1f; --muted:#6e6e73; --faint:#6e6e73;
+  --action:#0071e3; --action-hover:#0066cc; --action-soft:#f0f4f9; --action-line:#cbd8e8;
+  --warning:#775b27; --warning-soft:#f8f4ec; --warning-line:#e1d5bd;
+  --danger:#9b3d3f; --danger-soft:#fbf1f0; --danger-line:#e5caca;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --nav:#1d1d1f; --nav-text:#d2d2d7; --nav-active:#fff; --hover:#f7f7f9;
+  --display:var(--sans); --mono:ui-monospace,"SF Mono",Consolas,monospace;
 }
-* { box-sizing:border-box; }
-html, body { height:100%; }
-body { margin:0; background:var(--paper); color:var(--ink); font:14px/1.5 var(--sans); font-variant-numeric:tabular-nums;
-       accent-color:var(--green); caret-color:var(--green); scrollbar-color:var(--line-2) transparent; }
-::selection { background:var(--green-soft); color:var(--ink); }
-:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
-button { font:inherit; color:inherit; }
-.mono { font-family:var(--mono); font-size:.9em; letter-spacing:-.01em; }
-.muted { color:var(--muted); }
-a { color:var(--green); }
-svg.i { width:18px; height:18px; flex:none; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.5 var(--sans);font-variant-numeric:tabular-nums;accent-color:var(--action);caret-color:var(--action);scrollbar-color:var(--line-2) transparent}
+button,input{font:inherit;color:inherit} button{cursor:pointer} button:disabled{opacity:.5;cursor:default} a{color:var(--action);text-underline-offset:3px} ::selection{background:#d4e8fd;color:var(--ink)} :focus-visible{outline:3px solid var(--action);outline-offset:3px}
+svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.mono{font-family:var(--mono);font-size:.88em}.muted{color:var(--muted)}.shell{min-height:100vh}
+.skip{position:fixed;top:-60px;left:16px;z-index:50;background:var(--ink);color:white;padding:10px 16px;border-radius:8px}.skip:focus{top:10px}
+nav.side{display:flex;align-items:center;gap:28px;min-height:72px;padding:0 max(28px,calc((100vw - 1240px)/2));background:var(--nav);border-bottom:1px solid var(--nav)}
+.brand{display:flex;align-items:center;gap:10px;flex:none;text-decoration:none;color:var(--nav-active)}.brand b{font-size:19px;font-weight:650;letter-spacing:-.03em}.brand span{display:none}
+.navitems{display:flex;align-self:stretch;align-items:stretch;gap:24px;flex:1;min-width:0}.navlink{position:relative;border:0;background:transparent;padding:24px 0;color:var(--nav-text);white-space:nowrap;font-size:13px}.navlink svg,.group,.badge{display:none}.navlink:hover{color:var(--nav-active)}.navlink[aria-current="page"]{color:var(--nav-active);font-weight:600}.navlink[aria-current="page"]:after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--nav-active)}
+.boxinfo{display:none}.asktoggle{flex:none;display:inline-flex;align-items:center;gap:7px;font-size:12px;padding:7px 13px;border:1px solid var(--line-2);border-radius:20px;background:transparent;color:var(--nav-text);border-color:#55555b}.asktoggle:hover{background:#343437;color:var(--nav-active)}
+main{max-width:1240px;margin:0 auto;padding:56px 28px 72px;min-width:0}.head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:36px}.head h1{margin:0;font-size:40px;line-height:1.15;letter-spacing:-.035em;font-weight:650}.head p{margin:12px 0 0;color:var(--muted);max-width:68ch;font-size:15px}.snapshot{color:var(--muted);font-size:13px;white-space:nowrap;padding-bottom:4px}
+.cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line-2);border-radius:8px;padding:9px 16px;background:var(--surface);font-weight:500;text-decoration:none}.cta,.btn.primary{background:var(--action);border-color:var(--action);color:white}.cta:hover,.btn.primary:hover{background:var(--action-hover)}.btn:hover{background:var(--band)}.btn.danger{color:var(--danger);border-color:var(--danger-line)}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}.toolbar input{width:320px;max-width:100%;border:1px solid var(--line-2);border-radius:8px;background:var(--surface);padding:10px 13px}.toolbar span{color:var(--muted);font-size:12px}.split{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(0,1.3fr);gap:24px;align-items:start}.list{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}.row{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:12px;width:100%;background:var(--surface);text-align:left;border:0;border-bottom:1px solid var(--line);padding:16px;transition:background-color 150ms ease-out}.row:last-child{border-bottom:0}.row:hover{background:var(--band)}.row[aria-current="true"]{background:var(--action-soft)}.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#ededf0;color:#56565e;font-size:11px;font-weight:600;flex:none}.row .top{display:flex;justify-content:space-between;gap:12px}.row .who{font-weight:600;overflow-wrap:anywhere}.row .amt{white-space:nowrap;font-weight:500}.row .meta{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:12px;color:var(--muted);margin-top:5px}.pill{display:inline-flex;align-items:center;font-size:11px;line-height:19px;font-weight:500;color:var(--muted)}.pill.go{color:#38684f}.pill.hot{color:var(--warning)}.pill.stop{color:var(--danger)}.more{padding:16px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+.detail{min-width:0;border-radius:14px;background:var(--surface);padding:28px;border:1px solid var(--line);overflow-wrap:anywhere}.dhead{display:flex;align-items:center;gap:12px}.detail h2{margin:0;font-size:22px;font-weight:600;letter-spacing:-.025em}.idline{font-size:12px;color:var(--muted);margin-top:4px}.figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:28px 0;padding-bottom:24px;border-bottom:1px solid var(--line)}.figs .k{font-size:12px;color:var(--muted);margin-bottom:6px}.figs .v{font-size:20px;font-weight:600;letter-spacing:-.02em;overflow-wrap:anywhere}.suggest{padding:16px 18px;background:var(--action-soft);border-radius:10px;margin:20px 0;font-size:13px}.suggest.stop{background:var(--danger-soft)}.suggest.hot{background:var(--warning-soft)}.suggest .k{font-size:13px;font-weight:600;margin-bottom:5px}.suggest.stop .k{color:var(--danger)}.suggest.hot .k{color:var(--warning)}.section{margin-top:28px}.section h3{font-size:13px;font-weight:600;margin:0 0 12px}.section .list{border:0;border-radius:0}.section .row{padding:12px 0}.doc{background:var(--paper);border-radius:10px;padding:18px;white-space:pre-wrap;font-size:13px;max-width:75ch;overflow-wrap:anywhere}.timeline{list-style:none;padding:0;margin:0}.timeline li{display:grid;grid-template-columns:100px 1fr;gap:12px;border-top:1px solid var(--line);padding:12px 0;font-size:13px}.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}.reviewer{width:160px;background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:9px 12px}.toast{color:var(--muted);font-size:13px}.empty{padding:32px 20px;color:var(--muted);font-size:14px}.empty p{margin:0 0 12px}.skel{height:72px;background:var(--band);border-bottom:1px solid var(--line)}
+aside.ask{position:fixed;right:0;top:0;bottom:0;width:min(420px,100%);z-index:30;display:flex;flex-direction:column;background:var(--surface);box-shadow:-12px 0 48px rgba(0,0,0,.1);animation:panel-in 220ms cubic-bezier(.16,1,.3,1)}aside.ask[hidden]{display:none}@keyframes panel-in{from{transform:translateX(24px);opacity:.6}to{transform:none;opacity:1}}.ask header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:28px 24px 22px;border-bottom:1px solid var(--line)}.ask header b{font-size:20px;font-weight:600;letter-spacing:-.02em}.ask header p{font-size:13px;color:var(--muted);margin:7px 0 0;max-width:30ch}.closeask{border:0;background:var(--paper);border-radius:50%;width:32px;height:32px;display:grid;place-items:center;flex:none}.thread{flex:1;overflow:auto;padding:24px;display:flex;flex-direction:column;gap:22px}.hello h2{font-size:18px;font-weight:600;margin:0 0 8px}.hello p{margin:0 0 18px;color:var(--muted);font-size:13px}.prompts{display:grid;gap:0}.prompt{border:0;border-top:1px solid var(--line);background:transparent;text-align:left;padding:14px 0;color:var(--action);font-size:13px}.prompt:hover{text-decoration:underline;text-underline-offset:3px}.q{align-self:flex-end;max-width:90%;border-radius:14px;background:var(--paper);padding:12px 16px}.msg{min-width:0}.a{font-size:13px;overflow-wrap:anywhere}.a .who{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;font-size:12px;font-weight:600;margin-bottom:10px}.a .who span{font-weight:400;color:var(--muted)}.a .txt{white-space:pre-wrap}.inv{font-family:var(--mono);font-size:12px;color:var(--action);border:0;background:none;padding:0;text-decoration:underline;text-underline-offset:3px}.how{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}.how summary{cursor:pointer;color:var(--action);font-size:12px}.how ol{padding-left:18px;color:var(--muted)}.src{display:flex;flex-wrap:wrap;gap:6px;font-size:11px;color:var(--muted)}.askbar{display:flex;gap:8px;padding:20px 24px;border-top:1px solid var(--line)}.askbar input{flex:1;min-width:0;border:1px solid var(--line-2);border-radius:8px;padding:10px 12px;font-size:13px}input::placeholder{color:var(--muted)}.loading{color:var(--muted)}
+@media(min-width:1500px){main{padding-top:64px}}
+@media(max-width:1050px){nav.side{gap:24px;padding:0 24px;flex-wrap:wrap}.navitems{order:3;flex-basis:100%;gap:28px;overflow:auto}.navlink{padding:14px 0}.brand{padding-top:18px}.asktoggle{margin-left:auto;margin-top:18px}.split{grid-template-columns:minmax(250px,.8fr) minmax(0,1.2fr)}.detail{padding:22px}.figs{gap:10px}.figs .v{font-size:18px}}
+@media(max-width:760px){main{padding:36px 24px 56px}.head{margin-bottom:28px;align-items:flex-start}.head h1{font-size:32px}.head p{font-size:14px}.snapshot{font-size:12px;padding-top:8px}.split{grid-template-columns:minmax(0,1fr);gap:30px}.detail{padding:24px}.toolbar{align-items:flex-start;flex-direction:column;gap:8px}.toolbar input{width:100%}.toolbar span{min-height:18px}.timeline li{grid-template-columns:85px minmax(0,1fr)}.row{min-height:72px}.navlink{min-height:44px}}
+@media(max-width:400px){main{padding-left:18px;padding-right:18px}.snapshot{max-width:90px;white-space:normal;text-align:right}.figs{grid-template-columns:1fr}.figs .v{font-size:20px}.figs>div{display:flex;justify-content:space-between;align-items:center}.figs .k{margin:0}.row .top{flex-wrap:wrap;gap:2px}.chart .val{font-size:12px}.detail{padding:20px}.axis b{font-size:11px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 
-.shell { display:grid; grid-template-columns:244px minmax(0, 1fr) 392px; height:100%; }
+.back-board{display:inline-block;font-size:12px;margin-bottom:16px;text-decoration:none}.back-board:hover{text-decoration:underline}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+nav.side{min-height:58px;padding:0 28px;gap:44px}.brand{font-size:20px}.brand b{font-size:22px;letter-spacing:-.04em}.navitems{gap:28px}.navlink{padding:18px 0}.asktoggle{border-radius:6px}
+main{max-width:1600px;padding:30px 28px 40px}.head{margin-bottom:24px}.head h1{font-size:28px;letter-spacing:-.025em}.head p{font-size:13px;margin-top:8px}.board-head{align-items:center;margin-bottom:22px}.board-head h1{font-size:24px}.board-meta{display:flex;gap:20px;align-items:center;color:var(--muted);font-size:12px}.board-meta .btn{font-size:12px;padding:6px 12px}
+.market-strip{display:flex;align-items:stretch;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);margin-bottom:24px;overflow:auto}.market-strip>div,.market-strip>button{flex:1;min-width:180px;border:0;border-right:1px solid var(--line);padding:14px 20px;background:transparent;text-align:left}.market-strip>:first-child{padding-left:0;min-width:220px}.market-strip>:last-child{border-right:0;min-width:120px}.market-strip>button:hover{background:#f2f2f4}.market-strip span{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.market-strip strong{font-family:var(--sans);font-size:22px;font-weight:500;letter-spacing:-.025em;white-space:nowrap}.market-strip strong.positive,.market-strip strong.negative{color:var(--ink)}.market-strip .metric-unit{display:inline;font-family:var(--sans);font-size:12px;font-weight:400;letter-spacing:0;color:var(--muted)}
+.positive{color:#38684f}.negative{color:#9b3d3f}.warning{color:#775b27}.board-controls{display:flex;align-items:center;gap:24px;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap}.board-tabs{display:flex;gap:20px;overflow:auto;max-width:100%}.board-tabs button{border:0;background:transparent;color:var(--muted);padding:8px 0;white-space:nowrap;font-size:12px;border-bottom:2px solid transparent}.board-tabs button[aria-pressed="true"]{color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}.board-tabs button:hover{color:var(--ink)}.board-tabs span{font-family:var(--sans);font-size:11px;margin-left:6px;color:var(--muted)}.board-filters{display:flex;gap:8px}.board-filters input,.board-filters select{font:inherit;font-size:12px;border:1px solid var(--line-2);border-radius:6px;background:var(--surface);padding:8px 10px;min-width:0}.board-filters input{width:255px}.board-filters select{max-width:170px}.ledger-wrap{overflow:auto;max-height:calc(100vh - 295px);min-height:260px;background:white;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}.ledger{border-collapse:collapse;width:100%;min-width:1150px;font-size:12px;text-align:left;white-space:nowrap}.ledger th{position:sticky;top:0;z-index:1;background:#f5f5f7;border-bottom:1px solid var(--line-2);font-size:11px;font-weight:500;color:var(--muted);text-align:left;height:36px;padding:0 14px}.ledger th button{display:inline-flex;align-items:center;justify-content:inherit;gap:7px;border:0;background:transparent;font:inherit;color:inherit;padding:8px 0}.ledger th[aria-sort="ascending"],.ledger th[aria-sort="descending"]{color:var(--ink)}.sort-arrow{width:10px;height:10px;display:inline-flex}.sort-arrow svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5}.ledger td{height:43px;padding:0 14px;border-bottom:1px solid #eeeeef}.ledger tbody tr:nth-child(even){background:#fff}.ledger tbody tr:hover{background:#f7f7f9}.ledger .number{text-align:right}.ledger th.number button{justify-content:flex-end;width:100%}.ledger .amount,.ledger .date,.ledger td.number{font-family:var(--sans);font-size:12px}.ledger .amount{font-size:13px;font-weight:500}.ledger-account{font-weight:500;max-width:240px;overflow:hidden;text-overflow:ellipsis}.invoice-link{font-family:var(--mono);font-size:11px;border:0;background:none;color:var(--ink);padding:10px 0;text-underline-offset:3px}.invoice-link:hover{color:var(--action);text-decoration:underline}.board-status{font-size:11px;font-weight:500}.workflow{font-size:11px;color:var(--muted)}.open-invoice{display:grid;place-items:center;width:28px;height:32px;border:0;background:none;color:var(--muted)}.open-invoice:hover{color:var(--action)}.open-invoice svg{width:14px;height:14px}.board-footer{display:flex;justify-content:space-between;gap:20px;align-items:center;padding-top:14px;color:var(--muted);font-size:11px}.pagination{display:flex;align-items:center;gap:12px}.pagination .btn{font-size:11px;padding:6px 10px;border-radius:5px}.data-note{font-size:11px;color:var(--muted);margin-top:16px}.ledger .empty{padding:48px 24px;height:180px}.ledger-wrap[aria-busy="true"] tbody{opacity:.5}.split>.list{max-height:70vh;overflow:auto}
+@media(min-width:1500px){main{padding-top:30px}}
+@media(max-width:1050px){nav.side{gap:20px;padding:0 24px}.brand{padding-top:15px}.asktoggle{margin-top:15px}.navlink{padding:12px 0}.market-strip{margin-bottom:18px}.board-controls{gap:10px}.board-filters{width:100%}.board-filters input{flex:1}.ledger-wrap{max-height:calc(100vh - 360px)}.market-strip>div,.market-strip>button{min-width:180px}}
+@media(max-width:760px){main{padding:26px 18px}.board-head h1{font-size:22px}.board-meta{gap:10px;font-size:10px}.board-meta .btn{padding:5px 8px}.market-strip strong{font-size:18px}.market-strip>div,.market-strip>button{min-width:170px;padding:12px 16px}.market-strip>:first-child{min-width:190px}.board-tabs{gap:18px}.board-filters select{max-width:135px}.ledger-wrap{max-height:58vh}.board-footer{gap:10px;font-size:10px}.pagination{gap:8px}.pagination .btn{font-size:10px;padding:6px 8px}.split>.list{max-height:300px}.head h1{font-size:28px}}
 
-/* ledger cover */
-nav.side { background:var(--forest); color:var(--forest-ink); display:flex; flex-direction:column; padding:20px 14px; gap:3px; }
-.brand { display:flex; align-items:center; gap:11px; padding:2px 8px 22px; }
-.mark { width:34px; height:34px; border-radius:2px; background:var(--lime); display:grid; place-items:center; }
-.mark i { display:block; width:18px; height:3px; background:var(--forest); box-shadow:0 6px 0 var(--forest), 0 -6px 0 var(--forest); border-radius:2px; }
-.brand b { font:650 17px/1.1 var(--display); letter-spacing:-.01em; color:#fff; }
-.brand span { display:block; color:var(--forest-muted); font-size:12px; margin-top:2px; }
-.navlink { display:flex; align-items:center; gap:11px; padding:9px 11px; border-radius:2px; color:var(--forest-muted);
-           border:0; background:none; text-align:left; cursor:pointer; width:100%; transition:background-color 150ms ease-out, color 150ms ease-out; }
-.navlink .lbl { flex:1; }
-.navlink:hover, .navout:hover { background:var(--forest-2); color:var(--forest-ink); }
-.navout { display:flex; align-items:center; gap:11px; padding:9px 11px; border-radius:2px; color:var(--forest-muted); text-decoration:none; }
-.navlink[aria-current="page"] { background:var(--forest-3); color:#fff; }
-.navlink[aria-current="page"] svg.i { color:var(--lime); }
-.badge { min-width:24px; padding:0 8px; border-radius:2px; font-size:12px; line-height:21px; text-align:center; background:var(--forest-2); color:var(--forest-muted); font-weight:600; }
-.badge:empty { display:none; }
-.badge.hot { background:#4A3A14; color:#F5CF7E; }
-.badge.go { background:var(--lime); color:var(--forest); }
-.badge.stop { background:#5A2A20; color:#F7B3A3; }
-.group { margin:16px 11px 6px; color:#6E9480; font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
-.boxinfo { margin-top:auto; padding:14px 12px; border-radius:2px; background:var(--forest-2); font-size:12px; color:var(--forest-muted); display:grid; gap:4px; }
-.live { display:flex; align-items:center; gap:8px; color:var(--forest-ink); font-weight:600; }
-.live::before { content:""; width:8px; height:8px; border-radius:50%; background:var(--lime); box-shadow:0 0 0 0 rgba(166, 235, 192, .6); animation:pulse 2.4s ease-out infinite; }
-@keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(166, 235, 192, .55); } 70%, 100% { box-shadow:0 0 0 8px rgba(166, 235, 192, 0); } }
 
-/* canvas */
-main { overflow:auto; padding:28px 32px 56px; min-width:0; }
-.head { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:12px; margin-bottom:20px; }
-.head h1 { margin:0; font:650 26px/1.2 var(--display); letter-spacing:-.02em; }
-.head p { margin:6px 0 0; color:var(--muted); max-width:72ch; font-size:14.5px; }
-.head p b { color:var(--ink); }
-.cta { display:inline-flex; align-items:center; gap:8px; background:var(--green); color:#fff; border:0; border-radius:2px; padding:10px 16px; cursor:pointer; font-weight:600; box-shadow:var(--shadow); }
-.cta:hover { background:var(--green-2); }
-
-.kpis { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:14px; margin-bottom:16px; }
-.kpi { background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:16px 18px; text-align:left; cursor:pointer; box-shadow:var(--shadow);
-       display:grid; grid-template-columns:auto 1fr; gap:4px 14px; align-items:center; transition:transform 150ms ease-out, border-color 150ms ease-out; }
-.kpi:hover { transform:translateY(-1px); border-color:var(--green-line); }
-.kpi .ic { grid-row:span 3; width:44px; height:44px; border-radius:2px; display:grid; place-items:center; background:var(--green-soft); color:var(--green); }
-.kpi.hot .ic { background:var(--amber-soft); color:var(--amber); } .kpi.stop .ic { background:var(--red-soft); color:var(--red); }
-.kpi .ic svg.i { width:22px; height:22px; }
-.kpi .n { font:700 28px/1.05 var(--display); letter-spacing:-.02em; }
-.kpi .l { font-weight:600; }
-.kpi .s { color:var(--muted); font-size:12.5px; }
-
-.grid2 { display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr); gap:14px; margin-bottom:14px; }
-.card { background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:18px 20px; min-width:0; box-shadow:var(--shadow); }
-.card h2 { margin:0; font:650 16px/1.3 var(--display); }
-.card .sub { color:var(--muted); font-size:13px; margin:2px 0 14px; }
-
-.chart { display:flex; align-items:flex-end; gap:14px; height:190px; padding-top:28px; border-bottom:1px solid var(--line); }
-.bar { flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:stretch; height:100%; position:relative; min-width:0; }
-.bar .col { border-radius:2px; min-height:6px; transition:height 700ms cubic-bezier(.2, .8, .2, 1); }
-.bar .val { position:absolute; left:0; right:0; text-align:center; font-weight:650; font-size:13px; transform:translateY(-22px); }
-.axis { display:flex; gap:14px; margin-top:8px; }
-.axis div { flex:1; text-align:center; font-size:12.5px; color:var(--muted); }
-.axis b { display:block; color:var(--ink); font-size:12.5px; font-weight:600; }
-
-.todo { display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center; padding:11px 10px; margin:0 -10px; border-radius:2px; cursor:pointer; background:none; border:0; width:calc(100% + 20px); text-align:left; }
-.todo:hover { background:var(--band); }
-.todo .ti { width:32px; height:32px; border-radius:2px; display:grid; place-items:center; }
-.todo .ti svg.i { width:17px; height:17px; }
-.ti.go { background:var(--green-soft); color:var(--green); } .ti.hot { background:var(--amber-soft); color:var(--amber); } .ti.stop { background:var(--red-soft); color:var(--red); }
-.todo .t { font-weight:600; }
-.todo .d { color:var(--muted); font-size:12.5px; }
-.todo .go-arrow { color:var(--faint); }
-
-.steps { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:10px; position:relative; }
-.steps::before { content:""; position:absolute; left:16px; right:16px; top:15px; height:2px; background:var(--green-line); }
-.steps li { position:relative; padding-top:40px; }
-.steps li::before { content:"✓"; position:absolute; top:0; left:0; width:32px; height:32px; border-radius:2px; background:var(--green); color:#fff; display:grid; place-items:center; font-weight:700; font-size:14px; box-shadow:0 0 0 4px var(--surface); }
-.steps b { display:block; font-weight:650; }
-.steps span { color:var(--muted); font-size:12.5px; }
-
-/* lists */
-.split { display:grid; grid-template-columns:minmax(320px, 430px) minmax(0, 1fr); gap:14px; align-items:start; }
-.list { background:var(--surface); border:1px solid var(--line); border-radius:2px; overflow:hidden; box-shadow:var(--shadow); }
-.row { display:grid; grid-template-columns:auto minmax(0, 1fr); gap:12px; align-items:center; width:100%; text-align:left; background:var(--surface); border:0; padding:12px 16px; cursor:pointer; transition:background-color 120ms ease-out; }
-.row:nth-child(even) { background:var(--band); }
-.row:hover { background:var(--green-soft); }
-.row[aria-current="true"] { background:var(--green-soft); box-shadow:inset 0 0 0 1px var(--green-line); }
-.av { width:36px; height:36px; border-radius:2px; display:grid; place-items:center; font-weight:700; font-size:13px; color:#fff; letter-spacing:.02em; }
-.row .top { display:flex; justify-content:space-between; gap:10px; }
-.row .who { font-weight:650; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-.row .amt { font-family:var(--mono); font-weight:600; }
-.row .meta { color:var(--muted); font-size:12.5px; margin-top:1px; display:flex; flex-wrap:wrap; gap:4px 8px; align-items:center; }
-.pill { display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; line-height:20px; padding:0 9px; border-radius:2px; background:var(--band); color:var(--muted); white-space:nowrap; }
-.pill::before { content:""; width:6px; height:6px; border-radius:50%; background:currentColor; opacity:.8; }
-.pill.go { background:var(--green-soft); color:var(--green); } .pill.hot { background:var(--amber-soft); color:var(--amber); }
-.pill.stop { background:var(--red-soft); color:var(--red); }
-.more { padding:12px 16px; color:var(--faint); font-size:12.5px; border-top:1px solid var(--line); background:var(--surface); }
-
-/* detail */
-.detail { background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:22px 24px; min-width:0; box-shadow:var(--shadow); }
-.dhead { display:flex; gap:14px; align-items:center; }
-.dhead .av { width:48px; height:48px; border-radius:2px; font-size:16px; }
-.detail h2 { margin:0; font:650 21px/1.2 var(--display); letter-spacing:-.01em; }
-.idline { color:var(--muted); margin-top:2px; }
-.figs { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px; margin:18px 0; }
-.figs > div { background:var(--band); border-radius:2px; padding:12px 14px; }
-.figs .k { color:var(--muted); font-size:12px; font-weight:600; }
-.figs .v { font:700 20px/1.25 var(--mono); letter-spacing:-.02em; }
-.suggest { position:relative; border:1px solid var(--green-line); background:var(--green-soft); border-radius:2px; padding:14px 16px 14px 58px; margin:14px 0; }
-.suggest::before { position:absolute; left:16px; top:14px; content:"→"; width:28px; height:28px; border-radius:2px; background:var(--green); color:#fff; display:grid; place-items:center; font-weight:700; }
-.suggest.stop { border-color:var(--red-line); background:var(--red-soft); } .suggest.stop::before { content:"!"; background:var(--red); }
-.suggest.hot { border-color:var(--amber-line); background:var(--amber-soft); } .suggest.hot::before { content:"i"; background:var(--amber); }
-.suggest .k { font-size:12px; font-weight:700; color:var(--green); letter-spacing:.02em; }
-.suggest.stop .k { color:var(--red); } .suggest.hot .k { color:var(--amber); }
-.section { margin-top:18px; }
-.section h3 { margin:0 0 8px; font-size:13px; color:var(--muted); font-weight:650; }
-.doc { background:var(--paper); border:1px solid var(--line); border-radius:2px; padding:14px 16px; white-space:pre-wrap; font-size:13.5px; max-width:80ch; }
-.timeline { list-style:none; margin:0; padding:0; }
-.timeline li { display:grid; grid-template-columns:100px 1fr; gap:12px; padding:9px 0; border-top:1px solid var(--line); }
-.timeline li:first-child { border-top:0; }
-.actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:20px; padding-top:16px; border-top:1px solid var(--line); }
-.btn { border:1px solid var(--line-2); background:var(--surface); border-radius:2px; padding:10px 16px; cursor:pointer; font-weight:600; }
-.btn:hover { border-color:var(--muted); }
-.btn.primary { background:var(--green); color:#fff; border-color:var(--green); box-shadow:0 2px 6px rgba(31, 122, 77, .25); }
-.btn.primary:hover { background:var(--green-2); }
-.btn.danger { color:var(--red); border-color:var(--red-line); }
-.btn:disabled { opacity:.5; cursor:default; }
-.reviewer { background:var(--paper); border:1px solid var(--line-2); border-radius:2px; padding:9px 12px; color:var(--ink); width:160px; font:inherit; }
-.toast { color:var(--muted); }
-.empty { color:var(--muted); padding:32px; text-align:center; }
-.skel { height:62px; background:linear-gradient(90deg, var(--surface) 0, var(--band) 40%, var(--surface) 80%); background-size:200% 100%; animation:shimmer 1.2s linear infinite; border-bottom:1px solid var(--line); }
-@keyframes shimmer { to { background-position:-200% 0; } }
-
-/* the agent */
-aside.ask { background:var(--surface); border-left:1px solid var(--line); display:flex; flex-direction:column; min-height:0; }
-.ask header { padding:18px 18px 16px; background:var(--forest); color:var(--forest-ink); display:flex; gap:12px; align-items:center; }
-.ask header b { display:block; font:650 16px/1.2 var(--display); color:#fff; }
-.ask header p { margin:3px 0 0; color:var(--forest-muted); font-size:12.5px; }
-.penny { width:44px; height:44px; flex:none; }
-.penny.sm { width:30px; height:30px; }
-.thread { flex:1; overflow:auto; padding:16px; display:flex; flex-direction:column; gap:12px; background:var(--paper); }
-.hello { display:flex; gap:10px; align-items:flex-start; }
-.hello .bub { background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:10px 12px; box-shadow:var(--shadow); }
-.prompts { display:grid; gap:8px; }
-.prompt { display:flex; align-items:center; gap:10px; text-align:left; background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:10px 12px; cursor:pointer; color:var(--ink); box-shadow:var(--shadow); transition:border-color 150ms ease-out, transform 150ms ease-out; }
-.prompt svg.i { color:var(--green); width:16px; height:16px; }
-.prompt:hover { border-color:var(--green-line); transform:translateX(2px); }
-.q { align-self:flex-end; max-width:85%; background:var(--green); color:#fff; border-radius:2px; padding:9px 13px; box-shadow:var(--shadow); }
-.msg { display:flex; gap:10px; align-items:flex-start; }
-.a { flex:1; min-width:0; background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:12px 14px; box-shadow:var(--shadow); }
-.a .who { font-size:12px; color:var(--green); font-weight:700; margin-bottom:4px; display:flex; justify-content:space-between; gap:8px; }
-.a .who span { color:var(--faint); font-weight:500; }
-.a .txt { white-space:pre-wrap; }
-.inv { color:var(--green); cursor:pointer; text-decoration:underline; text-underline-offset:3px; background:none; border:0; padding:0; font-family:var(--mono); font-size:.9em; font-weight:600; }
-.typing { display:inline-flex; gap:4px; padding:4px 0; }
-.typing i { width:7px; height:7px; border-radius:50%; background:var(--green); opacity:.35; animation:blink 1s infinite; }
-.typing i:nth-child(2) { animation-delay:.15s; } .typing i:nth-child(3) { animation-delay:.3s; }
-@keyframes blink { 50% { opacity:1; } }
-details.how { margin-top:10px; border-top:1px dashed var(--line-2); padding-top:8px; }
-details.how summary { cursor:pointer; color:var(--green); font-size:12.5px; font-weight:600; }
-details.how ol { margin:8px 0 6px; padding-left:18px; color:var(--muted); font-size:12.5px; }
-.src { display:flex; flex-wrap:wrap; gap:4px; }
-.src span { font-family:var(--mono); font-size:11px; color:var(--muted); background:var(--band); border-radius:2px; padding:2px 7px; }
-form.askbar { display:flex; gap:8px; padding:14px; border-top:1px solid var(--line); background:var(--surface); }
-form.askbar input { flex:1; min-width:0; background:var(--paper); border:1px solid var(--line-2); color:var(--ink); border-radius:2px; padding:11px 13px; font:inherit; }
-form.askbar input::placeholder { color:var(--faint); }
-form.askbar input:focus { border-color:var(--green); outline:none; box-shadow:0 0 0 3px var(--green-soft); }
-.asktoggle { display:none; }
-
-@media (max-width:1320px) {
-  .shell { grid-template-columns:220px minmax(0, 1fr); }
-  aside.ask { position:fixed; right:0; top:0; bottom:0; width:min(392px, 100%); z-index:20; transform:translateX(100%); transition:transform 220ms ease-out; box-shadow:-8px 0 30px rgba(0, 0, 0, .12); }
-  aside.ask.open { transform:none; }
-  .asktoggle { display:inline-flex; position:fixed; right:20px; bottom:20px; z-index:21; }
-  .steps { grid-template-columns:repeat(3, minmax(0, 1fr)); row-gap:18px; } .steps::before { display:none; }
+.mobile-account{display:none}
+@media(max-width:760px){
+ .board-head{display:block}.board-head h1{font-size:22px;line-height:1.2}.board-meta{margin-top:12px;justify-content:space-between;font-size:11px;white-space:nowrap}
+ .ledger th:nth-child(2),.ledger td:nth-child(2){display:none}
+ .ledger th:first-child,.ledger td:first-child{position:sticky;left:0;min-width:135px;max-width:135px;background:var(--surface);border-right:1px solid var(--line);z-index:2}
+ .ledger th:first-child{background:#f5f5f7;z-index:3}.ledger td:first-child{padding-top:6px;padding-bottom:6px}.ledger tbody tr:nth-child(even) td:first-child{background:#fff}.ledger tbody tr:hover td:first-child{background:#f7f7f9}
+ .ledger th:nth-child(3),.ledger td:nth-child(3){min-width:120px}.ledger td{height:52px}.invoice-link{padding:3px 0}
+ .mobile-account{display:block;max-width:115px;overflow:hidden;text-overflow:ellipsis;font-size:11px;line-height:16px;color:var(--muted)}
 }
-@media (max-width:900px) {
-  .shell { grid-template-columns:minmax(0, 1fr); }
-  nav.side { flex-direction:row; flex-wrap:wrap; padding:10px; } .group, .boxinfo { display:none; } .brand { padding:4px 8px; }
-  .navlink { width:auto; }
-  .split, .grid2 { grid-template-columns:minmax(0, 1fr); }
-  .kpis { grid-template-columns:repeat(2, minmax(0, 1fr)); }
-  main { padding:16px; }
+
+.companion-avatar{width:56px;height:56px;object-fit:contain;flex:none}
+.ask header{gap:12px;align-items:center}.ask header>div{flex:1}.ask header b{font-size:18px}.ask header p{font-size:12px;max-width:26ch}
+.companion-welcome{display:block;width:144px;height:144px;object-fit:contain;margin:4px auto 18px}
+.hello{text-align:center}.hello h2{font-size:19px}.hello p{max-width:32ch;margin:0 auto 22px}
+@media(max-width:400px){.ask header{padding:20px 18px}.companion-avatar{width:48px;height:48px}.companion-welcome{width:128px;height:128px}}
+.a .who .agent-name{display:inline-flex;align-items:center;gap:7px;color:var(--ink);font-weight:600}.agent-name img{object-fit:contain}
+.navitems,.board-tabs,.market-strip{scrollbar-width:none}.navitems::-webkit-scrollbar,.board-tabs::-webkit-scrollbar,.market-strip::-webkit-scrollbar{display:none}
+
+.asktoggle img{object-fit:contain;vertical-align:middle}
+@media(min-width:1200px){
+ .shell{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);align-items:start}
+ .chat-open .shell{grid-template-columns:minmax(0,1fr) 360px}
+ nav.side{grid-column:1/-1;grid-row:1}
+ main{grid-column:1;grid-row:2;width:100%;min-width:0}
+ .chat-open main{max-width:none}
+ aside.ask{position:sticky;top:0;right:auto;bottom:auto;grid-column:2;grid-row:2;align-self:start;width:360px;height:calc(100dvh - 58px);min-height:420px;border-left:1px solid var(--line);box-shadow:none;animation:none;z-index:2}
+ .ask header{padding:22px 18px;gap:10px}.companion-avatar{width:48px;height:48px}.ask header p{max-width:24ch}
+ .thread{padding:22px 20px}.askbar{padding:18px 20px}.companion-welcome{width:128px;height:128px}
 }
-@media (prefers-reduced-motion: reduce) { *, *::before { transition:none !important; animation:none !important; } }
+.navitems a.navlink{display:inline-flex;align-items:center;text-decoration:none}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <div class="shell">
   <nav class="side" aria-label="Main">
-    <div class="brand"><div class="mark"><i></i></div><div><b>Greenbar</b><span>Small-dollar collections</span></div></div>
-    <button class="navlink" data-view="today"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span class="lbl">Today</span></button>
+    <a class="brand" href="#today" aria-label="Collex home"><div><b>Collex</b><span>Collections</span></div></a>
+    <div class="navitems">
+    <button class="navlink" data-view="today"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span class="lbl">Invoice board</span></button>
     <div class="group">Work</div>
     <button class="navlink" data-view="approvals"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg><span class="lbl">Approvals</span><span class="badge" id="b-approvals"></span></button>
     <button class="navlink" data-view="accounts"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16M15 9h4a1 1 0 0 1 1 1v11M8 8h3M8 12h3M8 16h3M3 21h18"/></svg><span class="lbl">Accounts</span><span class="badge" id="b-accounts"></span></button>
@@ -226,48 +92,36 @@ form.askbar input:focus { border-color:var(--green); outline:none; box-shadow:0 
     <button class="navlink" data-view="disputes"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg><span class="lbl">Disputes</span><span class="badge" id="b-disputes"></span></button>
     <button class="navlink" data-view="writeoffs"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg><span class="lbl">Write-offs</span><span class="badge" id="b-writeoffs"></span></button>
     <div class="group">Data</div>
-    <a class="navout" id="upload-link" href="http://localhost:8080/upload"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><span class="lbl">Upload export</span></a>
+    <a class="navlink navout" id="upload-link" href="/upload"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><span class="lbl">Upload export</span></a>
+    </div>
+    <button class="asktoggle" id="asktoggle" aria-expanded="false" aria-controls="ask"><img src="/assets/collex-companion.png" alt="" width="24" height="24">Ask Collex</button>
     <div class="boxinfo" id="boxinfo"><div class="live">Running on this box</div></div>
   </nav>
 
-  <main id="main" aria-live="polite"></main>
+  <main id="main" tabindex="-1" aria-live="polite"></main>
 
-  <aside class="ask" id="ask" aria-label="Ask the agent">
-    <header><svg class="penny" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 12 L13 4 L18 10 Z M38 12 L35 4 L30 10 Z" fill="#4FAE76"/><rect x="4" y="8" width="40" height="38" rx="17" fill="#5FC487"/><path d="M24 9v6M9 26h3M36 30h3" stroke="#2F7D52" stroke-width="1.4" stroke-dasharray="1.6 1.8" stroke-linecap="round"/><circle cx="16" cy="22" r="6.5" fill="#F6F2E6" stroke="#14301F" stroke-width="1.6"/><circle cx="14.2" cy="20.2" r="1" fill="#14301F"/><circle cx="17.8" cy="20.2" r="1" fill="#14301F"/><circle cx="14.2" cy="23.8" r="1" fill="#14301F"/><circle cx="17.8" cy="23.8" r="1" fill="#14301F"/><circle cx="32" cy="21" r="4.6" fill="#E9B54F" stroke="#14301F" stroke-width="1.6"/><circle cx="30.9" cy="21" r=".9" fill="#14301F"/><circle cx="33.1" cy="21" r=".9" fill="#14301F"/><rect x="12" y="31" width="24" height="10" rx="4.5" fill="#2B1714"/><rect x="14.5" y="31" width="4" height="4.6" rx="1" fill="#FBF8EE"/><rect x="19.5" y="31" width="4.4" height="5.4" rx="1" fill="#FBF8EE"/><rect x="25" y="31" width="4" height="4.4" rx="1" fill="#FBF8EE"/><rect x="30" y="31" width="3.6" height="5" rx="1" fill="#FBF8EE"/><rect x="17" y="37" width="4" height="4" rx="1" fill="#FBF8EE"/><rect x="26" y="37.4" width="4" height="3.6" rx="1" fill="#FBF8EE"/></svg><div><b>Ask Penny</b><p>The collections agent on this box. Every answer shows how it was found.</p></div></header>
+  <aside class="ask" id="ask" aria-label="Ask Collex" hidden>
+    <header><img class="companion-avatar" src="/assets/collex-companion.png" alt="" width="56" height="56"><div><b>Ask Collex</b><p>Find an invoice, check an approval, or follow a case.</p></div><button class="closeask" id="closeask" aria-label="Close records panel"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
     <div class="thread" id="thread">
       <div class="prompts" id="prompts"></div>
     </div>
     <form class="askbar" id="askform">
-      <input id="askq" autocomplete="off" placeholder="Ask about an invoice, account or approval" aria-label="Ask Penny">
+      <input id="askq" autocomplete="off" placeholder="Ask about an invoice, account or approval" aria-label="Ask about your records">
       <button class="btn primary" type="submit">Ask</button>
     </form>
   </aside>
 </div>
-<button class="cta asktoggle" id="asktoggle"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Ask Penny</button>
+
 
 <script>
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const money = n => "$" + Number(n || 0).toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
 const num = n => Number(n || 0).toLocaleString();
-const PENNY_SM = `<svg class="penny sm" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 12 L13 4 L18 10 Z M38 12 L35 4 L30 10 Z" fill="#4FAE76"/><rect x="4" y="8" width="40" height="38" rx="17" fill="#5FC487"/><path d="M24 9v6M9 26h3M36 30h3" stroke="#2F7D52" stroke-width="1.4" stroke-dasharray="1.6 1.8" stroke-linecap="round"/><circle cx="16" cy="22" r="6.5" fill="#F6F2E6" stroke="#14301F" stroke-width="1.6"/><circle cx="14.2" cy="20.2" r="1" fill="#14301F"/><circle cx="17.8" cy="20.2" r="1" fill="#14301F"/><circle cx="14.2" cy="23.8" r="1" fill="#14301F"/><circle cx="17.8" cy="23.8" r="1" fill="#14301F"/><circle cx="32" cy="21" r="4.6" fill="#E9B54F" stroke="#14301F" stroke-width="1.6"/><circle cx="30.9" cy="21" r=".9" fill="#14301F"/><circle cx="33.1" cy="21" r=".9" fill="#14301F"/><rect x="12" y="31" width="24" height="10" rx="4.5" fill="#2B1714"/><rect x="14.5" y="31" width="4" height="4.6" rx="1" fill="#FBF8EE"/><rect x="19.5" y="31" width="4.4" height="5.4" rx="1" fill="#FBF8EE"/><rect x="25" y="31" width="4" height="4.4" rx="1" fill="#FBF8EE"/><rect x="30" y="31" width="3.6" height="5" rx="1" fill="#FBF8EE"/><rect x="17" y="37" width="4" height="4" rx="1" fill="#FBF8EE"/><rect x="26" y="37.4" width="4" height="3.6" rx="1" fill="#FBF8EE"/></svg>`;
-const ICONS = {"today": "<svg class=\"i\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z\"/></svg>", "approvals": "<svg class=\"i\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.5 2.5L16 9.5\"/></svg>", "accounts": "<svg class=\"i\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16M15 9h4a1 1 0 0 1 1 1v11M8 8h3M8 12h3M8 16h3M3 21h18\"/></svg>", "cases": "<svg class=\"i\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z\"/><path d=\"M14 3v5h5M9 13h6M9 17h4\"/></svg>", "disputes": "<svg class=\"i\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3.5l9 16H3z\"/><path d=\"M12 10v4M12 17v.01\"/></svg>", "writeoffs": "<svg class=\"i\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 3h12v18l-3-2-3 2-3-2-3 2z\"/><path d=\"M9 8h6M9 12h6\"/></svg>", "ask": "<svg class=\"i\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z\"/></svg>"};
-const AV = ["#1F7A4D", "#2E6E8E", "#7A5A1F", "#5B4B8A", "#2F7D6B", "#8A4A3A", "#3C6E3A", "#6A5D2E"];
 function avatar(name) {
   const words = String(name || "?").split(/\s+/).filter(Boolean);
   const init = (words[0]?.[0] || "?") + (words[1]?.[0] || "");
-  let h = 0; for (const c of String(name)) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-  return `<span class="av" style="background:${AV[h % AV.length]}">${esc(init.toUpperCase())}</span>`;
-}
-function countUp(root) {
-  root.querySelectorAll("[data-count]").forEach(el => {
-    const target = Number(el.dataset.count) || 0, fmt = el.dataset.fmt;
-    const show = v => el.textContent = fmt === "money" ? "$" + Math.round(v).toLocaleString() : Math.round(v).toLocaleString();
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches || !target) return show(target);
-    const t0 = performance.now();
-    const step = t => { const k = Math.min(1, (t - t0) / 700); show(target * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); };
-    requestAnimationFrame(step);
-  });
+  return `<span class="av">${esc(init.toUpperCase())}</span>`;
 }
 const pl = (n, one, many) => `${num(n)} ${Number(n) === 1 ? one : (many || one + "s")}`;
 const PROMPTS = ["What's waiting for my approval?", "Has INV-112347 been approved?", "Why hasn't INV-100036 been drafted?",
@@ -288,10 +142,12 @@ function linkInvoices(text) {
 
 /* ---------- navigation ---------- */
 function go(v, id) {
+  ++seq; ++dseq;
   view = v; selected = id || null;
   const hash = id ? `${v}/${id}` : v;
   if (location.hash.slice(1) !== hash) history.replaceState(null, "", "#" + hash);
   document.querySelectorAll(".navlink").forEach(a => a.setAttribute("aria-current", a.dataset.view === v ? "page" : "false"));
+  window.scrollTo(0,0);
   render();
 }
 function fromHash() {
@@ -319,12 +175,12 @@ function sidebar() {
 async function render() {
   const m = $("#main");
   try {
-    if (view === "today") return today(m);
-    if (view === "approvals") return await listView(m, "Approvals", "Drafts the agent made, waiting for you. Anything the stale-draft check pulled is at the top in red.",
+    if (view === "today") return await today(m);
+    if (view === "approvals") return await listView(m, "Approvals", "Review prepared drafts. Withdrawn drafts appear first and cannot be approved.",
       "/api/drafts", approvalRow, r => r.invoice_id);
     if (view === "accounts") return await listView(m, "Accounts", "Queued invoices grouped by customer, so one conversation covers every small balance on the account.",
       "/api/packages", accountRow, r => r.package_id, packageDetail);
-    if (view === "cases") return await listView(m, "PO cases", "Disputes blocked on a missing purchase order. The agent keeps each one open until the PO checks out against the invoice.",
+    if (view === "cases") return await listView(m, "PO cases", "Track missing purchase orders, check supporting evidence, and review corrected invoices.",
       "/api/cases", caseRow, r => r.invoice_id);
     if (view === "disputes") return await listView(m, "Disputes", "Disputed small invoices with a reason, an owner and a reply-by date. Highest priority first.",
       "/api/disputes", disputeRow, r => r.invoice_id);
@@ -332,70 +188,86 @@ async function render() {
       "/api/writeoffs", writeoffRow, r => r.invoice_id);
     if (view === "invoice") return await invoiceOnly(m);
   } catch (e) {
-    m.innerHTML = `<div class="empty">Couldn't load this view: ${esc(e.message)}. The agent's files may be mid-update; try again in a moment.</div>`;
+    m.innerHTML = `<div class="empty">Couldn't load this view: ${esc(e.message)}. Records may be updating. Reload this page to try again.</div>`;
   }
 }
 
-function today(m) {
-  if (!ov) { m.innerHTML = '<div class="empty">Loading the latest run.</div>'; return; }
-  const st = ov.blockers.by_state || {};
-  const hour = new Date().getHours();
-  const hi = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
-  const todo = [
-    ov.withdrawn && ["stop", "approvals", `${pl(ov.withdrawn, "draft")} withdrawn before sending`, "The invoice changed after the draft: paid, disputed, new contact or touched by a person.", "approvals"],
-    ov.awaiting && ["hot", "approvals", `${pl(ov.awaiting, "draft")} waiting for your approval`, "Reminders the agent wrote from the invoice and account history.", "approvals"],
-    st.ready && ["go", "cases", `${pl(st.ready, "PO case")} ready to send`, "The PO matched the invoice; a corrected invoice email is drafted.", "cases"],
-    st.blocked && ["stop", "cases", `${pl(st.blocked, "PO case")} blocked`, "The PO the owner sent doesn't match the invoice.", "cases"],
-    ov.p1 && ["hot", "disputes", `${pl(ov.p1, "P1 dispute")} need${Number(ov.p1) === 1 ? "s" : ""} a reply`, "Routed to the account owner, deal desk or billing ops with a reply-by date.", "disputes"],
-    ov.controller && ["hot", "writeoffs", `${pl(ov.controller, "write-off")} need${Number(ov.controller) === 1 ? "s" : ""} a controller`, "A batch on one account, or more than the account limit.", "writeoffs"],
-  ].filter(Boolean);
-  const aging = ov.aging || [];
-  const top = Math.max(1, ...aging.map(a => a.dollars));
-  const COLORS = ["#9BD3AE", "#4FA874", "#D9A441", "#C4634E"];
-  m.innerHTML = `
-    <div class="head"><div><h1>${hi}</h1>
-      <p>The agent found <b>${num(ov.queued)} small invoices worth ${money(ov.queued_dollars)}</b> that nobody had followed up on, out of ${num(ov.invoices)} on the books. Here's where they stand.</p></div>
-      <button class="cta" id="focusask">${ICONS.ask}Ask Penny about any invoice</button></div>
-    <div class="kpis">
-      <button class="kpi" data-goto="accounts"><span class="ic">${ICONS.accounts}</span><div class="n" data-count="${ov.packages}">0</div><div class="l">Accounts to work</div><div class="s">${num(ov.queued)} invoices, ${money(ov.queued_dollars)}</div></button>
-      <button class="kpi hot" data-goto="approvals"><span class="ic">${ICONS.approvals}</span><div class="n" data-count="${ov.awaiting}">0</div><div class="l">Waiting for you</div><div class="s">${pl(ov.drafted, "draft")} so far</div></button>
-      <button class="kpi" data-goto="cases"><span class="ic">${ICONS.cases}</span><div class="n" data-count="${st.ready || 0}">0</div><div class="l">PO cases ready</div><div class="s">${num(ov.blockers.open)} open, ${num(st.blocked)} blocked</div></button>
-      <button class="kpi ${ov.withdrawn ? "stop" : ""}" data-goto="approvals"><span class="ic">${ICONS.disputes}</span><div class="n" data-count="${ov.withdrawn}">0</div><div class="l">Stopped before sending</div><div class="s">stale-draft check, every cycle</div></button>
-    </div>
-    <div class="grid2">
-      <section class="card"><h2>Where the forgotten money sits</h2><div class="sub">Queued dollars by days past due. The longer it sits, the less of it comes back.</div>
-        <div class="chart">${aging.map((a, i) => `<div class="bar"><div class="col" style="height:${Math.max(3, a.dollars / top * 100)}%;background:${COLORS[i % COLORS.length]}"><div class="val">$${Math.round(a.dollars / 1000)}k</div></div></div>`).join("")}</div>
-        <div class="axis">${aging.map(a => `<div><b>${esc(a.label)} days</b>${num(a.count)} invoices</div>`).join("")}</div>
-      </section>
-      <section class="card"><h2>Needs you</h2><div class="sub">In the order the agent would work them.</div>
-        ${todo.map(([c, ic, t, d, v]) => `<button class="todo" data-goto="${v}"><span class="ti ${c}">${ICONS[ic]}</span><span><span class="t">${esc(t)}</span><br><span class="d">${esc(d)}</span></span><span class="go-arrow">&rsaquo;</span></button>`).join("") || '<div class="empty">Nothing needs you right now.</div>'}
-      </section>
-    </div>
-    <section class="card"><h2>What the agent did this run</h2><div class="sub">On this box, from the ${esc(ov.as_of)} export.</div>
-      <ol class="steps">
-        <li><b>Read</b><span>${num(ov.invoices)} invoices from Salesforce, the collector sheet and Slack</span></li>
-        <li><b>Triaged</b><span>${num(ov.queued)} into ${num(ov.packages)} accounts; ${num(ov.coordinate)} held for an owner</span></li>
-        <li><b>Drafted</b><span>${pl(ov.drafted, "follow-up")} with the local model</span></li>
-        <li><b>Worked disputes</b><span>${num(ov.disputes)} with a reason and owner; ${num(ov.blockers.open)} PO cases</span></li>
-        <li><b>Re-checked</b><span>every draft against the newest export; ${num(ov.withdrawn)} stopped</span></li>
-        <li><b>Saved</b><span>about ${num(ov.hours)} collector hours</span></li>
-      </ol>
-    </section>`;
-  countUp(m);
+const board = {scope:"all", q:"", owner:"", sort:"days", direction:"desc", page:1};
+let boardRequest = 0, searchTimer;
+const chevron = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>';
+async function today(m) {
+  m.innerHTML = `<div class="head board-head"><h1>Invoice board</h1><div class="board-meta"><span id="board-date">Loading snapshot</span><button class="btn" id="refreshboard">Refresh</button></div></div>
+    <div class="market-strip" id="market-strip" aria-label="Portfolio totals"><span class="loading">Loading invoice balances…</span></div>
+    <div class="board-controls"><div class="board-tabs" role="group" aria-label="Invoice status">${[["all","All invoices"],["open","Open"],["overdue","Overdue"],["disputed","Disputed"],["queued","In queue"],["paid","Paid"]].map(([id,label]) => `<button data-scope="${id}" aria-pressed="${board.scope === id}">${label}<span aria-hidden="true" data-scope-count="${id}"></span></button>`).join("")}</div>
+    <div class="board-filters"><input type="search" id="board-search" aria-label="Search all invoices" placeholder="Search invoice, account or owner" value="${esc(board.q)}"><select id="board-owner" aria-label="Filter by owner"><option value="">All owners</option></select></div></div>
+    <div class="ledger-wrap" tabindex="0" role="region" aria-label="Invoice ledger, scroll for more columns" aria-busy="true">
+    <table class="ledger"><caption class="sr">All invoice records. Sort a column or open an invoice to review its supporting records.</caption><thead><tr>${[["invoice_id","Invoice"],["account_name","Account"],["balance","Balance"],["due_date","Due date"],["days","Days overdue"],["status","Status"],["owner","Owner"],["last_touch","Last contact"]].map(([key,label]) => `<th scope="col" data-column="${key}" ${["balance","days"].includes(key) ? 'class="number"' : ""}><button data-sort="${key}">${label}<span class="sort-arrow" aria-hidden="true"></span></button></th>`).join("")}<th scope="col">Workflow</th><th scope="col"><span class="sr">Details</span></th></tr></thead><tbody id="ledger-rows"><tr><td colspan="10" class="empty">Loading invoices…</td></tr></tbody></table></div>
+    <div class="board-footer"><span id="board-count" role="status"></span><div class="pagination"><button class="btn" id="board-prev" aria-label="Previous page" disabled>Previous</button><span id="board-page"></span><button class="btn" id="board-next" aria-label="Next page" disabled>Next</button></div></div>
+    <p class="data-note">Synthetic data · snapshot of the invoice export. Balances are in USD.</p>`;
+  await loadBoard();
+}
+async function loadBoard() {
+  const request = ++boardRequest;
+  const wrap = $(".ledger-wrap"); if (!wrap) return;
+  wrap.setAttribute("aria-busy", "true");
+  $("#refreshboard").disabled = true;
+  try {
+    const data = await api("/api/ledger?" + new URLSearchParams(board));
+    if (request !== boardRequest || view !== "today" || !$("#ledger-rows")) return;
+    board.page = data.page;
+    $("#board-date").textContent = "Snapshot " + data.as_of;
+    $("#market-strip").innerHTML = `<div><span>Outstanding</span><strong>${money(data.summary.outstanding)}</strong></div><div><span>Overdue</span><strong class="negative">${money(data.summary.overdue)}</strong></div><div><span>Payments recorded</span><strong class="positive">${money(data.summary.paid)}</strong></div><button data-goto="approvals"><span>Awaiting review</span><strong>${num(ov?.awaiting)}<span class="metric-unit"> drafts</span></strong></button><button data-goto="cases"><span>PO cases</span><strong>${num(ov?.blockers?.open)}<span class="metric-unit"> open</span></strong></button>`;
+    document.querySelectorAll("[data-scope]").forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.scope === board.scope)));
+    document.querySelectorAll("[data-scope-count]").forEach(el => el.textContent = num(data.counts[el.dataset.scopeCount]));
+    const owner = $("#board-owner");
+    if (owner.options.length === 1) owner.innerHTML += data.owners.map(o => `<option value="${esc(o)}">${esc(o)}</option>`).join("");
+    owner.value = board.owner;
+    document.querySelectorAll("[data-column]").forEach(th => {
+      th.setAttribute("aria-sort", th.dataset.column === board.sort ? (board.direction === "asc" ? "ascending" : "descending") : "none");
+      th.querySelector(".sort-arrow").innerHTML = th.dataset.column === board.sort ? `<svg viewBox="0 0 12 12" aria-hidden="true"><path d="${board.direction === "asc" ? "m3 8 3-4 3 4" : "m3 4 3 4 3-4"}"/></svg>` : "";
+    });
+    $("#ledger-rows").innerHTML = data.rows.length ? data.rows.map(r => {
+      const paid = r.balance <= 0, overdue = r.days > 0 && !paid;
+      const status = paid ? "Paid" : r.disputed ? "Disputed" : overdue ? "Overdue" : "Open";
+      const flow = r.bucket === "writeoff" ? "Write-off review" : r.bucket === "escalate" ? "Dispute review" : r.queued ? "Follow-up queue" : "—";
+      return `<tr><td><button class="invoice-link" data-inv="${esc(r.invoice_id)}">${esc(r.invoice_id)}</button><span class="mobile-account" title="${esc(r.account_name)}">${esc(r.account_name)}</span></td><td class="ledger-account">${esc(r.account_name)}</td><td class="number amount">${money(r.balance)}</td><td class="date">${esc(r.due_date)}</td><td class="number muted">${paid ? "—" : r.days > 0 ? num(r.days) : r.days === 0 ? "Due today" : "Due in " + num(-r.days)}</td><td><span class="board-status ${paid ? "positive" : r.disputed ? "warning" : overdue ? "negative" : "muted"}">${status}</span></td><td>${esc(r.owner)}</td><td class="date muted">${esc(r.last_touch || "Never")}</td><td class="workflow">${flow}</td><td><button class="open-invoice" data-inv="${esc(r.invoice_id)}" aria-label="Open ${esc(r.invoice_id)}">${chevron}</button></td></tr>`;
+    }).join("") : `<tr><td colspan="10" class="empty"><p>No invoices match these filters.</p><button class="btn" id="clearboard">Clear filters</button></td></tr>`;
+    $("#board-count").textContent = data.total ? `${num((data.page-1)*50+1)}–${num(Math.min(data.page*50,data.total))} of ${num(data.total)} ${data.total === 1 ? "invoice" : "invoices"}` : "0 invoices";
+    $("#board-page").textContent = `${data.page} / ${Math.max(1,Math.ceil(data.total/50))}`;
+    $("#board-prev").disabled = data.page <= 1;
+    $("#board-next").disabled = data.page*50 >= data.total;
+    wrap.scrollTop = 0;
+  } catch (e) {
+    if (request === boardRequest && view === "today" && $("#ledger-rows")) {
+      $("#ledger-rows").innerHTML = `<tr><td colspan="10" class="empty"><p>Couldn’t load invoices: ${esc(e.message)}</p><button class="btn" id="retryboard">Try again</button></td></tr>`;
+      $("#board-count").textContent = "Invoice data unavailable";
+    }
+  } finally {
+    if (request === boardRequest && view === "today" && $(".ledger-wrap")) {
+      $(".ledger-wrap").setAttribute("aria-busy","false"); $("#refreshboard").disabled = false;
+    }
+  }
 }
 
 async function listView(m, title, sub, url, rowFn, idOf, detailFn) {
   m.innerHTML = `<div class="head"><div><h1>${esc(title)}</h1><p>${esc(sub)}</p></div></div>
+    <div class="toolbar"><input id="list-search" type="search" placeholder="Filter this view" aria-label="Filter this view"><span id="list-count" role="status"></span></div>
     <div class="split"><div class="list" id="list">${'<div class="skel"></div>'.repeat(5)}</div><div class="detail" id="detail"><div class="empty">Pick one from the list.</div></div></div>`;
   const my = ++seq;
   const rows = cache[url] = await api(url);
   if (my !== seq || !$("#list")) return;  // the user moved on while this list loaded
-  const shown = rows.slice(0, 150);
-  $("#list").innerHTML = shown.length ? shown.map(r => rowFn(r, idOf(r) === selected)).join("")
-    + (rows.length > shown.length ? `<div class="more">Showing ${num(shown.length)} of ${num(rows.length)}. Ask the agent about any invoice or account by name.</div>` : "")
-    : '<div class="empty">Nothing here yet. The agent fills this list every cycle.</div>';
-  const first = selected || (shown[0] && idOf(shown[0]));
-  if (first) openDetail(first, detailFn);
+  const update = () => {
+    const q = $("#list-search").value.trim().toLowerCase();
+    const matches = rows.filter(r => [r.invoice_id,r.account_name,r.account_owner,r.state,r.label].some(v => String(v || "").toLowerCase().includes(q)));
+    const shown = matches.slice(0,150);
+    $("#list-count").textContent = `${num(matches.length)} loaded records${matches.length > 150 ? " · first 150 shown" : ""}`;
+    $("#list").innerHTML = shown.length ? shown.map(r => rowFn(r,idOf(r) === selected)).join("") : '<div class="empty">No matching records in this view.</div>';
+    if (!shown.length) { ++dseq; $("#detail").innerHTML='<div class="empty">Adjust your filter or choose another view.</div>'; return; }
+    const first = shown.find(r => idOf(r) === selected) || shown[0];
+    openDetail(idOf(first),detailFn);
+  };
+  $("#list-search").addEventListener("input",update);
+  update();
 }
 
 function approvalRow(r, sel) {
@@ -469,7 +341,7 @@ async function invoiceDetail(id) {
   if (canDecide) actions = `<div class="actions"><input class="reviewer" id="who" placeholder="Your name" value="${esc(reviewer())}" aria-label="Your name">
       <button class="btn primary" data-decide="approve" data-id="${esc(id)}">Approve and queue to send</button>
       <button class="btn danger" data-decide="reject" data-id="${esc(id)}">Reject</button><span class="toast" id="toast"></span></div>`;
-  else if (!s.state && q.bucket === "agent") actions = `<div class="actions"><button class="btn primary" data-decide="draft" data-id="${esc(id)}">Draft it now</button><span class="toast" id="toast">The local model writes it in a few seconds on the box.</span></div>`;
+  else if (!s.state && q.bucket === "agent") actions = `<div class="actions"><button class="btn primary" data-decide="draft" data-id="${esc(id)}">Draft it now</button><span class="toast" id="toast">Prepare a draft for review using the local model.</span></div>`;
 
   return `<div class="dhead">${avatar(d.account_name)}<div><h2>${esc(d.account_name)}</h2><div class="idline"><span class="mono">${esc(id)}</span> &middot; ${esc(d.status)} &middot; owner ${esc(d.account_owner)}</div></div></div>
     <div class="figs"><div><div class="k">Balance</div><div class="v">${money(d.balance)}</div></div><div><div class="k">Days past due</div><div class="v">${esc(q.days_past_due ?? "-")}</div></div><div><div class="k">Last touch</div><div class="v" style="font-size:15px">${esc(q.last_touch_date || "never")}</div></div></div>
@@ -477,7 +349,7 @@ async function invoiceDetail(id) {
 }
 
 async function invoiceOnly(m) {
-  m.innerHTML = `<div class="head"><div><h1>Invoice</h1><p>Everything the agent knows about it.</p></div></div><div class="detail" id="detail"><div class="empty">Loading.</div></div>`;
+  m.innerHTML = `<div class="head"><div><a href="#today" class="back-board">Back to invoice board</a><h1>Invoice</h1><p>Balance, account history, and supporting records.</p></div></div><div class="detail" id="detail"><div class="empty">Loading.</div></div>`;
   const my = ++dseq;
   let html;
   try { html = await invoiceDetail(selected); } catch (e) { html = `<div class="empty">${esc(e.message)}</div>`; }
@@ -500,43 +372,72 @@ async function decide(btn) {
 
 /* ---------- the agent ---------- */
 function promptsView() {
-  $("#prompts").innerHTML = `<div class="hello">${PENNY_SM}<div class="bub">Hi, I'm Penny. I watch every small invoice so nobody has to. Ask me why something is stuck, or pick one:</div></div>`
-    + PROMPTS.map(p => `<button class="prompt" data-ask="${esc(p)}">${ICONS.ask}${esc(p)}</button>`).join("");
+  $("#prompts").innerHTML = `<div class="hello"><img class="companion-welcome" src="/assets/collex-companion.png" alt="A fluffy oatmeal plush companion with floppy ears, rosy cheeks and two tiny teeth, waving hello" width="144" height="144"><h2>A little help with your invoices.</h2><p>Answers use your local records and include their sources.</p></div>`
+    + PROMPTS.slice(0, 4).map(p => `<button class="prompt" data-ask="${esc(p)}">${esc(p)}</button>`).join("");
 }
 async function ask(q) {
   q = q.trim(); if (!q) return;
   const t = $("#thread");
   t.insertAdjacentHTML("beforeend", `<div class="q">${esc(q)}</div>`);
-  const wrap = document.createElement("div"); wrap.className = "msg"; wrap.innerHTML = PENNY_SM;
-  const slot = document.createElement("div"); slot.className = "a"; slot.innerHTML = '<div class="who">Penny</div><span class="typing"><i></i><i></i><i></i></span>';
+  const wrap = document.createElement("div"); wrap.className = "msg";
+  const slot = document.createElement("div"); slot.className = "a"; slot.innerHTML = '<div class="who"><span class="agent-name"><img src="/assets/collex-companion.png" alt="" width="24" height="24">Collex</span></div><span class="loading" role="status">Checking your records…</span>';
   wrap.appendChild(slot); t.appendChild(wrap); t.scrollTop = t.scrollHeight;
   try {
     const r = await api("/api/ask", {q});
-    slot.innerHTML = `<div class="who">Penny <span>${esc(r.ms)} ms &middot; snapshot ${esc(r.as_of)}</span></div><div class="txt">${linkInvoices(r.answer)}</div>
-      ${r.steps.length ? `<details class="how"><summary>How I found this</summary><ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol><div class="src">${r.sources.map(s => `<span>${esc(s)}</span>`).join("")}</div></details>` : ""}`;
-  } catch (e) { slot.innerHTML = `<div class="who">Penny</div><div class="txt">I couldn't read the records just now (${esc(e.message)}). Try again in a moment.</div>`; }
+    slot.innerHTML = `<div class="who"><span class="agent-name"><img src="/assets/collex-companion.png" alt="" width="24" height="24">Collex</span> <span>${esc(r.ms)} ms &middot; snapshot ${esc(r.as_of)}</span></div><div class="txt">${linkInvoices(r.answer)}</div>
+      ${r.steps.length ? `<details class="how"><summary>Sources and checks</summary><ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol><div class="src">${r.sources.map(s => `<span>${esc(s)}</span>`).join("")}</div></details>` : ""}`;
+  } catch (e) { slot.innerHTML = `<div class="who"><span class="agent-name"><img src="/assets/collex-companion.png" alt="" width="24" height="24">Collex</span></div><div class="txt">I couldn't read the records just now (${esc(e.message)}). Try again in a moment.</div>`; }
   t.scrollTop = t.scrollHeight;
 }
 
+const dockedChat = matchMedia("(min-width:1200px)");
+function setAskOpen(open, focus = true) {
+  const wasOpen = !$("#ask").hidden;
+  $("#ask").hidden = !open;
+  document.body.classList.toggle("chat-open", open);
+  $("#asktoggle").setAttribute("aria-expanded", String(open));
+  if (focus) { if (open) $("#askq").focus(); else if (wasOpen) $("#asktoggle").focus(); }
+}
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#ask").hidden) setAskOpen(false); });
+window.addEventListener("hashchange", () => { if (location.hash !== "#main") fromHash(); });
 /* ---------- wiring ---------- */
 document.addEventListener("click", e => {
+  const scope = e.target.closest("[data-scope]"); if (scope) { clearTimeout(searchTimer); board.scope=scope.dataset.scope; board.page=1; return loadBoard(); }
+  const sort = e.target.closest("[data-sort]"); if (sort) { clearTimeout(searchTimer); board.direction = board.sort === sort.dataset.sort && board.direction === "desc" ? "asc" : "desc"; board.sort=sort.dataset.sort; board.page=1; return loadBoard(); }
+  if (e.target.closest("#board-prev")) { board.page--; return loadBoard(); }
+  if (e.target.closest("#board-next")) { board.page++; return loadBoard(); }
+  if (e.target.closest("#refreshboard, #retryboard")) return loadBoard();
+  if (e.target.closest("#clearboard")) { clearTimeout(searchTimer); Object.assign(board,{q:"",owner:"",scope:"all",page:1}); $("#board-search").value=""; return loadBoard(); }
+  if (e.target.closest("#retryoverview")) return refresh().then(() => { if (ov) fromHash(); });
   const nav = e.target.closest(".navlink"); if (nav) return go(nav.dataset.view);
   const g = e.target.closest("[data-goto]"); if (g) return go(g.dataset.goto);
-  const inv = e.target.closest("[data-inv]"); if (inv) { $("#ask").classList.remove("open"); return go("invoice", inv.dataset.inv); }
+  const inv = e.target.closest("[data-inv]"); if (inv) { if (!dockedChat.matches) setAskOpen(false); return go("invoice", inv.dataset.inv); }
   const row = e.target.closest("#list .row"); if (row) return openDetail(row.dataset.id, view === "accounts" ? packageDetail : null);
   const dec = e.target.closest("[data-decide]"); if (dec) return decide(dec);
   const p = e.target.closest("[data-ask]"); if (p) return ask(p.dataset.ask);
-  if (e.target.closest("#asktoggle")) $("#ask").classList.toggle("open");
-  if (e.target.closest("#focusask")) { $("#ask").classList.add("open"); $("#askq").focus(); }
+  if (e.target.closest("#asktoggle")) setAskOpen($("#ask").hidden);
+  if (e.target.closest("#closeask")) setAskOpen(false);
 });
+document.addEventListener("input", e => {
+  if (e.target.id === "board-search") { board.q=e.target.value; board.page=1; clearTimeout(searchTimer); searchTimer=setTimeout(loadBoard,200); }
+});
+document.addEventListener("change", e => { if (e.target.id === "board-owner") { board.owner=e.target.value; board.page=1; loadBoard(); } });
 $("#askform").addEventListener("submit", e => { e.preventDefault(); const v = $("#askq").value; $("#askq").value = ""; ask(v); });
 async function refresh() {
-  try { ov = await api("/api/overview"); sidebar(); if (view === "today") today($("#main")); } catch (e) {}
+  try {
+    ov = await api("/api/overview"); sidebar();
+
+  } catch (e) {
+    if (!ov) $("#main").innerHTML = `<div class="empty"><p>Couldn’t load the workspace: ${esc(e.message)}</p><button class="btn" id="retryoverview">Try again</button></div>`;
+  }
 }
 promptsView();
-refresh().then(fromHash);
+const syncChatLayout = () => setAskOpen(dockedChat.matches, false);
+dockedChat.addEventListener("change", syncChatLayout);
+syncChatLayout();
+refresh().then(() => { if (ov) fromHash(); });
 setInterval(() => { if (!document.hidden) refresh(); }, 30000);
-$("#upload-link").href = `${location.protocol}//${location.hostname}:8080/upload`;
+
 </script>
 </body>
 </html>

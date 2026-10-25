@@ -11,14 +11,15 @@ import argparse
 import http.client
 import json
 import sys
+from datetime import date
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import quote, unquote, urlencode, urlsplit
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-import ask  # noqa: E402
+from urllib.parse import parse_qs, quote, unquote, urlencode, urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+from app import ask  # noqa: E402
+
 PAGE = Path(__file__).resolve().parent / "index.html"
 OUT = ROOT / "out"
 APPROVALS = ("127.0.0.1", 8080)
@@ -82,6 +83,53 @@ def drafts():
 def packages(limit=200):
     WORLD.load()
     return WORLD.queue.get("packages", [])[:limit]
+
+
+def ledger(params):
+    """Search and page the complete export, not just the collections queue."""
+    WORLD.load()
+    value = lambda key, default="": (params.get(key) or [default])[0]
+    query, owner, scope = value("q").strip().casefold(), value("owner"), value("scope", "all")
+    rows = []
+    for iid, inv in WORLD.invoices.items():
+        balance = round(float(inv["amount"]) - float(inv.get("amount_paid") or 0), 2)
+        days = (WORLD.as_of - date.fromisoformat(inv["due_date"])).days
+        touched, _ = ask.latest_touch(WORLD, iid, inv)
+        item = WORLD.items.get(iid, {})
+        rows.append({"invoice_id": iid, "account_name": inv.get("account_name", ""),
+                     "owner": inv.get("account_owner", ""), "balance": balance,
+                     "amount": float(inv["amount"]), "paid": float(inv.get("amount_paid") or 0),
+                     "status": inv.get("status", "open"), "due_date": inv["due_date"],
+                     "days": days if balance > 0 else 0, "last_touch": touched, "queued": bool(item),
+                     "bucket": item.get("bucket", ""),
+                     "disputed": inv.get("dispute_flag") in (True, "true") or inv.get("status") == "disputed"})
+    counts = {"all": len(rows), "open": sum(r["balance"] > 0 for r in rows),
+              "overdue": sum(r["balance"] > 0 and r["days"] > 0 for r in rows),
+              "disputed": sum(r["disputed"] and r["balance"] > 0 for r in rows),
+              "queued": sum(r["queued"] for r in rows), "paid": sum(r["balance"] <= 0 for r in rows)}
+    summary = {"outstanding": round(sum(max(0, r["balance"]) for r in rows), 2),
+               "overdue": round(sum(r["balance"] for r in rows if r["balance"] > 0 and r["days"] > 0), 2),
+               "paid": round(sum(r["paid"] for r in rows), 2)}
+    owners = sorted({r["owner"] for r in rows if r["owner"]})
+    predicates = {"open": lambda r: r["balance"] > 0,
+                  "overdue": lambda r: r["balance"] > 0 and r["days"] > 0,
+                  "disputed": lambda r: r["disputed"] and r["balance"] > 0,
+                  "queued": lambda r: r["queued"], "paid": lambda r: r["balance"] <= 0}
+    predicate = predicates.get(scope, lambda r: True)
+    rows = [r for r in rows if predicate(r) and (not owner or r["owner"] == owner)
+            and (not query or query in " ".join((r["invoice_id"], r["account_name"], r["owner"])).casefold())]
+    sort = value("sort", "days")
+    if sort not in ("invoice_id", "account_name", "owner", "balance", "due_date", "days", "status", "last_touch"):
+        sort = "days"
+    rows.sort(key=lambda r: (r[sort] if r[sort] is not None else "", r["invoice_id"]), reverse=value("direction", "desc") == "desc")
+    try:
+        page = max(1, int(value("page", "1")))
+    except ValueError:
+        page = 1
+    page = min(page, max(1, (len(rows) + 49) // 50))
+    start = (page - 1) * 50
+    return {"rows": rows[start:start + 50], "total": len(rows), "page": page, "page_size": 50,
+            "counts": counts, "summary": summary, "owners": owners, "as_of": str(WORLD.as_of)}
 
 
 def cases():
@@ -212,8 +260,20 @@ class Handler(BaseHTTPRequestHandler):
         try:
             if path in ("/", "/index.html"):
                 return self.send(200, PAGE.read_bytes(), "text/html; charset=utf-8")
+            if path == "/assets/collex-companion.png":
+                return self.send(200, (PAGE.parent / "assets" / "collex-companion.png").read_bytes(), "image/png")
+            if path == "/upload":
+                hostname = urlsplit("http://" + self.headers.get("Host", "localhost")).hostname or "localhost"
+                if ":" in hostname:
+                    hostname = f"[{hostname}]"
+                self.send_response(303)
+                self.send_header("Location", f"http://{hostname}:{APPROVALS[1]}/upload")
+                self.end_headers()
+                return
             if path == "/api/overview":
                 return self.send(200, overview())
+            if path == "/api/ledger":
+                return self.send(200, ledger(parse_qs(urlsplit(self.path).query)))
             if path == "/api/drafts":
                 return self.send(200, drafts())
             if path == "/api/packages":

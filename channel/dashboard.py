@@ -2,8 +2,8 @@
 
 python channel/dashboard.py [--host 0.0.0.0] [--port 8080] [--queue out/queue.json]
 
-Standard library only, no external assets, so it keeps working with the uplink pulled. Greenbar tokens from
-docs/design/greenbar.css. The Ask sidebar answers from agent/ask.py with the local model.
+Standard library only, no external assets, so it keeps working with the uplink pulled. The Collex visual system
+is documented in DESIGN.md. The Ask sidebar answers from agent/ask.py with the local model.
 """
 import argparse
 import html
@@ -41,14 +41,11 @@ ASK_EXAMPLES = ("Has INV-116288 been collected?", "Which customers say they alre
 _cache = {"mtime": None, "queue": None, "exposure": {}}
 
 CSS = """
-:root{--paper:#F4F6F2;--surface:#FFFFFF;--band:#E7EFE3;--line:#D3DACF;--ink:#172033;--ink-muted:#566070;
- --ledger:#2A4D8F;--ledger-soft:#E3EAF5;--on-ledger:#FFFFFF;--recovered:#1E6B47;--recovered-soft:#DDEDE3;
- --writeoff:#8A5A12;--writeoff-soft:#F6EBD7;--dispute:#A8402C;--dispute-soft:#F5E1DB;
- --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
- --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--r-sm:3px;--r-md:6px;--r-lg:10px;--ask-w:400px}
-@media (prefers-color-scheme:dark){:root{--paper:#0F1520;--surface:#161E2B;--band:#1D2E29;--line:#2A3647;--ink:#E8ECEF;
- --ink-muted:#9BA6B4;--ledger:#8FB2EE;--ledger-soft:#1F2C44;--on-ledger:#0F1520;--recovered:#6CCB98;--recovered-soft:#15301F;
- --writeoff:#E0A84E;--writeoff-soft:#33260F;--dispute:#E58A74;--dispute-soft:#3A1C16;color-scheme:dark}}
+:root{color-scheme:light;--paper:#fafafa;--surface:#fff;--band:#fff;--line:#e2e2e5;--ink:#1d1d1f;--ink-muted:#6e6e73;
+ --ledger:#0071e3;--ledger-soft:#f0f4f9;--on-ledger:#fff;--recovered:#38684f;--recovered-soft:#edf7f1;
+ --writeoff:#775b27;--writeoff-soft:#f8f4ec;--dispute:#9b3d3f;--dispute-soft:#fbf1f0;
+ --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ --mono:ui-monospace,"SF Mono",Consolas,monospace;--r-sm:4px;--r-md:8px;--r-lg:14px;--ask-w:400px}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:14px/21px var(--sans);accent-color:var(--ledger);
  caret-color:var(--ledger);scrollbar-color:var(--line) transparent}
@@ -59,18 +56,18 @@ a{color:var(--ledger);text-underline-offset:3px}
 .muted,.sub{color:var(--ink-muted)}
 .sub{font-size:12px;line-height:17px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.top{display:flex;align-items:center;gap:24px;padding:0 32px;height:52px;border-bottom:1px solid var(--line);background:var(--surface)}
-.brand{font-weight:650;color:var(--ink);text-decoration:none;font-size:15px}
+.top{display:flex;align-items:center;gap:24px;padding:0 32px;height:60px;border-bottom:1px solid var(--line);background:#1d1d1f}
+.brand{font-weight:650;color:#fff;text-decoration:none;font-size:15px}
 .top nav{display:flex;gap:4px}
-.top nav a{color:var(--ink-muted);text-decoration:none;padding:6px 10px;border-radius:var(--r-md)}
-.top nav a:hover{color:var(--ink);background:var(--band)}
-.top nav a[aria-current="page"]{color:var(--ink);font-weight:600;background:var(--band)}
-.top .meta{margin-left:auto;font-size:12px;color:var(--ink-muted);display:flex;gap:14px;align-items:center;white-space:nowrap}
-.local{display:inline-flex;align-items:center;gap:6px;color:var(--recovered);font-weight:600}
+.top nav a{color:#d2d2d7;text-decoration:none;padding:6px 10px;border-radius:var(--r-md)}
+.top nav a:hover{color:#fff;background:#343437}
+.top nav a[aria-current="page"]{color:#fff;font-weight:600;background:#343437}
+.top .meta{margin-left:auto;font-size:12px;color:#d2d2d7;display:flex;gap:14px;align-items:center;white-space:nowrap}
+.local{display:inline-flex;align-items:center;gap:6px;color:#c2dacb;font-weight:600}
 .local svg{width:12px;height:12px}
 main{padding:24px 32px 64px;max-width:1480px;margin:0 auto;transition:margin-right 200ms ease-out}
 body.ask-open main{margin-right:calc(var(--ask-w) + 16px)}
-h1{margin:0;font-size:22px;line-height:28px;font-weight:650}
+h1{margin:0;font-size:28px;line-height:34px;font-weight:650}
 h2{margin:0 0 8px;font-size:14px;line-height:20px;font-weight:650}
 .lede{margin:0 0 20px}
 .lede p{margin:6px 0 0;max-width:80ch;color:var(--ink-muted)}
@@ -105,7 +102,7 @@ td.acct .sub{font-weight:400}
 td.note{max-width:340px;color:var(--ink)}
 td.note .text{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .warn{color:var(--dispute)}
-.stamp{display:inline-block;font-size:11px;line-height:14px;font-weight:650;letter-spacing:.05em;text-transform:uppercase;
+.stamp{display:inline-block;font-size:11px;line-height:14px;font-weight:650;letter-spacing:0;
  padding:2px 6px;border-radius:var(--r-sm);white-space:nowrap;background:var(--band);color:var(--ink-muted)}
 .s-awaiting,.s-edited{background:var(--ledger-soft);color:var(--ledger)}
 .s-approved{background:var(--recovered-soft);color:var(--recovered)}
@@ -146,7 +143,7 @@ td.note .text{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertic
 .log li{padding:8px 10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);margin-bottom:4px;font-size:13px}
 .log .sub{display:block}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
- box-shadow:0 1px 2px rgba(23,32,51,.06),0 4px 14px rgba(23,32,51,.06)}
+ box-shadow:none}
 .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);
  position:sticky;top:0;background:var(--surface);border-radius:var(--r-lg) var(--r-lg) 0 0;z-index:2}
 .actions label{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--ink-muted)}
@@ -404,7 +401,7 @@ def page(title, body, active="queue", host="localhost", live=True, script=""):
     return f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)}</title><style>{CSS}</style></head>
 <body data-version="{esc(version()) if live else ''}">
-<header class="top"><a class="brand" href="/">Collections</a><nav aria-label="Main">{nav}</nav>
+<header class="top"><a class="brand" href="/">Collex</a><nav aria-label="Main">{nav}</nav>
 <div class="meta">{''.join(meta)}<span class="local">{ICON_LOCAL}Running on this machine</span></div>
 <button class="btn" id="ask-toggle" aria-expanded="false" aria-controls="ask">Ask</button></header>
 <main>{body}</main>
