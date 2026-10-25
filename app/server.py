@@ -33,7 +33,12 @@ def overview():
     s = w.summary
     d = w.disputes
     r = w.recheck
+    aging = []
+    for label, lo, hi in (("30-60", 30, 60), ("61-90", 61, 90), ("91-120", 91, 120), ("121-180", 121, 100000)):
+        rows = [i for i in w.queue.get("items", []) if lo <= (i.get("days_past_due") or 0) <= hi]
+        aging.append({"label": label, "count": len(rows), "dollars": round(sum(i.get("balance") or 0 for i in rows), 2)})
     return {
+        "aging": aging,
         "as_of": str(w.as_of),
         "model": s.get("model"),
         "last_run": (s.get("last_run") or {}).get("started_at"),
