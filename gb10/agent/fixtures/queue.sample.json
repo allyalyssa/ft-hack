@@ -1,0 +1,184 @@
+{
+  "as_of": "2026-10-25",
+  "snapshot_id": "2026-10-25T1430",
+  "totals": {
+    "invoices": 9,
+    "open": 8,
+    "under_agent_max": 7,
+    "queued": 6,
+    "writeoff": 2,
+    "agent": 3,
+    "escalate": 1,
+    "dollars_queued": 1177.51
+  },
+  "items": [
+    {
+      "invoice_id": "INV-104233",
+      "bucket": "writeoff",
+      "reasons": ["past_due_85_days", "no_touch_53_days", "amount_under_25"],
+      "invoice": {
+        "invoice_id": "INV-104233",
+        "account_id": "ACC-0412",
+        "account_name": "Brightline Dental Group",
+        "account_owner": "Marcus Webb",
+        "account_owner_email": "marcus.webb@northpeak.example",
+        "amount": 18.40,
+        "currency": "USD",
+        "invoice_date": "2026-07-02",
+        "due_date": "2026-08-01",
+        "status": "partially_paid",
+        "last_touch_date": "2026-09-02",
+        "last_touch_channel": "email",
+        "contact_name": "Alicia Moreno",
+        "contact_email": "ap@brightlinedental.example",
+        "contact_slack": "@alicia.moreno"
+      },
+      "last_touch": {"date": "2026-09-02", "channel": "email", "source": "salesforce"},
+      "notes": [
+        {"collector": "Maria Chen", "note": "Wire came in $18.40 short, looks like their bank fee", "note_date": "2026-09-02"}
+      ],
+      "slack": [],
+      "conflicts": []
+    },
+    {
+      "invoice_id": "INV-118904",
+      "bucket": "writeoff",
+      "reasons": ["past_due_132_days", "never_touched", "amount_under_25"],
+      "invoice": {
+        "invoice_id": "INV-118904",
+        "account_id": "ACC-1187",
+        "account_name": "Kettle & Pine Coffee",
+        "account_owner": "Elena Ruiz",
+        "account_owner_email": "elena.ruiz@northpeak.example",
+        "amount": 0.37,
+        "currency": "USD",
+        "invoice_date": "2026-05-16",
+        "due_date": "2026-06-15",
+        "status": "open",
+        "last_touch_date": "",
+        "last_touch_channel": "",
+        "contact_name": "Owen Hart",
+        "contact_email": "owen@kettleandpine.example",
+        "contact_slack": ""
+      },
+      "last_touch": null,
+      "notes": [],
+      "slack": [],
+      "conflicts": []
+    },
+    {
+      "invoice_id": "INV-100417",
+      "bucket": "agent",
+      "reasons": ["past_due_62_days", "no_touch_11_days", "amount_under_500"],
+      "invoice": {
+        "invoice_id": "INV-100417",
+        "account_id": "ACC-0057",
+        "account_name": "Lakeshore Physical Therapy",
+        "account_owner": "Priya Shah",
+        "account_owner_email": "priya.shah@northpeak.example",
+        "amount": 482.00,
+        "currency": "USD",
+        "invoice_date": "2026-07-25",
+        "due_date": "2026-08-24",
+        "status": "open",
+        "last_touch_date": "2026-10-06",
+        "last_touch_channel": "email",
+        "contact_name": "Dana Lee",
+        "contact_email": "dana.lee@lakeshorept.example",
+        "contact_slack": "@dana.lee"
+      },
+      "last_touch": {"date": "2026-10-14", "channel": "note", "source": "collector_sheet"},
+      "notes": [
+        {"collector": "Devon Price", "note": "Left voicemail for AP, no callback", "note_date": "2026-10-14"}
+      ],
+      "slack": [],
+      "conflicts": ["sheet says touched 2026-10-14, salesforce says 2026-10-06"]
+    },
+    {
+      "invoice_id": "INV-102988",
+      "bucket": "agent",
+      "reasons": ["past_due_45_days", "no_touch_24_days", "amount_under_500"],
+      "invoice": {
+        "invoice_id": "INV-102988",
+        "account_id": "ACC-0733",
+        "account_name": "Cedar & Stone Architects",
+        "account_owner": "Elena Ruiz",
+        "account_owner_email": "elena.ruiz@northpeak.example",
+        "amount": 236.75,
+        "currency": "USD",
+        "invoice_date": "2026-08-11",
+        "due_date": "2026-09-10",
+        "status": "partially_paid",
+        "last_touch_date": "2026-09-18",
+        "last_touch_channel": "email",
+        "contact_name": "Hannah Cole",
+        "contact_email": "hannah.cole@cedarstone.example",
+        "contact_slack": "@hannah.cole"
+      },
+      "last_touch": {"date": "2026-10-01", "channel": "slack", "source": "slack"},
+      "notes": [
+        {"collector": "Maria Chen", "note": "Paid $200 of $436.75, promised the rest with their next check run", "note_date": "2026-10-01"}
+      ],
+      "slack": [
+        {"ts": "2026-10-01T16:20:00", "user": "hannah.cole", "text": "Sent $200 today. The rest goes out with our next check run."}
+      ],
+      "conflicts": ["slack shows contact 2026-10-01, salesforce says 2026-09-18"]
+    },
+    {
+      "invoice_id": "INV-109311",
+      "bucket": "agent",
+      "reasons": ["past_due_35_days", "no_touch_30_days", "amount_under_500"],
+      "invoice": {
+        "invoice_id": "INV-109311",
+        "account_id": "ACC-0921",
+        "account_name": "Bluefin Marine Supply",
+        "account_owner": "Priya Shah",
+        "account_owner_email": "priya.shah@northpeak.example",
+        "amount": 129.99,
+        "currency": "USD",
+        "invoice_date": "2026-08-21",
+        "due_date": "2026-09-20",
+        "status": "open",
+        "last_touch_date": "2026-09-25",
+        "last_touch_channel": "email",
+        "contact_name": "Theo Grant",
+        "contact_email": "theo.grant@bluefinmarine.example",
+        "contact_slack": ""
+      },
+      "last_touch": {"date": "2026-09-25", "channel": "email", "source": "salesforce"},
+      "notes": [],
+      "slack": [],
+      "conflicts": []
+    },
+    {
+      "invoice_id": "INV-107752",
+      "bucket": "escalate",
+      "reasons": ["past_due_56_days", "no_touch_16_days", "amount_under_500", "disputed"],
+      "invoice": {
+        "invoice_id": "INV-107752",
+        "account_id": "ACC-0388",
+        "account_name": "Summit Ridge Property Management",
+        "account_owner": "Marcus Webb",
+        "account_owner_email": "marcus.webb@northpeak.example",
+        "amount": 310.00,
+        "currency": "USD",
+        "invoice_date": "2026-07-31",
+        "due_date": "2026-08-30",
+        "status": "disputed",
+        "last_touch_date": "2026-09-29",
+        "last_touch_channel": "email",
+        "contact_name": "Jordan Ellis",
+        "contact_email": "jordan.ellis@summitridgepm.example",
+        "contact_slack": "@jordan.ellis"
+      },
+      "last_touch": {"date": "2026-10-09", "channel": "slack", "source": "slack"},
+      "notes": [
+        {"collector": "Devon Price", "note": "Customer says billed for 3 units on PO 4471, received 2", "note_date": "2026-10-09"}
+      ],
+      "slack": [
+        {"ts": "2026-10-09T10:12:00", "user": "jordan.ellis", "text": "We only received 2 of the 3 units on PO 4471. Can you send a corrected invoice?"}
+      ],
+      "conflicts": []
+    }
+  ]
+}

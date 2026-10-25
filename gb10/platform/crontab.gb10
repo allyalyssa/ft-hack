@@ -1,0 +1,11 @@
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+HOME=/home/dell
+# ft-hack always-on loop (role A). Triage every 2 min, draft up to 5 outreach + 1 write-off per cycle.
+*/2 * * * * cd $HOME/ft-hack && python3 triage/triage.py >> logs/cron.log 2>&1 && python3 agent/actions.py --limit 5 >> logs/cron.log 2>&1; cd $HOME/ft-hack && python3 agent/actions.py --bucket writeoff --limit 1 >> logs/cron.log 2>&1
+# heartbeat every 10 min
+*/10 * * * * cd $HOME/ft-hack && python3 agent/summary.py >> logs/heartbeat.log 2>&1
+# dashboard comes back on its own after a reboot
+@reboot cd $HOME/ft-hack && sleep 20 && nohup python3 channel/dashboard.py --host 0.0.0.0 --port 8090 >> logs/dashboard.log 2>&1 &
+@reboot cd $HOME/ft-hack && sleep 25 && nohup python3 platform/ollama_relay.py 172.18.0.1 11436 >> logs/relay.log 2>&1 &
+*/3 * * * * for m in gpt-oss-120b-64k gpt-oss-20b-64k; do curl -s -m 120 http://127.0.0.1:11434/api/generate -d "{\"model\":\"$m\",\"keep_alive\":-1}" > /dev/null; done

@@ -1,0 +1,12 @@
+{
+  "queue": "agent/fixtures/queue.sample.json",
+  "snapshot_id": "2026-10-25T1430",
+  "packages": {
+    "INV-104233": {"bucket": "writeoff", "action_id": "INV-104233:writeoff:2026-10-25T1430", "case_type": "writeoff", "files": ["customer_email.md", "customer_slack.md", "internal_note.md", "salesforce_case.json", "writeoff_memo.md", "status.json"]},
+    "INV-118904": {"bucket": "writeoff", "action_id": "INV-118904:writeoff:2026-10-25T1430", "case_type": "writeoff", "files": ["customer_email.md", "customer_slack.md", "internal_note.md", "salesforce_case.json", "writeoff_memo.md", "status.json"]},
+    "INV-100417": {"bucket": "agent", "action_id": "INV-100417:outreach:2026-10-25T1430", "case_type": "collections_outreach", "files": ["customer_email.md", "customer_slack.md", "internal_note.md", "salesforce_case.json", "status.json"]},
+    "INV-102988": {"bucket": "agent", "action_id": "INV-102988:outreach:2026-10-25T1430", "case_type": "collections_outreach", "files": ["customer_email.md", "customer_slack.md", "internal_note.md", "salesforce_case.json", "status.json"]},
+    "INV-109311": {"bucket": "agent", "action_id": "INV-109311:outreach:2026-10-25T1430", "case_type": "collections_outreach", "files": ["customer_email.md", "customer_slack.md", "internal_note.md", "salesforce_case.json", "status.json"]},
+    "INV-107752": {"bucket": "escalate", "action_id": "INV-107752:escalate:2026-10-25T1430", "case_type": "collections_outreach", "files": ["customer_email.md", "customer_slack.md", "internal_note.md", "salesforce_case.json", "status.json"]}
+  }
+}

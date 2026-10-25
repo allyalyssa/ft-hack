@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  platform/com.ft-hack.sync.plist - launchd agent template, runs on the Mac.
+
+  Runs platform/sync_once.sh every 120 seconds. This is the launchd
+  alternative to the loop-forever platform/sync.sh. Pick one, not both, so
+  you don't double-push.
+
+  Before loading, edit the path below (search REPLACE_WITH):
+    - REPLACE_WITH_REPO_PATH -> absolute path to this repo on the Mac
+
+  Install:
+    cp platform/com.ft-hack.sync.plist ~/Library/LaunchAgents/com.ft-hack.sync.plist
+    # edit the copy with the real path, then:
+    launchctl load ~/Library/LaunchAgents/com.ft-hack.sync.plist
+
+  Check it is running:
+    launchctl list | grep com.ft-hack.sync
+
+  Watch it work:
+    tail -f /tmp/ft-hack-sync.log /tmp/ft-hack-sync.err
+
+  Uninstall / stop:
+    launchctl unload ~/Library/LaunchAgents/com.ft-hack.sync.plist
+    rm ~/Library/LaunchAgents/com.ft-hack.sync.plist
+
+  HOST and REMOTE_DIR for sync_once.sh are set below, not in your shell -
+  launchd agents do not inherit your terminal's environment. USER is left
+  out on purpose; sync_once.sh falls back to `id -un` when it is unset.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.ft-hack.sync</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>REPLACE_WITH_REPO_PATH/platform/sync_once.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>REPLACE_WITH_REPO_PATH</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>HOST</key>
+        <string>192.168.2.2</string>
+        <key>REMOTE_DIR</key>
+        <string>/workspace/ft-hack/data/inbox/</string>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+
+    <key>StartInterval</key>
+    <integer>120</integer>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/ft-hack-sync.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/ft-hack-sync.err</string>
+</dict>
+</plist>

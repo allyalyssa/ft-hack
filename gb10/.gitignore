@@ -1,0 +1,9 @@
+# ft-hack
+out/
+data/inbox/
+*.sqlite
+*.env
+__pycache__/
+.DS_Store
+data/exports/
+logs/
