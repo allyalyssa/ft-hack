@@ -58,7 +58,22 @@ python disputes/disputes.py        # -> out/disputes/
 python -m pytest disputes/         # or: python disputes/test_disputes.py
 ```
 
-Cron on the box: `python3 triage/triage.py && python3 disputes/disputes.py && ...` (the rest of the agent cycle).
+```
+python disputes/board.py           # dispute desk, read-only, http://<box>:8090
+```
+
+## The whole cycle
+
+`scripts/cycle.sh` runs one cycle: triage, disputes, drafting (`LIMIT`, default 5), posting and the summary. It logs
+each step with its time, stops on the first failure or after `STEP_TIMEOUT` seconds (default 900), and skips a run
+while the previous one is still going. On the box:
+
+```
+*/2 * * * * cd /path/to/ft-hack && mkdir -p out && sh scripts/cycle.sh >> out/cycle.log 2>&1
+```
+
+Cron starts with a bare environment, so put `PYTHON=/usr/bin/python3` (and any `MODEL_*` overrides) at the top of
+the crontab if the defaults are wrong.
 
 For each disputed invoice in `out/queue.json`:
 

@@ -145,6 +145,47 @@ def test_write_produces_files_csv_and_summary_and_drops_only_its_own_stale_packe
     assert summary["by_priority"]["P1"]["count"] == 1
 
 
+def test_board_serves_page_and_packets():
+    import threading
+    import urllib.error
+    import urllib.request
+    from http.server import ThreadingHTTPServer
+    import board
+
+    q = queue(item("INV-1", balance=300.0))
+    packets = disputes.run(q, 25.0)
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp)
+        disputes.write(packets, disputes.summarize(packets, q), out)
+        (out / "notes.json").write_text('{"not": "a packet"}')
+        saved, board.DISPUTES = board.DISPUTES, out
+        server = ThreadingHTTPServer(("127.0.0.1", 0), board.Handler)
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        base = f"http://127.0.0.1:{server.server_port}"
+        try:
+            page = urllib.request.urlopen(base + "/").read().decode()
+            assert "Dispute desk" in page and "<script src" not in page and "<link" not in page
+            rows = json.loads(urllib.request.urlopen(base + "/api/disputes").read())
+            assert [r["invoice_id"] for r in rows] == ["INV-1"]
+            detail = json.loads(urllib.request.urlopen(base + "/api/disputes/INV-1").read())
+            assert detail["case_id"] == "DSP-INV-1"
+            assert json.loads(urllib.request.urlopen(base + "/api/summary").read())["disputes"] == 1
+            assert json.loads(urllib.request.urlopen(base + "/api/disputes/INV-1?t=1").read())["case_id"] == "DSP-INV-1"
+            try:
+                urllib.request.urlopen(base + "/api/disputes/INV-404")
+                raise AssertionError("expected 404")
+            except urllib.error.HTTPError as e:
+                assert e.code == 404
+            (out / "summary.json").write_text('{"disputes": ')  # half-written
+            assert json.loads(urllib.request.urlopen(base + "/api/summary").read()) == {}
+            board.DISPUTES = out / "missing"
+            assert json.loads(urllib.request.urlopen(base + "/api/disputes").read()) == []
+        finally:
+            server.shutdown()
+            server.server_close()
+            board.DISPUTES = saved
+
+
 def test_csv_cells_cannot_become_formulas():
     assert disputes.cell("=HYPERLINK(1)") == "'=HYPERLINK(1)"
     assert disputes.cell("120 days") == "120 days"

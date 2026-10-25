@@ -10,7 +10,9 @@ case, ready for Data Loader) and out/disputes/summary.json for the deck.
 """
 import argparse
 import csv
+import io
 import json
+import os
 import re
 import time
 from datetime import date, timedelta
@@ -243,6 +245,13 @@ def cell(value):
     return "'" + s if s[:1] in ("=", "+", "-", "@") else s
 
 
+def write_atomic(path, text):
+    # The dispute desk polls these files; never let it read half a file.
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(text, encoding="utf-8", newline="")
+    os.replace(tmp, path)
+
+
 def write(packets, summary, out):
     out.mkdir(parents=True, exist_ok=True)
     packets = [p for p in packets if SAFE_ID.match(p["invoice_id"])]
@@ -253,19 +262,20 @@ def write(packets, summary, out):
         try:
             if json.loads(old.read_text(encoding="utf-8")).get("generated_by") == "disputes":
                 old.unlink()
-        except (ValueError, AttributeError):
+        except (ValueError, AttributeError, OSError):
             pass
     for p in packets:
-        (out / f"{p['invoice_id']}.json").write_text(json.dumps(p, indent=2), encoding="utf-8")
-    with open(out / "salesforce_cases.csv", "w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
-        w.writerow(CSV_FIELDS)
-        for p in packets:
-            c = p["salesforce_case"]
-            w.writerow([cell(v) for v in (c["case_id"], p["invoice_id"], p["account_id"], c["type"], c["status"],
-                        c["origin"], c["priority"], c["subject"], c["description"], p["route_email"], p["respond_by"],
-                        f"{p['balance']:.2f}")])
-    (out / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+        write_atomic(out / f"{p['invoice_id']}.json", json.dumps(p, indent=2))
+    buf = io.StringIO()
+    w = csv.writer(buf)
+    w.writerow(CSV_FIELDS)
+    for p in packets:
+        c = p["salesforce_case"]
+        w.writerow([cell(v) for v in (c["case_id"], p["invoice_id"], p["account_id"], c["type"], c["status"],
+                    c["origin"], c["priority"], c["subject"], c["description"], p["route_email"], p["respond_by"],
+                    f"{p['balance']:.2f}")])
+    write_atomic(out / "salesforce_cases.csv", buf.getvalue())
+    write_atomic(out / "summary.json", json.dumps(summary, indent=2))
 
 
 def main():
