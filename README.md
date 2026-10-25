@@ -3,6 +3,17 @@
 A collections agent that runs offline on an NVIDIA GB10. It finds the small invoices that collectors have lost track
 of, drafts the follow-ups and proposes write-offs, all for a person to approve.
 
+## Run it
+
+```
+ollama pull qwen3:8b               # once, on a machine with internet; see platform/RUNBOOK.md for the offline box
+python platform/preflight.py       # tests, local model, one full cycle, dashboard; all under the offline guard
+python platform/run.py             # dashboard on http://localhost:8080 plus a cycle every 2 minutes
+```
+
+`platform/RUNBOOK.md` covers the GB10: copying models to a box with no internet, always-on services, the live drop
+and pulling the cable. Drafting and approval are in `agent/README.md`.
+
 ## Role B: data and triage
 
 No model is used anywhere in this part. Python 3.10+ and the standard library only (PyYAML is used if installed).

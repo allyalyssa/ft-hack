@@ -1,0 +1,11 @@
+[Unit]
+Description=Collections approval dashboard on :8080
+
+[Service]
+WorkingDirectory=%h/ft-hack
+ExecStart=/usr/bin/python3 channel/dashboard.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

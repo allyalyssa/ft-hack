@@ -1,0 +1,7 @@
+[Unit]
+Description=Collections cycle: triage, disputes, drafts, channel
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/ft-hack
+ExecStart=/usr/bin/python3 platform/run.py --once
