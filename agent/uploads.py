@@ -29,6 +29,70 @@ SHEET_REQUIRED = ("invoice_id", "collector", "touch_date", "note")
 PIPELINE = (["triage/triage.py"], ["triage/revalidate.py"], ["disputes/disputes.py"])
 
 
+ROLE_B_SF = ("account_owner_email", "invoice_date", "contact_email")
+
+
+def from_role_b(files):
+    """Accept a bundle in the Role B layout (gb10/CONTRACT.md, e.g. data/batches/role-b-20000) by mapping it onto
+    this layout. Role B has no paid amount: a paid invoice counts as fully paid, anything else as nothing paid yet.
+    A dispute is a disputed status or a collector-sheet dispute flag. Bundles already in this layout pass through."""
+    sf = files.get("salesforce_invoices.csv")
+    if not sf:
+        return files
+    header = next(csv.reader(io.StringIO(sf.lstrip("\ufeff"))), [])
+    if "owner_email" in header or not all(c in header for c in ROLE_B_SF):
+        return files
+    out = dict(files)
+    disputed = set()
+    if "collector_sheet.csv" in files:
+        notes = rows(files["collector_sheet.csv"])
+        sheet = io.StringIO()
+        w = csv.DictWriter(sheet, fieldnames=SHEET_REQUIRED)
+        w.writeheader()
+        for n in notes:
+            if (n.get("dispute_flag") or "").strip().lower() in {"true", "1", "yes"}:
+                disputed.add(n.get("invoice_id"))
+            w.writerow({"invoice_id": n.get("invoice_id", ""), "collector": n.get("collector", ""),
+                        "touch_date": n.get("touch_date") or n.get("note_date", ""), "note": n.get("note", "")})
+        out["collector_sheet.csv"] = sheet.getvalue()
+    buf = io.StringIO()
+    w = csv.DictWriter(buf, fieldnames=SF_REQUIRED)
+    w.writeheader()
+    for r in rows(sf):
+        status = (r.get("status") or "").strip().lower()
+        w.writerow({
+            "invoice_id": r.get("invoice_id", ""), "account_id": r.get("account_id", ""),
+            "account_name": r.get("account_name", ""), "account_owner": r.get("account_owner", ""),
+            "owner_email": r.get("account_owner_email", ""), "billing_contact_email": r.get("contact_email", ""),
+            "currency": r.get("currency") or "USD", "amount": r.get("amount", "0"),
+            "amount_paid": r.get("amount", "0") if status == "paid" else "0.00", "status": r.get("status", ""),
+            "issue_date": r.get("invoice_date", ""), "due_date": r.get("due_date", ""),
+            "last_touch_date": r.get("last_touch_date", ""),
+            "dispute_flag": "true" if status == "disputed" or r.get("invoice_id") in disputed else "false"})
+    out["salesforce_invoices.csv"] = buf.getvalue()
+    if "slack_threads.json" in files:
+        try:
+            threads = json.loads(files["slack_threads.json"])
+            for t in threads if isinstance(threads, list) else []:
+                if isinstance(t, dict) and not t.get("last_message_date"):
+                    dates = [str(m.get("date") or m.get("ts") or "")[:10] for m in t.get("messages") or [] if isinstance(m, dict)]
+                    dates = [d for d in dates if len(d) == 10 and d[4] == "-"]
+                    t["last_message_date"] = max(dates) if dates else None
+            out["slack_threads.json"] = json.dumps(threads)
+        except json.JSONDecodeError:
+            pass
+    if "manifest.json" in files:
+        try:
+            m = json.loads(files["manifest.json"])
+            if isinstance(m, dict) and not m.get("as_of") and m.get("exported_at"):
+                m["as_of"] = str(m["exported_at"])[:10]
+                m.setdefault("source_layout", "role-b")
+            out["manifest.json"] = json.dumps(m)
+        except json.JSONDecodeError:
+            pass
+    return out
+
+
 class UploadError(ValueError):
     pass
 
@@ -148,6 +212,7 @@ def funnel(upload_ids):
 
 def save(files, name):
     """Store, merge and process one upload; returns its report."""
+    files = from_role_b(files)
     check(files)
     before = store.read_json(store.QUEUE, {"items": [], "totals": {}})
     upload_id = datetime.now().strftime("%Y%m%d-%H%M%S")
