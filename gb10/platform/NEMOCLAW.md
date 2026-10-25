@@ -40,3 +40,19 @@ Both models stay loaded (`keep_alive -1`, re-pinned every 3 minutes by cron). Ab
 
 - Telegram or Slack through NemoClaw: `nemoclaw collections channels add` triggers the same rebuild that fails here.
 - The reboot test. Part of NemoClaw was started from an interactive terminal, so check `nemoclaw collections status` after any reboot.
+
+## Team build on the box (from 16:30)
+
+The box now serves the root build from GitHub main in `~/ft-hack-git`, with the NemoClaw agent added:
+
+| Port | What | Started by |
+|---|---|---|
+| 8090 | Collex workspace, `app/server.py --port 8090 --approvals-port 8092`; it inlines the agent chat widget and passes `/api/agent/*` to 8091 | `@reboot` in `gb10/platform/crontab.team` |
+| 8091 | Agent desk, `channel/agent_desk.py` (same code as `gb10/channel/dashboard.py`): agent chat jobs, the JSON API the OpenClaw skill reads, the widget script | `@reboot` |
+| 8092 | Root approvals dashboard, `channel/dashboard.py --port 8092` (8080 belongs to the OpenShell gateway) | `@reboot` |
+
+- The cycle is `platform/run.py --once` every 2 minutes, drafting on `gpt-oss-20b-64k` (`platform/model.env` on the box only).
+- The chat panel never makes the agent run commands. The desk looks up the summary, any invoice named in the question or selection, the top 10 awaiting review and the 5 oldest, and hands that to OpenClaw with the question. One pass, about 20 seconds on the 120b.
+- Typing `approve INV-...` or `reject INV-... because ...` in the chat is recorded by the desk under the reviewer's name. The agent stays read-only.
+- The OpenClaw skill reads `host.openshell.internal:8091` (policy rule `collections_agent_desk`). In the OpenClaw web UI each command still asks for approval, by design.
+- `gb10/platform/rollback-to-gb10.sh` puts the box back on the gb10 build.

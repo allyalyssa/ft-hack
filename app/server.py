@@ -239,6 +239,31 @@ def decide(iid, action, by):
     return {"ok": ok, "message": msg or {"approve": "Approved.", "reject": "Rejected."}[action]}
 
 
+AGENT_DESK = ("127.0.0.1", 8091)  # gb10 agent desk: NemoClaw chat jobs + JSON API for the OpenClaw skill
+
+
+def agent_desk(method, path, body=None, timeout=15):
+    import http.client
+    conn = http.client.HTTPConnection(*AGENT_DESK, timeout=timeout)
+    headers = {"Content-Type": "application/json"} if body is not None else {}
+    conn.request(method, path, body=body, headers=headers)
+    res = conn.getresponse()
+    data = res.read()
+    conn.close()
+    return res.status, data, res.getheader("Content-Type") or "application/json"
+
+
+def page_with_agent():
+    html = PAGE.read_bytes()
+    try:
+        status, js, _ = agent_desk("GET", "/agent-widget.js", timeout=3)
+        if status == 200 and b"</body>" in html:
+            html = html.replace(b"</body>", b"<script>" + js.replace(b"</script", b"<\\/script") + b"</script></body>", 1)
+    except OSError:
+        pass
+    return html
+
+
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, *args):
         pass
@@ -259,7 +284,10 @@ class Handler(BaseHTTPRequestHandler):
         path = urlsplit(self.path).path
         try:
             if path in ("/", "/index.html"):
-                return self.send(200, PAGE.read_bytes(), "text/html; charset=utf-8")
+                return self.send(200, page_with_agent(), "text/html; charset=utf-8")
+            if path.startswith("/api/agent/"):
+                status, data, kind = agent_desk("GET", self.path)
+                return self.send(status, data, kind)
             if path == "/assets/collex-companion.png":
                 return self.send(200, (PAGE.parent / "assets" / "collex-companion.png").read_bytes(), "image/png")
             if path == "/upload":
@@ -307,6 +335,13 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(415, {"error": "send application/json"})
         if not self.same_origin():
             return self.send(403, {"error": "cross-origin requests are refused"})
+        if path == "/api/agent/ask":
+            length = max(0, min(int(self.headers.get("Content-Length") or 0), 65536))
+            try:
+                status, data, kind = agent_desk("POST", "/api/agent/ask", self.rfile.read(length))
+            except OSError as e:
+                return self.send(503, {"ok": False, "error": f"agent desk unreachable: {e}"})
+            return self.send(status, data, kind)
         try:
             length = max(0, min(int(self.headers.get("Content-Length") or 0), 65536))
             body = json.loads(self.rfile.read(length) or b"{}")

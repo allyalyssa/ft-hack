@@ -5,16 +5,20 @@ description: Reviews the small-dollar collections queue through the approval das
 
 # Collections
 
+Read-only for you. Approving or rejecting is the collector's decision: when someone asks you to approve or reject an invoice, tell them to type `approve INV-…` or `reject INV-… because …` in the desk's chat panel, or press the button on the invoice page. Do not call the approve, reject or edit endpoints yourself.
+
+For "biggest" questions add `&sort=amount` (largest first) to the queue call; for "oldest" add `&sort=days_past_due`.
+
 The pipeline runs on the host. Cron runs triage and drafting every 2 minutes, and the dashboard serves the results on port 8090. You run inside a sandbox that cannot see the host's files, so every step below is one curl call to the dashboard's JSON API. Never read or write files for this skill, and never try to run the pipeline scripts.
 
 Set the address once per session and check it answers:
 
 ```bash
-DASHBOARD_URL="${DASHBOARD_URL:-http://host.openshell.internal:8090}"
+DASHBOARD_URL="${DASHBOARD_URL:-http://host.openshell.internal:8091}"
 curl -sS --max-time 10 "$DASHBOARD_URL/api/summary" > /dev/null && echo "dashboard reachable at $DASHBOARD_URL"
 ```
 
-Inside the OpenShell sandbox `host.openshell.internal` resolves to the host (172.18.0.1 on the GB10), and the sandbox policy rule `collections_dashboard` allows curl to reach port 8090. If the check fails, try `DASHBOARD_URL=http://172.18.0.1:8090`. If it still fails, tell the person the dashboard is unreachable from the sandbox and stop.
+Inside the OpenShell sandbox `host.openshell.internal` resolves to the host (172.18.0.1 on the GB10), and the sandbox policy rule `collections_dashboard` allows curl to reach port 8090. If the check fails, try `DASHBOARD_URL=http://host.openshell.internal:8090`, then `http://172.18.0.1:8091`. If it still fails, tell the person the dashboard is unreachable from the sandbox and stop.
 
 Every reply is JSON with an `"ok"` field. When it is false, tell the person the `"error"` text. Do not repeat a POST more than once. Add `?pretty=1` to a GET when you want indented JSON.
 
@@ -23,7 +27,7 @@ Nothing reaches a customer from here. Approve or reject only when the person ask
 ## "what's in the queue"
 
 ```bash
-curl -sS --max-time 10 "$DASHBOARD_URL/api/queue?state=awaiting&limit=20"
+curl -sS --max-time 10 "$DASHBOARD_URL/api/queue?state=awaiting&sort=amount&limit=20"
 ```
 
 Reply with `total` (packages waiting for review), then one line per row: `invoice_id`, `account_name`, `amount`, `days_past_due` days past due, `bucket`. For one bucket add `&bucket=agent`, `&bucket=writeoff` or `&bucket=escalate`. Other states: `drafted`, `edited`, `approved`, `rejected`, `not_drafted`.
@@ -76,7 +80,7 @@ curl -sS --max-time 10 "$DASHBOARD_URL/api/summary"
 ```
 
 Reply in a few lines:
-- queued invoices and dollars: `totals.queued`, `totals.dollars_queued`, and `buckets.<bucket>.queued`
+- queued invoices and dollars: `totals.queued`, `totals.dollars_queued` (called `totals.queued_dollars` in some builds), and `buckets.<bucket>.queued`
 - waiting for review: `review.awaiting_review`, and per bucket `buckets.<bucket>.drafted` (a draft waiting for a person). `not_drafted` means the agent has not reached that invoice yet. Never say a bucket has no drafts when its `drafted` count is above zero.
 - approved: `review.approved` and `review.approved_dollars`
 - written off: `review.written_off_dollars`
