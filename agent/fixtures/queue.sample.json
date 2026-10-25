@@ -1,0 +1,260 @@
+{
+ "as_of": "2026-10-25",
+ "policy": {
+  "min_days_past_due": 30,
+  "stale_touch_days": 8,
+  "agent_max_amount": 500.0,
+  "write_off_max_amount": 5.0,
+  "minutes_per_touch": 6.0
+ },
+ "totals": {
+  "invoices": 6,
+  "open": 6,
+  "under_threshold": 6,
+  "queued": 6,
+  "queued_dollars": 506.41,
+  "never_touched": 1,
+  "conflicts_open": 1,
+  "conflicts_queued": 1,
+  "malformed_rows_skipped": 0,
+  "by_bucket": {
+   "agent": {
+    "count": 3,
+    "dollars": 451.74
+   },
+   "writeoff": {
+    "count": 2,
+    "dollars": 0.22
+   },
+   "escalate": {
+    "count": 1,
+    "dollars": 54.45
+   }
+  }
+ },
+ "items": [
+  {
+   "invoice_id": "INV-116288",
+   "bucket": "agent",
+   "reason": "small, aged and untouched",
+   "account_id": "ACC-2012",
+   "account_name": "Umbra Signal",
+   "account_owner": "Amara Nwosu",
+   "owner_email": "amaranwosu@ourco.example",
+   "billing_contact_email": "ap@umbrasignal.example",
+   "currency": "USD",
+   "amount": 197.45,
+   "amount_paid": 0.0,
+   "balance": 197.45,
+   "status": "open",
+   "dispute_flag": false,
+   "issue_date": "2026-03-24",
+   "due_date": "2026-05-08",
+   "days_past_due": 170,
+   "last_touch_date": "2026-10-13",
+   "last_touch_source": "slack",
+   "days_since_touch": 12,
+   "never_touched": false,
+   "conflict": null,
+   "sheet_notes": [],
+   "slack_thread": {
+    "invoice_id": "INV-116288",
+    "channel": "#ar-escalations",
+    "thread_ts": "1791395507.118303",
+    "last_message_date": "2026-10-13",
+    "messages": [
+     {
+      "user": "Ana Ruiz",
+      "date": "2026-10-07",
+      "ts": "1791395507.118303",
+      "text": "Umbra Signal keeps ignoring statements on INV-116288. Can you nudge your champion?"
+     },
+     {
+      "user": "Amara Nwosu",
+      "date": "2026-10-11",
+      "ts": "1791683958.002802",
+      "text": "Their champion left last month, I'll find the new AP contact."
+     },
+     {
+      "user": "Ana Ruiz",
+      "date": "2026-10-13",
+      "ts": "1791874455.249411",
+      "text": "Any update from Umbra Signal on INV-116288? $197.45 still open, 170 days past due."
+     }
+    ]
+   }
+  },
+  {
+   "invoice_id": "INV-104225",
+   "bucket": "agent",
+   "reason": "small, aged and untouched",
+   "account_id": "ACC-1472",
+   "account_name": "Neural Data",
+   "account_owner": "Elena Sato",
+   "owner_email": "elenasato@ourco.example",
+   "billing_contact_email": "ap@neuraldata.example",
+   "currency": "USD",
+   "amount": 256.52,
+   "amount_paid": 135.12,
+   "balance": 121.4,
+   "status": "partially_paid",
+   "dispute_flag": false,
+   "issue_date": "2026-03-29",
+   "due_date": "2026-04-28",
+   "days_past_due": 180,
+   "last_touch_date": "2026-08-30",
+   "last_touch_source": "salesforce",
+   "days_since_touch": 56,
+   "never_touched": false,
+   "conflict": null,
+   "sheet_notes": [
+    {
+     "date": "2026-08-30",
+     "collector": "Hugo Santos",
+     "note": "Promised to pay end of month"
+    }
+   ],
+   "slack_thread": null
+  },
+  {
+   "invoice_id": "INV-113701",
+   "bucket": "agent",
+   "reason": "small, aged and untouched",
+   "account_id": "ACC-1454",
+   "account_name": "Harbor Energy",
+   "account_owner": "Hannah Lindqvist",
+   "owner_email": "hannahlindqvist@ourco.example",
+   "billing_contact_email": "ap@harborenergy.example",
+   "currency": "USD",
+   "amount": 224.43,
+   "amount_paid": 91.54,
+   "balance": 132.89,
+   "status": "partially_paid",
+   "dispute_flag": false,
+   "issue_date": "2026-04-18",
+   "due_date": "2026-05-18",
+   "days_past_due": 160,
+   "last_touch_date": "2026-10-16",
+   "last_touch_source": "sheet",
+   "days_since_touch": 9,
+   "never_touched": false,
+   "conflict": {
+    "touches": {
+     "salesforce": "2026-09-04",
+     "sheet": "2026-10-16"
+    },
+    "gap_days": 42
+   },
+   "sheet_notes": [
+    {
+     "date": "2026-10-16",
+     "collector": "Ana Ruiz",
+     "note": "Customer says this was paid, asked for remittance"
+    }
+   ],
+   "slack_thread": null
+  },
+  {
+   "invoice_id": "INV-100606",
+   "bucket": "writeoff",
+   "reason": "balance $0.03 is at or under the $5 write-off limit",
+   "account_id": "ACC-1680",
+   "account_name": "Tidal Signal",
+   "account_owner": "Noah Brennan",
+   "owner_email": "noahbrennan@ourco.example",
+   "billing_contact_email": "ap@tidalsignal.example",
+   "currency": "USD",
+   "amount": 0.03,
+   "amount_paid": 0.0,
+   "balance": 0.03,
+   "status": "open",
+   "dispute_flag": false,
+   "issue_date": "2026-04-05",
+   "due_date": "2026-06-04",
+   "days_past_due": 143,
+   "last_touch_date": "2026-10-13",
+   "last_touch_source": "salesforce",
+   "days_since_touch": 12,
+   "never_touched": false,
+   "conflict": null,
+   "sheet_notes": [],
+   "slack_thread": null
+  },
+  {
+   "invoice_id": "INV-116968",
+   "bucket": "writeoff",
+   "reason": "balance $0.19 is at or under the $5 write-off limit",
+   "account_id": "ACC-1078",
+   "account_name": "Zephyr Security",
+   "account_owner": "Mei Chen",
+   "owner_email": "meichen@ourco.example",
+   "billing_contact_email": "ap@zephyrsecurity.example",
+   "currency": "USD",
+   "amount": 0.19,
+   "amount_paid": 0.0,
+   "balance": 0.19,
+   "status": "disputed",
+   "dispute_flag": true,
+   "issue_date": "2026-04-05",
+   "due_date": "2026-05-05",
+   "days_past_due": 173,
+   "last_touch_date": null,
+   "last_touch_source": null,
+   "days_since_touch": null,
+   "never_touched": true,
+   "conflict": null,
+   "sheet_notes": [],
+   "slack_thread": null
+  },
+  {
+   "invoice_id": "INV-113650",
+   "bucket": "escalate",
+   "reason": "disputed",
+   "account_id": "ACC-2004",
+   "account_name": "Kinetic Bank",
+   "account_owner": "Mei Chen",
+   "owner_email": "meichen@ourco.example",
+   "billing_contact_email": "ap@kineticbank.example",
+   "currency": "USD",
+   "amount": 54.45,
+   "amount_paid": 0.0,
+   "balance": 54.45,
+   "status": "disputed",
+   "dispute_flag": true,
+   "issue_date": "2026-03-29",
+   "due_date": "2026-04-28",
+   "days_past_due": 180,
+   "last_touch_date": "2026-09-29",
+   "last_touch_source": "salesforce",
+   "days_since_touch": 26,
+   "never_touched": false,
+   "conflict": null,
+   "sheet_notes": [
+    {
+     "date": "2026-09-29",
+     "collector": "Felix Mueller",
+     "note": "Sent statement to billing contact, no reply yet"
+    },
+    {
+     "date": "2026-09-26",
+     "collector": "Erin Walsh",
+     "note": "Customer says this was paid, asked for remittance"
+    }
+   ],
+   "slack_thread": null
+  }
+ ],
+ "conflicts": [
+  {
+   "invoice_id": "INV-113701",
+   "touches": {
+    "salesforce": "2026-09-04",
+    "sheet": "2026-10-16"
+   },
+   "gap_days": 42
+  }
+ ],
+ "sources": [
+  "fixture"
+ ]
+}
