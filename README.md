@@ -48,4 +48,32 @@ or more, the invoice is listed under `conflicts`.
   drafting step has context) and `conflicts`.
 - `out/headline.json`: the slide numbers, including hours at `minutes_per_touch` per queued invoice.
 
+## Disputes (the escalate bucket)
+
+The drafting agent leaves disputed invoices for a person. This step makes sure that person gets a worked case
+instead of a bare flag. No model; it runs right after triage.
+
+```
+python disputes/disputes.py        # -> out/disputes/
+python -m pytest disputes/         # or: python disputes/test_disputes.py
+```
+
+Cron on the box: `python3 triage/triage.py && python3 disputes/disputes.py && ...` (the rest of the agent cycle).
+
+For each disputed invoice in `out/queue.json`:
+
+- **Reason**, read from the collector-sheet notes and Slack messages triage attached: already paid, usage overage,
+  missing PO or vendor portal, invoice paperwork, payment since promised (a stale dispute flag), or no reason recorded.
+  The matching lines are kept as evidence.
+- **Owner**: deal desk for usage overages, billing ops for "already paid" and paperwork, otherwise the account owner.
+- **Priority and deadline**: P1 if the balance is $250+ or 90+ days past due, P2 at 60+ days, else P3; respond within
+  2, 5 or 10 business days of the snapshot date.
+- **Recommendation**: the playbook step for the reason, or a credit memo when the balance is at or under
+  `--concede-max` (default $25), except when the customer says it was paid or has promised to pay.
+- **Drafts**: a Salesforce dispute case, a note to the owning team (cc the account owner), and a holding reply to the
+  customer that never asks for payment.
+
+Outputs: `out/disputes/<invoice_id>.json`, `out/disputes/salesforce_cases.csv` (one row per case, Data Loader
+columns) and `out/disputes/summary.json` (counts and dollars by reason, owner and priority, for the deck).
+
 All names are invented and every email domain uses the reserved `.example` TLD.
