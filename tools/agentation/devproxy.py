@@ -36,12 +36,24 @@ def make_handler(target_host, target_port):
             length = int(self.headers.get("Content-Length") or 0)
             data = self.rfile.read(length) if length else None
             headers = {k: v for k, v in self.headers.items() if k.lower() not in HOP | {"host", "accept-encoding"}}
-            conn = http.client.HTTPConnection(target_host, target_port, timeout=60)
-            conn.request(self.command, self.path, body=data, headers=headers)
-            resp = conn.getresponse()
-            body = resp.read()
-            if "text/html" in (resp.getheader("Content-Type") or ""):
-                body = body.replace(b"</body>", TAG + b"</body>", 1) if b"</body>" in body else body + TAG
+            # The dashboard's Draft now button can take minutes; outlast it so a slow draft is not retried.
+            conn = http.client.HTTPConnection(target_host, target_port, timeout=700)
+            try:
+                conn.request(self.command, self.path, body=data, headers=headers)
+                resp = conn.getresponse()
+                body = resp.read()
+            except (OSError, http.client.HTTPException) as e:
+                msg = f"devproxy: {target_host}:{target_port} did not answer ({e})".encode()
+                self.send_response(502)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.send_header("Content-Length", str(len(msg)))
+                self.end_headers()
+                self.wfile.write(msg)
+                conn.close()
+                return
+            if "text/html" in (resp.getheader("Content-Type") or "").lower():
+                at = body.lower().rfind(b"</body>")
+                body = body[:at] + TAG + body[at:] if at >= 0 else body + TAG
             self.send_response(resp.status)
             for k, v in resp.getheaders():
                 if k.lower() not in HOP:
@@ -51,7 +63,7 @@ def make_handler(target_host, target_port):
             self.wfile.write(body)
             conn.close()
 
-        do_GET = do_POST = do_PUT = do_DELETE = do_PATCH = forward
+        do_GET = do_POST = do_PUT = do_DELETE = do_PATCH = do_OPTIONS = forward
 
     return Proxy
 

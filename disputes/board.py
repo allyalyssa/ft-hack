@@ -220,13 +220,18 @@ function shown() {
 
 function render() {
   const list = shown();
+  const focused = document.activeElement && document.activeElement.classList.contains("row") ? document.activeElement.dataset.id : null;
   $("#count").textContent = `${list.length.toLocaleString()} of ${all.length.toLocaleString()} disputes, highest priority first`;
   $("#rows").innerHTML = list.map(d => `
-    <button class="row ${d.invoice_id === current ? "sel" : ""}" data-id="${esc(d.invoice_id)}">
+    <button class="row ${d.invoice_id === current ? "sel" : ""}" data-id="${esc(d.invoice_id)}"${d.invoice_id === current ? ' aria-current="true"' : ""}>
       <span class="stamp ${esc(d.priority)}">${esc(d.priority)}</span>
       <span class="acct">${esc(d.account_name)}</span><span class="amt num">${money(d.balance)}</span>
       <span class="meta"><span class="num">${esc(d.invoice_id)}</span> &middot; ${esc(d.reason_label)} &middot; ${esc(team(d.route_to))} &middot; reply by ${day(d.respond_by)}${d.concede_recommended ? ' &middot; <span class="stamp concede">concede</span>' : ""}</span>
     </button>`).join("") || '<p class="empty">No disputes match these filters.</p>';
+  if (focused) {
+    const again = [...document.querySelectorAll("#rows .row")].find(r => r.dataset.id === focused);
+    if (again) again.focus({preventScroll: true});
+  }
 }
 
 function letter(title, m, cls) {
