@@ -29,6 +29,8 @@ THREATS = re.compile(r"\b(legal action|lawsuit|attorney|lawyer|court|sue|suing|c
                      r"|credit report\w*|late fee|penalt\w*)\b", re.I)
 CUSTOMER_FIELDS = ("email_subject", "email_body", "slack_message")
 MONEY = re.compile(r"\$\s?([\d,]+\.\d{2})")
+NO_FOLLOW_UP = re.compile(r"\b(no (prior|previous|earlier) (follow-?up|contact|outreach)|(nobody|no one) has (followed up|"
+                          r"contacted)|never (been )?(followed up|touched|contacted)|not been followed up)", re.I)
 WORKERS = 4
 TIMEOUT = 300
 
@@ -167,6 +169,8 @@ def problems(item, queue, draft, pay_by):
             found[field] = "no threats, legal language or fees"
         elif stray:
             found[field] = f"uses amounts that are not in the facts: {', '.join('$' + s for s in sorted(stray))}"
+        elif item.get("last_touch_date") and NO_FOLLOW_UP.search(text):
+            found[field] = f"says nobody has followed up, but the last touch was {store.long_date(item['last_touch_date'])}"
     return found
 
 

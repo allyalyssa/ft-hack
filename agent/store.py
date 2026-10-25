@@ -3,12 +3,16 @@ import json
 import os
 import re
 import sqlite3
+import sys
 import time
 from contextlib import closing
 from datetime import date, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "disputes"))
+import disputes  # noqa: E402
+
 OUT = ROOT / "out"
 ACTIONS = OUT / "actions"
 QUEUE = OUT / "queue.json"
@@ -19,8 +23,20 @@ MODEL_ENV = ROOT / "platform" / "model.env"
 EDITABLE = ("customer_email.md", "customer_slack.md", "internal_note.md", "writeoff_memo.md")
 HUMAN_STATES = ("approved", "edited")
 APPROVER_LINE = "Approver: ______________________    Date: ____________"
+APPROVED_LINE = re.compile(r"^Approved by .* on .*$", re.M)
 INVOICE_ID = re.compile(r"^[A-Za-z0-9_-]+$")
 LOCK_STALE_SECONDS = 600
+BLOCKERS = disputes.REASONS + [
+    ("bad_contact", re.compile(r"\bbounced\b|\bnew ap (?:email|contact)\b|\bchampion left\b")),
+]
+BLOCKER_LABEL = {
+    "already_paid": "Says paid",
+    "usage_overage": "Disputes usage",
+    "missing_po": "Needs PO",
+    "invoice_admin": "Wants copy",
+    "payment_promised": "Promised",
+    "bad_contact": "Contact gone",
+}
 
 
 def now():
@@ -34,6 +50,30 @@ def money(amount, currency="USD"):
 def long_date(value):
     d = date.fromisoformat(value) if isinstance(value, str) else value
     return f"{d:%B} {d.day}, {d.year}"
+
+
+def latest_note(item):
+    """Newest collector-sheet or Slack line as (date, source, text), or None."""
+    lines = disputes.evidence_lines(item)
+    return lines[0] if lines else None
+
+
+def blocker(item):
+    """What the newest matching note says is holding payment up, as a BLOCKER_LABEL key, or None."""
+    for _, _, text in disputes.evidence_lines(item):
+        for key, pattern in BLOCKERS:
+            if pattern.search(text.lower()):
+                return key
+    return None
+
+
+def account_exposure(items):
+    """account_id -> (count, dollars) of queued invoices."""
+    out = {}
+    for item in items:
+        count, dollars = out.get(item["account_id"], (0, 0.0))
+        out[item["account_id"]] = (count + 1, dollars + item["balance"])
+    return out
 
 
 def read_env_file(path):
@@ -136,7 +176,7 @@ def release(invoice_id):
     (ACTIONS / f"{invoice_id}.lock").unlink(missing_ok=True)
 
 
-def set_state(invoice_id, state, by, edits=None):
+def set_state(invoice_id, state, by, edits=None, reason=None):
     d = action_dir(invoice_id)
     status = read_json(d / "status.json")
     if status is None:
@@ -146,16 +186,34 @@ def set_state(invoice_id, state, by, edits=None):
         if name in EDITABLE and (d / name).exists():
             write_text(d / name, text.replace("\r\n", "\n").strip() + "\n")
     memo = d / "writeoff_memo.md"
-    if state == "approved" and memo.exists():
+    was_approved = status["state"] == "approved"
+    if memo.exists() and state == "approved":
         write_text(memo, memo.read_text(encoding="utf-8").replace(APPROVER_LINE, f"Approved by {by} on {at.replace('T', ' ')}"))
-    status.update(state=state, by=by, at=at)
+    elif memo.exists() and was_approved:
+        write_text(memo, APPROVED_LINE.sub(APPROVER_LINE, memo.read_text(encoding="utf-8")))
+    previous = {k: status[k] for k in ("state", "by", "at", "reason") if k in status}
+    status.pop("reason", None)
+    status.update(state=state, by=by, at=at, previous=previous)
+    if reason:
+        status["reason"] = reason
     write_json(d / "status.json", status)
     with closing(crm()) as db, db:
         db.execute("UPDATE cases SET state = ?, updated_by = ?, updated_at = ? WHERE action_id = ?",
                    (state, by, at, status["action_id"]))
-        if state == "approved" and memo.exists():
+        if memo.exists() and state == "approved":
             db.execute("UPDATE invoices SET status = 'written_off', updated_at = ? WHERE invoice_id = ?", (at, invoice_id))
+        elif memo.exists() and was_approved:
+            item = read_json(d / "queue_item.json", {})
+            db.execute("UPDATE invoices SET status = ?, updated_at = ? WHERE invoice_id = ?", (item.get("status"), at, invoice_id))
     return status
+
+
+def undo(invoice_id, by):
+    status = read_status(invoice_id)
+    previous = (status or {}).get("previous")
+    if not previous:
+        raise LookupError(f"nothing to undo on {invoice_id}")
+    return set_state(invoice_id, previous["state"], previous.get("by") or by, reason=previous.get("reason"))
 
 
 CRM_SCHEMA = """

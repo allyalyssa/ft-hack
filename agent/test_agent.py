@@ -4,6 +4,7 @@ Runs the drafting pipeline, approvals and the dashboard against a fake model ser
 """
 import json
 import os
+import re
 import sqlite3
 import sys
 import tempfile
@@ -19,6 +20,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "channel"))
 import actions  # noqa: E402
+import ask  # noqa: E402
 import store  # noqa: E402
 import dashboard  # noqa: E402
 import post  # noqa: E402
@@ -37,6 +39,10 @@ class FakeModel(BaseHTTPRequestHandler):
     def do_POST(self):
         FakeModel.calls += 1
         body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+        if body["messages"][0]["content"].startswith("Pick the one question stem"):
+            found = re.search(r"INV-\d+", body["messages"][-1]["content"])
+            route = {"stem": "invoice_status()", "params": {"invoice_id": found.group(0)}} if found else {"stem": "none"}
+            return self.reply(json.dumps(route))
         facts_msg = [m["content"] for m in body["messages"] if m["role"] == "user" and "invoice_id:" in m["content"]][-1]
         facts = dict(line.split(": ", 1) for line in facts_msg.splitlines() if ": " in line and not line.startswith("- "))
         iid, balance = facts["invoice_id"], facts["balance_due"]
@@ -59,7 +65,10 @@ class FakeModel(BaseHTTPRequestHandler):
                 "case_summary": f"{iid}, {balance} open.",
                 "next_action": f"Follow up on {pay_by}.",
             })
-        data = json.dumps({"choices": [{"message": {"content": "<think>x</think>" + content}}]}).encode()
+        self.reply("<think>x</think>" + content)
+
+    def reply(self, content):
+        data = json.dumps({"choices": [{"message": {"content": content}}]}).encode()
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(data)))
@@ -218,9 +227,12 @@ def test_dashboard_pages_and_approve_over_http():
         threading.Thread(target=server.serve_forever, daemon=True).start()
         base = f"http://127.0.0.1:{server.server_port}"
         try:
-            for path in ("/", "/?tab=agent", "/?tab=writeoff", "/?tab=escalate&q=a", "/invoice/INV-116288",
-                         "/invoice/INV-116288?edit=1", "/invoice/INV-100606", "/invoice/INV-113650", "/crm"):
+            for path in ("/", "/?state=undrafted", "/?state=all&bucket=writeoff", "/?bucket=escalate&q=a",
+                         "/invoice/INV-116288", "/invoice/INV-116288?edit=1", "/invoice/INV-100606", "/invoice/INV-113650",
+                         "/invoice/INV-113701?done=1", "/crm", "/api/version"):
                 assert urllib.request.urlopen(base + path).status == 200, path
+            page = urllib.request.urlopen(base + "/?state=all").read().decode()
+            assert "Latest note" in page and "Blocker" in page and "Says paid" in page
             for path in ("/invoice/NOPE", "/invoice/..%2F..%2Fetc", "/nothing"):
                 try:
                     urllib.request.urlopen(base + path)
@@ -231,9 +243,49 @@ def test_dashboard_pages_and_approve_over_http():
             urllib.request.urlopen(req)
             assert store.read_status("INV-116288")["by"] == "Dana"
             assert "Approved" in urllib.request.urlopen(base + "/invoice/INV-116288").read().decode()
+            urllib.request.urlopen(urllib.request.Request(base + "/invoice/INV-116288/undo", data=b"by=Dana", method="POST"))
+            assert store.read_status("INV-116288")["state"] == "drafted"
+            reject = b"by=Dana&reason=Wrong+tone"
+            urllib.request.urlopen(urllib.request.Request(base + "/invoice/INV-104225/reject", data=reject, method="POST"))
+            assert store.read_status("INV-104225")["reason"] == "Wrong tone"
+            req = urllib.request.Request(base + "/api/ask", data=json.dumps({"question": "is INV-116288 paid?"}).encode(),
+                                         method="POST", headers={"Content-Type": "application/json"})
+            answer = json.loads(urllib.request.urlopen(req).read())
+            assert answer["answer"].startswith("No. INV-116288") and answer["stem"] == "Has an invoice been collected?"
         finally:
             server.shutdown()
             server.server_close()
+
+
+def test_every_ask_stem_runs_and_answers_in_a_sentence():
+    with sandbox():
+        store.OUT.mkdir(parents=True)
+        store.QUEUE.write_text(FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")
+        run_actions()
+        values = {"invoice_id": "INV-116288", "account": "Umbra Signal", "owner": "Amara", "blocker": "Says paid"}
+        for stem in ask.STEMS:
+            sentence, columns, rows = ask.run_stem(stem, {p: values[p] for p in stem["params"]})
+            assert sentence and "{" not in sentence, stem["id"]
+            assert all(len(r) == len(columns) for r in rows), stem["id"]
+        assert ask.run_stem(ask.STEM_BY_ID["awaiting_approval"], {})[0].startswith("5 drafts")
+        biggest = ask.run_stem(ask.STEM_BY_ID["biggest"], {})[2]
+        balances = [float(r[2].strip("$").replace(",", "")) for r in biggest]
+        assert balances == sorted(balances, reverse=True)
+
+
+def test_ask_needs_a_known_stem_and_valid_values():
+    with sandbox():
+        assert ask.answer("what's the weather")["stem"] is None
+        assert ask.clean_params(ask.STEM_BY_ID["invoice_status"], {}, "is inv 116288 paid") == {"invoice_id": "INV-116288"}
+        assert ask.clean_params(ask.STEM_BY_ID["blocker_list"], {"blocker": "made up"}, "x") is None
+        assert ask.clean_params(ask.STEM_BY_ID["account_summary"], {"account": ""}, "x") is None
+
+
+def test_draft_claiming_no_follow_up_is_rejected_when_there_was_one():
+    q = fixture()
+    item = next(i for i in q["items"] if i.get("last_touch_date"))
+    note = f"Hi, {item['invoice_id']} has had no prior follow-up. Can you help?"
+    assert "last touch" in actions.problems(item, q, {"internal_note": note}, date(2026, 11, 2))["internal_note"]
 
 
 def test_channel_post_fails_quietly_without_network():
