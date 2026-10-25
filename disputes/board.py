@@ -14,7 +14,7 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parent.parent
 DISPUTES = ROOT / "out" / "disputes"
 LIST_FIELDS = ("invoice_id", "account_name", "account_owner", "balance", "days_past_due", "reason", "reason_label", "route_to",
-               "priority", "respond_by", "concede_recommended")
+               "priority", "respond_by", "concede_recommended", "case")
 
 
 def load(path):
@@ -153,6 +153,15 @@ input:hover, select:hover { border-color:var(--ink-muted); }
 .P2 { color:var(--writeoff); background:var(--writeoff-soft); }
 .P3 { color:var(--ink-muted); background:var(--band); }
 .concede { color:var(--writeoff); background:var(--writeoff-soft); }
+.c-ready { color:var(--recovered); background:var(--recovered-soft); }
+.c-blocked { color:var(--dispute); background:var(--dispute-soft); }
+.c-requested, .c-accepted, .c-closed { color:var(--ink-muted); background:var(--band); }
+.timeline { margin:0; padding:0; list-style:none; max-width:80ch; }
+.timeline li { display:grid; grid-template-columns:96px 1fr; gap:12px; padding:8px 0; border-top:1px solid var(--line); }
+.timeline li:first-child { border-top:0; }
+.timeline .when { color:var(--ink-muted); font-size:12px; }
+.timeline .src { color:var(--ink-muted); font-size:12px; }
+.ask { margin:8px 0 0; padding-left:18px; color:var(--dispute); }
 
 .detail { overflow:auto; padding:24px 40px 64px; min-width:0; }
 .panel { background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:24px 28px; }
@@ -243,7 +252,8 @@ function summary(s) {
     ${n(s.no_reason_recorded)} have no reason on file.
     <span class="p1">${n(p1)} are P1</span>${respond ? " and need a reply by " + day(respond) : ""}.
     ${n(s.stale_flags)} look settled: the customer has since promised to pay.
-    ${n(s.concede_recommended.count)} are under $25 and cheaper to credit than to argue (${money(s.concede_recommended.dollars)}).`;
+    ${n(s.concede_recommended.count)} are under $25 and cheaper to credit than to argue (${money(s.concede_recommended.dollars)}).
+    ${s.blocker_cases ? `The agent is carrying ${n(s.blocker_cases.open)} missing-PO cases: ${n(s.blocker_cases.by_state.ready)} ready to send, ${n(s.blocker_cases.by_state.blocked)} blocked on a bad PO.` : ""}`;
 }
 
 function aging() {
@@ -284,7 +294,7 @@ function render() {
     return `<button class="row" role="option" data-id="${esc(d.invoice_id)}" tabindex="${sel ? 0 : -1}" aria-selected="${d.invoice_id === current}"${d.invoice_id === current ? ' aria-current="true"' : ""}>
       <span class="stamp ${esc(d.priority)}">${esc(d.priority)}</span>
       <span class="acct">${esc(d.account_name)}</span><span class="amt mono">${money(d.balance)}</span>
-      <span class="meta"><span class="mono">${esc(d.invoice_id)}</span> &middot; ${esc(d.reason_label)} &middot; ${esc(team(d.route_to))} &middot; reply by ${day(d.respond_by)}${d.concede_recommended ? ' &middot; <span class="stamp concede">concede</span>' : ""}</span>
+      <span class="meta"><span class="mono">${esc(d.invoice_id)}</span> &middot; ${esc(d.reason_label)} &middot; ${esc(team(d.route_to))} &middot; reply by ${day(d.respond_by)}${d.concede_recommended ? ' &middot; <span class="stamp concede">concede</span>' : ""}${d.case ? ` &middot; <span class="stamp c-${esc(d.case.state)}">${esc(d.case.label)}</span>` : ""}</span>
     </button>`;
   }).join("") || `<p class="empty">No disputes match. Try a shorter search or clear the filters.</p>`;
   if (focused) {
@@ -298,6 +308,20 @@ function letter(title, m, key) {
     <div class="top"><div class="to">To ${esc(m.to)}${m.cc ? ", cc " + esc(m.cc) : ""}</div>
       <button class="btn" data-copy="${key}">Copy</button></div>
     <div class="subj">${esc(m.subject)}</div><pre id="copy-${key}">${esc(m.body)}</pre></div></section>`;
+}
+
+function caseView(d) {
+  const c = d.case;
+  if (!c) return "";
+  const steps = (c.history || []).map(h => `<li><span class="when">${esc(h.at)}</span><span>${esc(h.detail)}
+    <span class="src">${esc(h.source === "agent" ? "agent" : h.source)}</span></span></li>`).join("");
+  const asks = c.state !== "ready" && (c.open_questions || []).length
+    ? `<ul class="ask">${c.open_questions.map(q => `<li>${esc(q)}</li>`).join("")}</ul>` : "";
+  const pkg = c.package ? letter("Corrected package: reissued invoice email", c.package.customer_email, "pkg")
+    + `<section class="part"><h3>Salesforce update</h3><p class="rec">${esc(c.package.salesforce_update.note)}</p></section>` : "";
+  return `<section class="part"><h3>Payment blocker <span class="stamp c-${esc(c.state)}">${esc(c.label)}</span></h3>
+    <p class="muted" style="margin:0 0 8px">The agent keeps this case open until the PO checks out against the invoice.${c.state === "blocked" ? " Still missing:" : c.state === "ready" ? "" : " Waiting for:"}</p>
+    ${asks}<ol class="timeline">${steps}</ol></section>${pkg}`;
 }
 
 let packet = null;
@@ -324,7 +348,8 @@ async function show(id) {
       <div><dt>Reason</dt><dd>${esc(d.reason_label)}</dd></div>
       <div><dt>Same account</dt><dd>${d.account_other_queued.count ? `<span class="mono">${Number(d.account_other_queued.count)}</span> more queued, <span class="mono">${money(d.account_other_queued.dollars)}</span>` : "nothing else queued"}</dd></div>
     </dl>
-    <section class="part"><h3>Recommended</h3><p class="rec">${esc(d.resolution)}</p></section>
+    ${caseView(d)}
+    ${d.case && d.case.state === "ready" ? "" : `<section class="part"><h3>Recommended</h3><p class="rec">${esc(d.resolution)}</p></section>`}
     ${ev}
     ${letter("Note to " + (d.route_to === "account_owner" ? "the account owner" : team(d.route_to).toLowerCase()), d.owner_note, "note")}
     ${letter("Holding reply to the customer", d.customer_ack, "ack")}
@@ -363,7 +388,9 @@ async function load() {
   const changed = runKey !== lastRun;
   lastRun = runKey;
   render();
-  if (!current && all.length) show(all[0].invoice_id);
+  const wanted = decodeURIComponent(location.hash.slice(1));
+  if (!current && wanted && all.some(d => d.invoice_id === wanted)) show(wanted);
+  else if (!current && all.length) show(all[0].invoice_id);
   else if (current && changed) show(current);
   if (!all.length) $("#detail").innerHTML = '<p class="empty">No disputes in the latest run. When triage finds disputed small invoices, they land here with a reason, an owner and drafts.</p>';
 }

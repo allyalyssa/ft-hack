@@ -59,6 +59,28 @@ or more, the invoice is listed under `conflicts`.
   drafting step has context) and `conflicts`.
 - `out/headline.json`: the slide numbers, including hours at `minutes_per_touch` per queued invoice.
 
+### Whole-account context
+
+Before anyone chases a $40 invoice, triage looks at the whole account. Every queued item carries
+`account_context` (open invoices and balance on the account, the largest other invoice, open disputes, the last touch
+anywhere on the account) and a `package_id`; `queue.json` lists `packages`, the queued invoices grouped by account
+(5,332 invoices become 1,071 packages). `coordinate` is set when a person touched an open invoice over $100,000 on
+the same account in the last `stale_touch_days`: fold the small one into that conversation instead of sending a
+separate reminder (1,814 invoices).
+
+Write-offs carry `writeoff_controls`: what the whole account would write off, the `account_writeoff_max` limit
+(default $25), a batch of 5 or more on one account, and the `policy_version` the decision used. `tiny_origin`
+separates leftovers after partial payments from invoices issued for cents; `billing_leads` lists accounts with 3+ tiny
+balances as questions for billing operations, not proven errors.
+
+### Stale drafts
+
+`python triage/revalidate.py` re-checks every drafted, edited or approved action against the newest export and
+withdraws it when the invoice was paid, its balance changed, the customer disputed it, the billing contact changed, a
+person touched it after the draft, or it left the queue. It writes `out/actions/<id>/revalidation.json` beside each
+draft and `out/revalidation.json`; it never edits the draft itself. The live drop (`generate.py --delta`) changes the
+first five invoices the agent drafts, so the demo shows withdrawals with their reasons.
+
 ## Disputes (the escalate bucket)
 
 The drafting agent leaves disputed invoices for a person. This step makes sure that person gets a worked case
@@ -101,5 +123,16 @@ For each disputed invoice in `out/queue.json`:
 
 Outputs: `out/disputes/<invoice_id>.json`, `out/disputes/salesforce_cases.csv` (one row per case, Data Loader
 columns) and `out/disputes/summary.json` (counts and dollars by reason, owner and priority, for the deck).
+
+### Payment blockers (missing PO)
+
+A missing-PO dispute becomes a case the agent carries until there is evidence: asked the owner, owner accepted, PO
+received, PO checked against the invoice (same account, covers the balance, not expired, lists this invoice). A
+matching PO gives a corrected package (reissued invoice email, Salesforce update); a contradicting one keeps the case
+open with each mismatch. Cases live in `out/disputes/cases/` across runs and close only when the invoice leaves the
+dispute queue. Owner replies are read from `data/responses/*.json`; for the offline demo,
+`python disputes/make_responses.py` writes clearly labelled synthetic replies (one matching PO, one for the wrong
+account, one accept with no PO yet). The dispute desk shows each case's timeline; open one directly with
+`http://<box>:8090/#INV-118955`.
 
 All names are invented and every email domain uses the reserved `.example` TLD.

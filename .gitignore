@@ -4,3 +4,4 @@ out/
 data/delta/
 data/inbox/*
 !data/inbox/.gitkeep
+data/responses/

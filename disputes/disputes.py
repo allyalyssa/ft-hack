@@ -18,6 +18,8 @@ import time
 from datetime import date, timedelta
 from pathlib import Path
 
+import cases
+
 ROOT = Path(__file__).resolve().parent.parent
 TEAMS = {
     "deal_desk": "dealdesk@ourco.example",
@@ -285,13 +287,20 @@ def main():
     ap.add_argument("--out", type=Path, default=ROOT / "out" / "disputes")
     ap.add_argument("--concede-max", type=float, default=25.0,
                     help="recommend crediting disputes at or under this balance instead of arguing them")
+    ap.add_argument("--responses", type=Path, default=cases.RESPONSES, help="folder of owner replies (*.json)")
     args = ap.parse_args()
 
     start = time.perf_counter()
     queue = json.loads(args.queue.read_text(encoding="utf-8"))
     packets = run(queue, args.concede_max)
+    worked = cases.advance(packets, cases.load_responses(args.responses), date.fromisoformat(queue["as_of"]),
+                           args.out / "cases")
     summary = summarize(packets, queue)
+    summary["blocker_cases"] = cases.summarize(worked)
     write(packets, summary, args.out)
+    b = summary["blocker_cases"]["by_state"]
+    print(f"blocker cases: {summary['blocker_cases']['open']} open (waiting on owner {b['requested'] + b['accepted']}, "
+          f"ready {b['ready']}, blocked {b['blocked']})")
     r = summary["by_reason"]
     print(f"disputes: {summary['disputes']:,} (${summary['dollars']:,.2f}) as of {summary['as_of']}; "
           f"{summary['by_priority'].get('P1', {}).get('count', 0)} P1; "
