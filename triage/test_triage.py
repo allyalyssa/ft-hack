@@ -122,7 +122,49 @@ def test_policy_parses_without_yaml():
                 sys.modules.pop("yaml", None)
             else:
                 sys.modules["yaml"] = saved
-    assert policy == POLICY
+    assert policy == {**POLICY, "account_writeoff_max": 25.0}
+
+
+def test_small_invoice_on_a_live_large_account_is_coordinated():
+    big = invoice("B", amount="150000.00", touched=2)
+    items, queue = run(invoice("A"), big)
+    assert "B" not in items
+    assert items["A"]["coordinate"]["invoice_id"] == "B"
+    assert items["A"]["account_context"]["has_large_open"] is True
+    assert queue["totals"]["coordinate_with_owner"] == 1
+
+
+def test_large_account_not_touched_recently_is_not_coordinated():
+    big = invoice("B", amount="150000.00", touched=30)
+    items, _ = run(invoice("A"), big)
+    assert items["A"]["coordinate"] is None
+    assert items["A"]["account_context"]["largest_other"]["invoice_id"] == "B"
+
+
+def test_queued_invoices_are_packaged_by_account():
+    items, queue = run(invoice("A"), invoice("B", amount="80.00"), invoice("C", amount="0.50"))
+    assert len(queue["packages"]) == 1
+    pkg = queue["packages"][0]
+    assert pkg["count"] == 3 and pkg["dollars"] == 200.5
+    assert pkg["by_bucket"] == {"agent": 2, "writeoff": 1}
+    assert {i["package_id"] for i in items.values()} == {"PKG-ACC-1"}
+
+
+def test_writeoff_batches_and_account_totals_need_a_controller():
+    small = [invoice(f"W{n}", amount="4.00") for n in range(5)]
+    items, queue = run(*small)
+    controls = items["W0"]["writeoff_controls"]
+    assert controls["needs_controller"] is True
+    assert controls["account_writeoff_total"] == 20.0
+    assert queue["totals"]["writeoff_needs_controller"] == 5
+    assert queue["billing_leads"][0]["count"] == 5
+
+
+def test_single_tiny_writeoff_stays_within_limits_and_residuals_are_told_apart():
+    items, _ = run(invoice("A", amount="0.37"), invoice("B", amount="900.00", paid="897.50", status="partially_paid"))
+    assert items["A"]["writeoff_controls"]["needs_controller"] is False
+    assert items["A"]["tiny_origin"] == "issued_tiny"
+    assert items["B"]["tiny_origin"] == "residual"
 
 
 def write_bundle(folder, rows, manifest):

@@ -3,3 +3,5 @@ stale_touch_days: 8
 agent_max_amount: 500
 write_off_max_amount: 5
 minutes_per_touch: 6
+# Write-offs on one account in one run above this total go to a controller, even when each is tiny.
+account_writeoff_max: 25
