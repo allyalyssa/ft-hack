@@ -37,6 +37,7 @@ import time
 import traceback
 import uuid
 import urllib.parse
+import urllib.request
 from contextlib import closing
 from datetime import date, datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -153,7 +154,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:
 .ap-ctx{background:var(--selection-bg);color:var(--selection-ink);border-color:var(--selection-line)}.ap-ctx .rm{color:var(--selection-ink)}
 .brand{display:inline-flex;align-items:center;gap:8px}.brand small{margin-left:0}.brand .collex-face{width:48px;height:48px}
 .collex-face{width:56px;height:56px;object-fit:contain;flex:none}.agent-fab{gap:10px}.agent-fab .collex-face{width:42px;height:42px}.ap-head .t{align-items:center}.ap-head .collex-face{width:68px;height:68px}
-.ap-msg.bot .collex-face{display:block;width:38px;height:38px;margin-bottom:6px}
+.ap-msg.bot .collex-face{display:block;width:38px;height:38px;margin-bottom:6px}.agent-live{position:fixed;left:20px;bottom:20px;z-index:49;width:310px;background:#14201a;color:#e7efe9;border-radius:12px;padding:11px 14px;box-shadow:0 10px 30px rgba(10,20,15,.3);font-size:12.5px;line-height:1.45;cursor:pointer;user-select:none}.agent-live .al-top{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px}.agent-live .al-dot{width:9px;height:9px;border-radius:50%;background:#7b8a81;flex:none}.agent-live.busy .al-dot{background:#5fe39a;animation:pulse 1s infinite}.agent-live .al-num{font-size:22px;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums;transition:color .4s}.agent-live .al-num.bump{color:#5fe39a}.agent-live .al-row{display:flex;align-items:baseline;gap:8px;margin-top:4px}.agent-live .al-sub{color:#a9bcb0}.agent-live .al-plus{color:#5fe39a;font-weight:600;opacity:0;transition:opacity .3s}.agent-live .al-plus.on{opacity:1}.agent-live .al-list{display:none;margin-top:8px;border-top:1px solid rgba(255,255,255,.12);padding-top:6px}.agent-live.expanded .al-list{display:block}.agent-live .al-list div{display:flex;justify-content:space-between;gap:8px;color:#cfdcd3}.agent-live .al-list span:last-child{color:#8fa597;white-space:nowrap}#asktoggle,aside#ask,#ask-selection{display:none!important}.chat-open .shell{grid-template-columns:minmax(0,1fr)!important}
 """
 
 JS = """
@@ -913,6 +914,86 @@ def api_invoice(invoice_id):
     }
 
 
+def _drafting_now():
+    """True while a drafting step runs on this machine (Linux /proc; False elsewhere)."""
+    try:
+        for entry in os.scandir("/proc"):
+            if not entry.name.isdigit():
+                continue
+            try:
+                cmd = open(f"/proc/{entry.name}/cmdline", "rb").read().replace(b"\0", b" ")
+            except OSError:
+                continue
+            if b"agent/actions.py" in cmd:
+                return True
+    except OSError:
+        pass
+    return False
+
+
+def _model_name():
+    try:
+        for line in (ROOT / "platform" / "model.env").read_text().splitlines():
+            if line.startswith("MODEL_NAME="):
+                return line.split("=", 1)[1].strip()
+    except OSError:
+        pass
+    return None
+
+
+def _loaded_models():
+    try:
+        with urllib.request.urlopen("http://127.0.0.1:11434/api/ps", timeout=1.5) as r:
+            data = json.load(r)
+        return [{"name": m.get("name"), "gb": round((m.get("size") or 0) / 1e9, 1)} for m in data.get("models") or []]
+    except Exception:
+        return []
+
+
+def _memory_gb():
+    try:
+        info = {}
+        for line in open("/proc/meminfo"):
+            k, v = line.split(":", 1)
+            info[k] = int(v.split()[0])
+        total, avail = info["MemTotal"] / 1048576, info["MemAvailable"] / 1048576
+        return {"used": round(total - avail, 1), "total": round(total, 1)}
+    except Exception:
+        return None
+
+
+def api_activity():
+    """What the background agent is doing right now, for the live strip on every page."""
+    now = datetime.now()
+    packages = load_packages()
+    counts = {"drafted": 0, "edited": 0, "approved": 0, "rejected": 0}
+    recent = []
+    index = (load_queue() or {}).get("_index") or {}
+    for invoice_id, status in packages.items():
+        state = status.get("state")
+        if state in counts:
+            counts[state] += 1
+        stamp = status.get("drafted_at") or status.get("at")
+        try:
+            when = datetime.fromisoformat(str(stamp)[:19])
+        except ValueError:
+            continue
+        recent.append((when, invoice_id, state))
+    recent.sort(reverse=True)
+    latest = []
+    for when, invoice_id, state in recent[:5]:
+        item = index.get(invoice_id)
+        latest.append({"invoice_id": invoice_id, "state": state, "ago_s": max(0, int((now - when).total_seconds())),
+                       "amount": round(amount_of(item), 2) if item else None,
+                       "account_name": invoice_of(item).get("account_name") if item else None})
+    hour_ago = [w for w, _, _ in recent if (now - w).total_seconds() <= 3600]
+    secs_into_cycle = (now.minute % 2) * 60 + now.second
+    return {"ok": True, "drafting_now": _drafting_now(), "next_cycle_s": 120 - secs_into_cycle,
+            "packages": len(packages), "awaiting": counts["drafted"] + counts["edited"], "approved": counts["approved"],
+            "rejected": counts["rejected"], "drafted_last_hour": len(hour_ago), "latest": latest,
+            "model": _model_name(), "loaded": _loaded_models(), "memory": _memory_gb()}
+
+
 def api_post(invoice_id, action, body):
     if not ID_RE.match(invoice_id) or not (ACTIONS_DIR / invoice_id / "status.json").exists():
         return 404, {"ok": False, "error": f"no package for {invoice_id}; the agent has not drafted it"}
@@ -1176,6 +1257,12 @@ def agent_panel():
         '<button class="btn primary" id="agent-ask" type="button">Ask</button></div>'
         '</section>'
         '<button class="ap-select" id="agent-select" type="button">Ask about this</button>'
+        '<div class="agent-live" id="agent-live" title="Click for the latest drafts" role="status" aria-live="polite">'
+        '<div class="al-top"><span class="al-dot"></span><span id="al-state">Local agent</span></div>'
+        '<div class="al-row"><span class="al-num" id="al-num">\u2013</span><span class="al-sub">drafts</span>'
+        '<span class="al-plus" id="al-plus"></span></div>'
+        '<div class="al-sub" id="al-latest"></div><div class="al-sub" id="al-model"></div>'
+        '<div class="al-list" id="al-list"></div></div>'
     )
 
 
@@ -1195,7 +1282,7 @@ WIDGET_CSS = (
 def agent_widget_js():
     kf = "@keyframes pulse{50%{opacity:.35}}"
     base = CSS.replace(kf, "")
-    css = WIDGET_CSS + kf + "".join(rule + "}" for rule in base.split("}") if any(k in rule for k in (".agent-", ".ap-", ".collex-face", "--selection")))
+    css = WIDGET_CSS + kf + "".join(rule + "}" for rule in base.split("}") if any(k in rule for k in (".agent-", ".ap-", ".collex-face", "--selection", "#asktoggle")))
     return ("(function(){if(document.getElementById('agent-panel'))return;"
             f"var st=document.createElement('style');st.textContent={json.dumps(css)};document.head.appendChild(st);"
             f"document.body.insertAdjacentHTML('beforeend',{json.dumps(agent_panel())});"
@@ -1325,6 +1412,39 @@ AGENT_PANEL_JS = r"""
   }
   btn.addEventListener("click", send);
   q.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
+
+  (function live() {
+    var box = document.getElementById("agent-live"); if (!box) { return; }
+    var last = null, shown = null, anim = null;
+    function ago(s) { return s < 60 ? s + "s ago" : s < 3600 ? Math.round(s / 60) + " min ago" : Math.round(s / 3600) + " h ago"; }
+    function money(x) { return x == null ? "" : "$" + Number(x).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+    function countTo(n) {
+      var el = document.getElementById("al-num"); if (shown === null) { shown = n; el.textContent = n.toLocaleString(); return; }
+      if (n === shown) { return; }
+      var plus = document.getElementById("al-plus"); if (n > shown) { plus.textContent = "+" + (n - shown); plus.classList.add("on"); el.classList.add("bump");
+        setTimeout(function () { plus.classList.remove("on"); el.classList.remove("bump"); }, 2500); }
+      clearInterval(anim); var from = shown; shown = n; var step = 0;
+      anim = setInterval(function () { step++; var v = Math.round(from + (n - from) * step / 12); el.textContent = v.toLocaleString(); if (step >= 12) { clearInterval(anim); } }, 40);
+    }
+    box.addEventListener("click", function () { box.classList.toggle("expanded"); });
+    function tick() {
+      fetch("/api/agent/activity").then(function (r) { return r.json(); }).then(function (a) {
+        if (!a.ok) { return; }
+        box.classList.toggle("busy", !!a.drafting_now);
+        document.getElementById("al-state").textContent = a.drafting_now ? "Local agent is drafting now" : "Local agent idle · next cycle in " + a.next_cycle_s + "s";
+        countTo(a.packages);
+        var l = (a.latest || [])[0];
+        document.getElementById("al-latest").textContent = (a.awaiting || 0).toLocaleString() + " awaiting review · " + (a.drafted_last_hour || 0) + " drafted in the last hour" +
+          (l ? " · latest " + l.invoice_id + " " + ago(l.ago_s) : "");
+        var models = (a.loaded || []).map(function (m) { return m.name.replace(":latest", ""); }).join(", ");
+        document.getElementById("al-model").textContent = (models || a.model || "") + (a.memory ? " · " + a.memory.used + " of " + a.memory.total + " GB in use" : "");
+        document.getElementById("al-list").innerHTML = (a.latest || []).map(function (x) {
+          return "<div><span>" + esc(x.invoice_id) + " " + esc(x.account_name || "") + " " + money(x.amount) + "</span><span>" + esc(x.state) + " · " + ago(x.ago_s) + "</span></div>";
+        }).join("");
+      }).catch(function () {}).then(function () { setTimeout(tick, 3000); });
+    }
+    tick();
+  })();
   if (read(KEY) === "1" || /[?&]ask=1\b/.test(location.search)) { open(true); }
   else if (read("collections.agent.job")) { setBusy(true); open(true); }
 })();
@@ -1438,6 +1558,8 @@ class Handler(BaseHTTPRequestHandler):
                     status, data = api_invoice(urllib.parse.unquote(path[len("/api/invoice/"):]))
                 elif path.startswith("/api/agent/job/"):
                     status, data = api_agent_job(path[len("/api/agent/job/"):])
+                elif path == "/api/agent/activity":
+                    status, data = 200, api_activity()
                 elif path == "/api/agent/history":
                     status, data = 200, {"ok": True, "history": agent_history()[:20], "running": (agent_running() or {}).get("id")}
                 else:
