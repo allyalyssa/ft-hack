@@ -16,7 +16,7 @@
   --display:var(--sans); --mono:ui-monospace,"SF Mono",Consolas,monospace;
 }
 *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.5 var(--sans);font-variant-numeric:tabular-nums;accent-color:var(--action);caret-color:var(--action);scrollbar-color:var(--line-2) transparent}
-button,input{font:inherit;color:inherit} button{cursor:pointer} button:disabled{opacity:.5;cursor:default} a{color:var(--action);text-underline-offset:3px} ::selection{background:#d4e8fd;color:var(--ink)} :focus-visible{outline:3px solid var(--action);outline-offset:3px}
+button,input{font:inherit;color:inherit} button{cursor:pointer} button:disabled{opacity:.5;cursor:default} a{color:var(--action);text-underline-offset:3px} ::selection{background:#f2e7ed;color:#6d465b} :focus-visible{outline:3px solid var(--action);outline-offset:3px}
 svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .mono{font-family:var(--mono);font-size:.88em}.muted{color:var(--muted)}.shell{min-height:100vh}
 .skip{position:fixed;top:-60px;left:16px;z-index:50;background:var(--ink);color:white;padding:10px 16px;border-radius:8px}.skip:focus{top:10px}
@@ -76,13 +76,20 @@ main{max-width:1600px;padding:30px 28px 40px}.head{margin-bottom:24px}.head h1{f
  .thread{padding:22px 20px}.askbar{padding:18px 20px}.companion-welcome{width:128px;height:128px}
 }
 .navitems a.navlink{display:inline-flex;align-items:center;text-decoration:none}
+
+:root{--selection-ink:#6d465b;--selection-bg:#f2e7ed;--selection-line:#d4b9c8}
+.brand-companion{width:44px;height:44px;object-fit:contain;flex:none}.brand{gap:8px}.asktoggle img{width:36px;height:36px}.companion-avatar{width:72px;height:72px}.companion-welcome{width:176px;height:176px}
+.ask-about-selection{position:fixed;z-index:45;padding:8px 13px;border:1px solid var(--selection-line);border-radius:7px;background:var(--selection-bg);color:var(--selection-ink);font:500 12px var(--sans);box-shadow:0 4px 16px rgba(45,30,40,.1);cursor:pointer}
+.ask-about-selection[hidden]{display:none}.ask-about-selection:hover{background:#ead9e3}
+@media(min-width:1200px){.companion-avatar{width:64px;height:64px}.companion-welcome{width:160px;height:160px}}
+@media(max-width:400px){.brand-companion{width:40px;height:40px}.companion-avatar{width:56px;height:56px}.companion-welcome{width:144px;height:144px}}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="shell">
   <nav class="side" aria-label="Main">
-    <a class="brand" href="#today" aria-label="Collex home"><div><b>Collex</b><span>Collections</span></div></a>
+    <a class="brand" href="#today" aria-label="Collex home"><img class="brand-companion" src="/assets/collex-companion.png" alt="" width="44" height="44"><div><b>Collex</b><span>Collections</span></div></a>
     <div class="navitems">
     <button class="navlink" data-view="today"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span class="lbl">Invoice board</span></button>
     <div class="group">Work</div>
@@ -94,7 +101,7 @@ main{max-width:1600px;padding:30px 28px 40px}.head{margin-bottom:24px}.head h1{f
     <div class="group">Data</div>
     <a class="navlink navout" id="upload-link" href="/upload"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><span class="lbl">Upload export</span></a>
     </div>
-    <button class="asktoggle" id="asktoggle" aria-expanded="false" aria-controls="ask"><img src="/assets/collex-companion.png" alt="" width="24" height="24">Ask Collex</button>
+    <button class="asktoggle" id="asktoggle" aria-expanded="false" aria-controls="ask"><img src="/assets/collex-companion.png" alt="" width="36" height="36">Ask Collex</button>
     <div class="boxinfo" id="boxinfo"><div class="live">Running on this box</div></div>
   </nav>
 
@@ -113,6 +120,7 @@ main{max-width:1600px;padding:30px 28px 40px}.head{margin-bottom:24px}.head h1{f
 </div>
 
 
+<button class="ask-about-selection" id="ask-selection" type="button" hidden>Ask about this</button>
 <script>
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -400,6 +408,31 @@ function setAskOpen(open, focus = true) {
 }
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#ask").hidden) setAskOpen(false); });
 window.addEventListener("hashchange", () => { if (location.hash !== "#main") fromHash(); });
+const selectionButton = $("#ask-selection");
+let selectedContext = "";
+function updateSelectionPrompt() {
+  const selection = window.getSelection();
+  const anchor = selection?.anchorNode?.parentElement;
+  if (!selection || !selection.rangeCount || anchor?.closest("#ask, input, textarea")) { selectionButton.hidden = true; return; }
+  const text = selection.toString().trim();
+  if (text.length < 2) { selectionButton.hidden = true; return; }
+  selectedContext = text.slice(0, 280);
+  const rect = selection.getRangeAt(0).getBoundingClientRect();
+  if (!rect.width || !rect.height) { selectionButton.hidden = true; return; }
+  selectionButton.style.left = Math.max(8,Math.min(rect.left,innerWidth-150)) + "px";
+  selectionButton.style.top = Math.max(8,Math.min(rect.bottom+8,innerHeight-48)) + "px";
+  selectionButton.hidden = false;
+}
+selectionButton.addEventListener("mousedown", e => e.preventDefault());
+selectionButton.addEventListener("click", () => {
+  setAskOpen(true);
+  $("#askq").value = "What should I know about " + selectedContext + "?";
+  selectionButton.hidden = true;
+  $("#askq").focus();
+});
+document.addEventListener("mouseup", e => { if (!e.target.closest("#ask-selection")) setTimeout(updateSelectionPrompt,0); });
+document.addEventListener("keyup", e => { if (e.key.startsWith("Arrow") && e.shiftKey) updateSelectionPrompt(); if (e.key === "Escape") selectionButton.hidden=true; });
+document.addEventListener("scroll", () => { selectionButton.hidden=true; },true);
 /* ---------- wiring ---------- */
 document.addEventListener("click", e => {
   const scope = e.target.closest("[data-scope]"); if (scope) { clearTimeout(searchTimer); board.scope=scope.dataset.scope; board.page=1; return loadBoard(); }
@@ -409,7 +442,7 @@ document.addEventListener("click", e => {
   if (e.target.closest("#refreshboard, #retryboard")) return loadBoard();
   if (e.target.closest("#clearboard")) { clearTimeout(searchTimer); Object.assign(board,{q:"",owner:"",scope:"all",page:1}); $("#board-search").value=""; return loadBoard(); }
   if (e.target.closest("#retryoverview")) return refresh().then(() => { if (ov) fromHash(); });
-  const nav = e.target.closest(".navlink"); if (nav) return go(nav.dataset.view);
+  const nav = e.target.closest(".navlink"); if (nav?.dataset.view) return go(nav.dataset.view);
   const g = e.target.closest("[data-goto]"); if (g) return go(g.dataset.goto);
   const inv = e.target.closest("[data-inv]"); if (inv) { if (!dockedChat.matches) setAskOpen(false); return go("invoice", inv.dataset.inv); }
   const row = e.target.closest("#list .row"); if (row) return openDetail(row.dataset.id, view === "accounts" ? packageDetail : null);

@@ -147,6 +147,14 @@ textarea{display:block;width:100%;min-height:200px;margin:0 0 10px;font:13px/1.5
 .empty{padding:28px 16px;text-align:center;color:var(--muted)}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;background:var(--chip);padding:1px 5px;border-radius:4px}
 @media (max-width:640px){.wrap{padding:0 16px}.cards{grid-template-columns:1fr}.who{margin-left:0}.kv{grid-template-columns:1fr}}.ask{padding:16px}.ask textarea{min-height:76px;font:14px/1.5 inherit;font-family:inherit}.ask-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.suggest{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}.suggest button{font:inherit;font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--line-strong);background:var(--chip);color:var(--text);cursor:pointer}.suggest button:hover{border-color:var(--accent-line);background:var(--accent-soft)}.ask-state{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}.qa{border-top:1px solid var(--line);padding:14px 16px}.qa:first-child{border-top:0}.qa .q{font-weight:600;margin:0 0 6px}.qa .when{color:var(--faint);font-size:12px;font-weight:400;margin-left:8px}.qa .a{color:var(--text)}.qa .a p{margin:0 0 8px}.qa .a ul{margin:0 0 8px;padding-left:20px}.qa .err{color:#a8321f}.sandbox-note{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:999px;padding:2px 10px;margin-bottom:14px}.agent-fab{position:fixed;right:20px;bottom:20px;z-index:50;display:flex;align-items:center;gap:8px;font:inherit;font-weight:600;padding:11px 18px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer;box-shadow:0 6px 20px rgba(20,40,80,.25)}.agent-fab:hover{background:var(--accent-hover)}.agent-fab .dot{width:8px;height:8px;border-radius:50%;background:#7ee2a8}.agent-fab.busy .dot{background:#ffd166;animation:pulse 1s infinite}@keyframes pulse{50%{opacity:.35}}.agent-panel{position:fixed;right:20px;bottom:76px;z-index:51;width:400px;max-width:calc(100vw - 32px);height:min(640px,calc(100vh - 110px));display:none;flex-direction:column;background:var(--panel);border:1px solid var(--line-strong);border-radius:12px;box-shadow:0 18px 50px rgba(20,40,80,.28);overflow:hidden}.agent-panel.open{display:flex}.ap-head{padding:12px 14px;border-bottom:1px solid var(--line)}.ap-head .t{font-weight:650;display:flex;align-items:center;gap:8px}.ap-head .x{margin-left:auto;border:0;background:none;font-size:20px;line-height:1;color:var(--muted);cursor:pointer}.ap-head .n{font-size:12px;color:var(--accent-ink);margin-top:3px}.ap-body{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;background:#fafbfc}.ap-msg{max-width:88%;padding:8px 11px;border-radius:10px;font-size:13.5px;line-height:1.45;word-wrap:break-word}.ap-msg.me{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:3px}.ap-msg.bot{align-self:flex-start;background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:3px}.ap-msg.bot p{margin:0 0 6px}.ap-msg.bot p:last-child{margin:0}.ap-msg.bot ul{margin:0 0 6px;padding-left:18px}.ap-msg.err{border-color:#f0c4bb;color:#a8321f}.ap-msg .meta{display:block;font-size:11px;color:var(--faint);margin-top:4px}.ap-msg.work{color:var(--muted);font-variant-numeric:tabular-nums}.ap-suggest{display:flex;gap:6px;flex-wrap:wrap;padding:8px 14px 0;border-top:1px solid var(--line)}.ap-suggest button{font:inherit;font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line-strong);background:var(--chip);color:var(--text);cursor:pointer}.ap-suggest button:hover{border-color:var(--accent-line);background:var(--accent-soft)}.ap-input{display:flex;gap:8px;padding:10px 14px 12px}.ap-input textarea{min-height:0;height:40px;margin:0;flex:1;font:13.5px/1.4 inherit;font-family:inherit;resize:none;padding:9px 10px}.ap-input .btn{padding:7px 14px}.ap-refresh{align-self:flex-start;font-size:12px}.ap-select{position:absolute;z-index:60;display:none;font:inherit;font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(20,40,80,.25)}.ap-select:hover{background:var(--accent-hover)}.ap-ctx{display:none;margin:8px 14px 0;padding:7px 30px 7px 10px;position:relative;font-size:12.5px;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:8px;max-height:72px;overflow:hidden}.ap-ctx.on{display:block}.ap-ctx b{display:block;font-size:11px;font-weight:600;margin-bottom:2px}.ap-ctx .rm{position:absolute;right:6px;top:4px;border:0;background:none;color:var(--muted);font-size:16px;cursor:pointer}.ap-msg .quote{display:block;border-left:2px solid rgba(255,255,255,.6);padding-left:7px;margin-bottom:5px;opacity:.9;font-size:12.5px}
+
+:root{--selection-ink:#6d465b;--selection-bg:#f2e7ed;--selection-line:#d4b9c8}
+::selection{background:var(--selection-bg);color:var(--selection-ink)}
+.ap-select,.ap-select:hover{background:var(--selection-bg);color:var(--selection-ink);border:1px solid var(--selection-line);box-shadow:0 4px 16px rgba(45,30,40,.1)}
+.ap-ctx{background:var(--selection-bg);color:var(--selection-ink);border-color:var(--selection-line)}.ap-ctx .rm{color:var(--selection-ink)}
+.brand{display:inline-flex;align-items:center;gap:8px}.brand small{margin-left:0}.brand .collex-face{width:48px;height:48px}
+.collex-face{width:56px;height:56px;object-fit:contain;flex:none}.agent-fab{gap:10px}.agent-fab .collex-face{width:42px;height:42px}.ap-head .t{align-items:center}.ap-head .collex-face{width:68px;height:68px}
+.ap-msg.bot .collex-face{display:block;width:38px;height:38px;margin-bottom:6px}
 """
 
 JS = """
@@ -433,7 +441,7 @@ def page(title, body, nav="", refresh=0):
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
             f'<meta name="viewport" content="width=device-width, initial-scale=1">'
             f"<title>{esc(title)} · Collections</title>{meta}<style>{CSS}</style></head><body>"
-            f'<header class="top"><div class="wrap"><a class="brand" href="/">Collections<small>approval desk</small></a>'
+            f'<header class="top"><div class="wrap"><a class="brand" href="/"><img class="collex-face" src="/assets/collex-companion.png" alt="" width="48" height="48">Collex<small>approval desk</small></a>'
             f'<nav class="nav">{nav_html}</nav>'
             f'<label class="who">Reviewer <input id="reviewer" placeholder="Your name" autocomplete="name"></label>'
             f'</div></header><main class="wrap">{body}</main>{agent_panel()}<script>{JS}</script><script>{AGENT_PANEL_JS}</script></body></html>')
@@ -1047,9 +1055,9 @@ def agent_panel():
     chips = "".join(f'<button type="button" data-q="{esc(t)}">{esc(t)}</button>' for t in AGENT_SUGGESTIONS)
     return (
         '<button class="agent-fab" id="agent-fab" type="button" aria-controls="agent-panel" aria-expanded="false">'
-        '<span class="dot"></span>Ask the agent</button>'
+        '<img class="collex-face" src="/assets/collex-companion.png" alt="" width="42" height="42">Ask Collex</button>'
         '<section class="agent-panel" id="agent-panel" aria-label="Ask the agent">'
-        '<div class="ap-head"><div class="t">Collections agent<button class="x" id="agent-close" type="button" aria-label="Close">×</button></div>'
+        '<div class="ap-head"><div class="t"><img class="collex-face" src="/assets/collex-companion.png" alt="" width="68" height="68">Collex<button class="x" id="agent-close" type="button" aria-label="Close">×</button></div>'
         f'<div class="n">OpenClaw in NemoClaw sandbox <b>{esc(AGENT_SANDBOX)}</b> · {esc(AGENT_MODEL)} on this GB10 · no cloud calls</div></div>'
         '<div class="ap-body" id="agent-body"></div>'
         f'<div class="ap-suggest" id="agent-suggest">{chips}</div>'
@@ -1088,7 +1096,7 @@ AGENT_PANEL_JS = r"""
   function bubble(cls, html) { var d = document.createElement("div"); d.className = "ap-msg " + cls; d.innerHTML = html; body.appendChild(d); body.scrollTop = body.scrollHeight; return d; }
   function answer(j, into) {
     var el = into || bubble("bot", "");
-    if (j.state === "done") { el.className = "ap-msg bot"; el.innerHTML = md(j.answer) + '<span class="meta">' + (j.elapsed_s ? j.elapsed_s + "s" : "") + "</span>"; }
+    if (j.state === "done") { el.className = "ap-msg bot"; el.innerHTML = '<img class="collex-face" src="/assets/collex-companion.png" alt="" width="38" height="38">' + md(j.answer) + '<span class="meta">' + (j.elapsed_s ? j.elapsed_s + "s" : "") + "</span>"; }
     else { el.className = "ap-msg bot err"; el.textContent = j.error || "The agent could not answer."; }
     if (j.state === "done" && /\b(approve|reject|edit)\b/i.test(j.question || "")) {
       var r = document.createElement("a"); r.href = location.pathname + location.search; r.className = "ap-refresh"; r.textContent = "Refresh this page to see the change";
@@ -1274,6 +1282,15 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         parts = urllib.parse.urlsplit(self.path)
         path, query = parts.path, urllib.parse.parse_qs(parts.query)
+        if path == "/assets/collex-companion.png":
+            asset = Path(__file__).resolve().parent / "assets" / "collex-companion.png"
+            data = asset.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", "image/png")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+            return
         if path.startswith("/api/"):
             pretty = query.get("pretty", [""])[0] in ("1", "true")
             try:

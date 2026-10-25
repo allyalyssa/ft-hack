@@ -153,8 +153,10 @@ Compact controls use modest corners; regular buttons and fields use the control 
 ### Don't:
 
 - **Don't** add invented price movement, pulsing decoration or chart filler to the invoice board.
-- **Chat companion:** The user-requested Fuggler-inspired plush belongs in the Ask panel only. Use the transparent local `app/assets/collex-companion.png` at 56px in its header (48px on small phones), 144px in its welcome state (128px on small phones), and 24px beside agent reply labels. Keep the financial workspace unchanged. The generation prompt is stored beside the image.
+- **Chat companion:** The user-requested Fuggler-inspired plush belongs in the Ask panel only. Use the transparent local `app/assets/collex-companion.png` at 64–72px in its header (56px on small phones), 160–176px in its welcome state (144px on small phones), and 24px beside agent reply labels. Keep the financial workspace unchanged. The generation prompt is stored beside the image.
 - **Don't** replace restrained chrome with large icon tiles or decorative gradients.
 - **Don't** use color alone to convey collection state.
 
 Palette refinement: graphite navigation (#1d1d1f) with light labels, porcelain-white canvas (#fafafa), white ledger surfaces, soft silver separators (#e2e2e5), quiet gray hover (#f7f7f9), and blue (#0071e3) reserved for primary actions and focus. Portfolio totals remain graphite; only written financial status uses muted red, green or amber.
+
+Selection context uses rose-plum text (#6d465b) on a pale rose background (#f2e7ed), with a matching quiet border (#d4b9c8). Native text selection, the Ask about this action and GB10 selected-context chip share these values. The selection action opens chat and fills a question; it never sends automatically. Collex’s companion is also visible beside the brand (44px), on the chat launcher (36px), and more prominently in the chat header and welcome state. GB10 serves its own local copy of the asset.

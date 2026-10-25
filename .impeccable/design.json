@@ -213,6 +213,16 @@
           "oklch(85% 0.014 75)",
           "oklch(95% 0.004 75)"
         ]
+      },
+      "selection": {
+        "role": "accent",
+        "displayName": "Rose plum selection",
+        "canonical": "#6d465b",
+        "tonalRamp": [
+          "#f2e7ed",
+          "#d4b9c8",
+          "#6d465b"
+        ]
       }
     },
     "typographyMeta": {
