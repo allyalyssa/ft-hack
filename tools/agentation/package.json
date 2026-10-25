@@ -1,0 +1,14 @@
+{
+  "name": "ft-hack-agentation-overlay",
+  "private": true,
+  "description": "Dev-only: bundles the Agentation toolbar into one script the dev proxy injects into our plain-HTML pages.",
+  "scripts": {
+    "build": "esbuild entry.jsx --bundle --format=iife --minify --jsx=automatic --loader:.css=text --define:process.env.NODE_ENV=\\\"production\\\" --outfile=dist/agentation.js"
+  },
+  "dependencies": {
+    "agentation": "^3.1.2",
+    "esbuild": "^0.24.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

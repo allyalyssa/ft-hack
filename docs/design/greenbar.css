@@ -1,0 +1,27 @@
+/* Greenbar tokens. Copy this block into a page's <style>; full brand book: the Greenbar design system link in the team chat.
+   Rules in short: ledger blue is the only accent; recovered / writeoff / dispute are bucket colors, never decoration;
+   invoice lists are greenbar tables (alternate surface and band rows); every number in the mono family with tabular figures;
+   one hero figure per view, not a row of equal KPI cards; one raised panel per view. */
+:root {
+  --paper:#F4F6F2; --surface:#FFFFFF; --band:#E7EFE3; --line:#D3DACF; --ink:#172033; --ink-muted:#566070;
+  --ledger:#2A4D8F; --on-ledger:#FFFFFF; --recovered:#1E6B47; --recovered-soft:#DDEDE3;
+  --writeoff:#8A5A12; --writeoff-soft:#F6EBD7; --dispute:#A8402C; --dispute-soft:#F5E1DB;
+  --sans:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --space-1:4px; --space-2:8px; --space-4:16px; --space-6:24px; --space-10:40px;
+  --r-sm:3px; --r-md:6px; --r-lg:10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#0F1520; --surface:#161E2B; --band:#1D2E29; --line:#2A3647; --ink:#E8ECEF; --ink-muted:#9BA6B4;
+    --ledger:#8FB2EE; --on-ledger:#0F1520; --recovered:#6CCB98; --recovered-soft:#15301F;
+    --writeoff:#E0A84E; --writeoff-soft:#33260F; --dispute:#E58A74; --dispute-soft:#3A1C16; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#0F1520; --surface:#161E2B; --band:#1D2E29; --line:#2A3647; --ink:#E8ECEF; --ink-muted:#9BA6B4;
+  --ledger:#8FB2EE; --on-ledger:#0F1520; --recovered:#6CCB98; --recovered-soft:#15301F;
+  --writeoff:#E0A84E; --writeoff-soft:#33260F; --dispute:#E58A74; --dispute-soft:#3A1C16; color-scheme:dark;
+}
+/* Deck: content slides on light --paper, title and closing slides on dark --paper (#0F1520). Fonts from Google Fonts:
+   IBM Plex Sans 400/600 and IBM Plex Mono 500 for figures. */
