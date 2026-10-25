@@ -48,8 +48,8 @@ keeps overlapping cron runs and the dashboard's Draft now button from drafting t
 
 - Model: `platform/model.env` with `MODEL_BASE_URL` and `MODEL_NAME`. Environment variables of the same names override
   it, so `MODEL_NAME=gpt-oss:20b python3 agent/actions.py --invoice INV-116288` tests the big model without editing the
-  file. qwen3 gets `/no_think`; gpt-oss gets `reasoning_effort: low`.
-- Cron: `python3 triage/triage.py && python3 agent/actions.py --limit 5 && python3 channel/post.py`.
+  file. Thinking is switched off with `reasoning_effort: none` (gpt-oss cannot switch it off, so it gets `low`); a server that rejects the field is retried without it.
+- Cron: `python3 platform/run.py --once` (triage, disputes, `actions.py --limit 5`, `post.py`). See `platform/RUNBOOK.md`.
 - Heartbeat: `python3 agent/summary.py`.
 - Dashboard: run `python3 channel/dashboard.py` once and leave it up. It binds 0.0.0.0:8080 so the Mac can open it
   over the cable. If it runs inside the OpenShell sandbox, port 8080 has to be forwarded to the host.

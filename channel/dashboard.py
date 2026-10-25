@@ -300,6 +300,26 @@ def artifact_cards(action, editing, template_files):
     return out
 
 
+def dispute_cards(invoice_id, item):
+    case = store.read_json(store.OUT / "disputes" / f"{invoice_id}.json")
+    if case is None:
+        return (f'<div class="empty">Disputed, so this one goes to a person. {esc(item["account_owner"])} owns the account.'
+                f'<br>Run <span class="mono">python3 disputes/disputes.py</span> to work it up.</div>')
+    evidence = "".join(f'<div class="note"><div class="who">{esc(e["date"])} &middot; {esc(e["source"])}</div>{esc(e["text"])}</div>'
+                       for e in case["evidence"]) or '<div class="note">Nothing recorded.</div>'
+    owner, ack = case["owner_note"], case["customer_ack"]
+    return (f'<div class="arts"><div class="card wide"><h3>Dispute case {esc(case["case_id"])}</h3><dl>'
+            f'<dt>Reason</dt><dd>{esc(case["reason_label"])}</dd>'
+            f'<dt>Priority</dt><dd>{esc(case["priority"])}, respond by {esc(store.long_date(case["respond_by"]))}</dd>'
+            f'<dt>Goes to</dt><dd>{esc(case["route_to"].replace("_", " "))} ({esc(case["route_email"] or "")})</dd>'
+            f'<dt>Recommended</dt><dd>{esc(case["resolution"])}</dd></dl></div>'
+            f'<div class="card wide"><h3>Evidence</h3>{evidence}</div>'
+            f'<div class="card"><h3>Note to {esc(case["route_to"].replace("_", " "))}</h3>'
+            f'<div class="subject">{esc(owner["subject"])}</div><div class="body">{esc(owner["body"])}</div></div>'
+            f'<div class="card"><h3>Holding reply to customer</h3>'
+            f'<div class="subject">{esc(ack["subject"])}</div><div class="body">{esc(ack["body"])}</div></div></div>')
+
+
 def detail(invoice_id, params, reviewer):
     item = find_item(invoice_id)
     if item is None:
@@ -315,8 +335,7 @@ def detail(invoice_id, params, reviewer):
     who = f'<input name="by" value="{esc(reviewer)}" placeholder="Your name" required>'
 
     if action is None and item["bucket"] == "escalate":
-        right = (f'<div class="empty">Disputed, so this one goes to a person. {esc(item["account_owner"])} owns the account.'
-                 f'<br>The agent does not draft customer messages for disputes.</div>')
+        right = dispute_cards(invoice_id, item)
     elif action is None:
         model = store.model_config()[1]
         right = (f'<div class="empty"><p>No drafts yet. The scheduled run drafts a few invoices every cycle.</p>'

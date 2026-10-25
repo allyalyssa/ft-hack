@@ -95,14 +95,24 @@ def load_prompt(bucket):
 
 def chat(base_url, model, messages):
     body = {"model": model, "messages": messages, "temperature": 0.2, "max_tokens": 2000, "stream": False,
-            "response_format": {"type": "json_object"}}
-    if "gpt-oss" in model:
-        body["reasoning_effort"] = "low"
-    req = urllib.request.Request(base_url.rstrip("/") + "/chat/completions", data=json.dumps(body).encode(),
-                                 headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
-        content = json.load(r)["choices"][0]["message"].get("content") or ""
+            "response_format": {"type": "json_object"},
+            "reasoning_effort": "low" if "gpt-oss" in model else "none"}
+    url = base_url.rstrip("/") + "/chat/completions"
+    try:
+        response = post_json(url, body)
+    except urllib.error.HTTPError as e:
+        if e.code not in (400, 422):
+            raise
+        del body["reasoning_effort"]
+        response = post_json(url, body)
+    content = response["choices"][0]["message"].get("content") or ""
     return re.sub(r"<think>.*?</think>", "", content, flags=re.S).strip()
+
+
+def post_json(url, body):
+    req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+        return json.load(r)
 
 
 def parse(content, fields):
@@ -198,18 +208,13 @@ def draft(item, queue, base_url, model):
     start = time.perf_counter()
     fields = FIELDS[item["bucket"]]
     fact_text, pay_by = facts(item, queue)
-    messages = load_prompt(item["bucket"])
-    messages.append({"role": "user", "content": fact_text + ("\n/no_think" if "qwen3" in model else "")})
-    content = chat(base_url, model, messages)
-    result = parse(content, fields)
+    prompt = load_prompt(item["bucket"])
+    result = parse(chat(base_url, model, prompt + [{"role": "user", "content": fact_text}]), fields)
     bad = problems(item, queue, result, pay_by)
     if bad:
-        messages += [
-            {"role": "assistant", "content": content},
-            {"role": "user", "content": "Fix these problems and return the whole JSON object again:\n"
-                                        + "\n".join(f"- {k}: {v}" for k, v in bad.items())},
-        ]
-        retry = parse(chat(base_url, model, messages), fields)
+        fixes = "\n".join(f"- {k}: {v}" for k, v in bad.items())
+        retry_text = f"{fact_text}\n\nA previous draft for this invoice had these problems. Avoid them:\n{fixes}"
+        retry = parse(chat(base_url, model, prompt + [{"role": "user", "content": retry_text}]), fields)
         still_bad = problems(item, queue, retry, pay_by)
         for field in bad:
             if field not in still_bad:
@@ -300,6 +305,7 @@ def main():
     if args.invoice and not items:
         raise SystemExit(f"{args.invoice} is not in the agent or writeoff bucket of {args.queue}")
     pending = [i for i in items if needs_draft(i, snapshot)]
+    pending.sort(key=lambda i: store.read_status(i["invoice_id"]) is not None)
     todo = pending[:args.limit] if args.limit else pending
     base_url, model = store.model_config()
 
