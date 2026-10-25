@@ -1,0 +1,5 @@
+min_days_past_due: 30
+stale_touch_days: 8
+agent_max_amount: 500
+write_off_max_amount: 5
+minutes_per_touch: 6

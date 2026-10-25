@@ -1,0 +1,10 @@
+{
+  "kind": "full",
+  "as_of": "2026-10-25",
+  "seed": 42,
+  "counts": {
+    "invoices": 20000,
+    "sheet_notes": 5017,
+    "slack_threads": 300
+  }
+}
