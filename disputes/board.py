@@ -222,7 +222,7 @@ const TEAMS = {account_owner: "Account owner", billing_ops: "Billing ops", deal_
 const team = k => TEAMS[k] || String(k ?? "unknown");
 const day = iso => { const d = new Date(iso + "T12:00:00"); return isNaN(d) ? esc(iso) : d.toLocaleDateString("en-US", {weekday: "short", month: "short", day: "numeric"}); };
 const AGES = [["a1", "30 to 60 days", 30, 60], ["a2", "61 to 90 days", 61, 90], ["a3", "91 to 180 days", 91, 100000]];
-let all = [], current = null, age = "", loaded = false;
+let all = [], current = null, age = "", loaded = false, reasonKey = "", lastRun = "";
 
 async function get(p) {
   const r = await fetch(p);
@@ -238,14 +238,16 @@ function summary(s) {
   }
   const p1 = (s.by_priority.P1 || {count: 0}).count;
   const respond = all.filter(d => d.priority === "P1").map(d => d.respond_by).sort()[0];
-  $("#lede").innerHTML = `<b>${s.disputes.toLocaleString()} disputed small invoices, ${money(s.dollars)}.</b>
-    ${s.no_reason_recorded.toLocaleString()} have no reason on file.
-    <span class="p1">${p1.toLocaleString()} are P1</span>${respond ? " and need a reply by " + day(respond) : ""}.
-    ${s.stale_flags.toLocaleString()} look settled: the customer has since promised to pay.
-    ${s.concede_recommended.count.toLocaleString()} are under $25 and cheaper to credit than to argue (${money(s.concede_recommended.dollars)}).`;
+  const n = v => Number(v || 0).toLocaleString();
+  $("#lede").innerHTML = `<b>${n(s.disputes)} disputed small invoices, ${money(s.dollars)}.</b>
+    ${n(s.no_reason_recorded)} have no reason on file.
+    <span class="p1">${n(p1)} are P1</span>${respond ? " and need a reply by " + day(respond) : ""}.
+    ${n(s.stale_flags)} look settled: the customer has since promised to pay.
+    ${n(s.concede_recommended.count)} are under $25 and cheaper to credit than to argue (${money(s.concede_recommended.dollars)}).`;
 }
 
 function aging() {
+  const focusedAge = document.activeElement && document.activeElement.classList.contains("seg") ? document.activeElement.dataset.age : null;
   const total = all.length || 1;
   const segs = AGES.map(([cls, label, lo, hi]) => {
     const rows = all.filter(d => d.days_past_due >= lo && d.days_past_due <= hi);
@@ -253,7 +255,8 @@ function aging() {
   });
   $("#aging").innerHTML = `<div class="cap"><span>By days past due</span><span>click a band to filter</span></div>
     <div class="strip">${segs.map(s => `<button class="seg ${s.cls}" style="flex-grow:${Math.max(s.n / total, 0.12)}" data-age="${s.cls}" aria-pressed="${age === s.cls}"
-      title="${esc(s.label)}"><b>${s.n.toLocaleString()}</b><span>${esc(s.label)} &middot; ${money(s.dollars)}</span></button>`).join("")}</div>`;
+      title="${esc(s.label)}"><b>${Number(s.n).toLocaleString()}</b><span>${esc(s.label)} &middot; ${money(s.dollars)}</span></button>`).join("")}</div>`;
+  if (focusedAge) { const b = document.querySelector(`.seg[data-age="${focusedAge}"]`); if (b) b.focus({preventScroll: true}); }
 }
 
 function shown() {
@@ -319,7 +322,7 @@ async function show(id) {
       <div><dt>Reply by</dt><dd>${day(d.respond_by)}</dd></div>
       <div><dt>Goes to</dt><dd>${owner}</dd></div>
       <div><dt>Reason</dt><dd>${esc(d.reason_label)}</dd></div>
-      <div><dt>Same account</dt><dd>${d.account_other_queued.count ? `<span class="mono">${d.account_other_queued.count}</span> more queued, <span class="mono">${money(d.account_other_queued.dollars)}</span>` : "nothing else queued"}</dd></div>
+      <div><dt>Same account</dt><dd>${d.account_other_queued.count ? `<span class="mono">${Number(d.account_other_queued.count)}</span> more queued, <span class="mono">${money(d.account_other_queued.dollars)}</span>` : "nothing else queued"}</dd></div>
     </dl>
     <section class="part"><h3>Recommended</h3><p class="rec">${esc(d.resolution)}</p></section>
     ${ev}
@@ -348,11 +351,20 @@ async function load() {
   summary(s);
   aging();
   const reasons = [...new Map(all.map(d => [d.reason, d.reason_label])).entries()];
-  const fr = $("#fr"), keep = fr.value;
-  fr.innerHTML = '<option value="">All reasons</option>' + reasons.map(([k, l]) => `<option value="${esc(k)}">${esc(l)}</option>`).join("");
-  fr.value = keep;
+  const key = JSON.stringify(reasons);
+  if (key !== reasonKey) {
+    reasonKey = key;
+    const fr = $("#fr"), keep = fr.value;
+    fr.innerHTML = '<option value="">All reasons</option>' + reasons.map(([k, l]) => `<option value="${esc(k)}">${esc(l)}</option>`).join("");
+    fr.value = reasons.some(([k]) => k === keep) ? keep : "";
+  }
+  if (current && !all.some(d => d.invoice_id === current)) current = null;
+  const runKey = s.as_of + ":" + all.length + ":" + s.dollars;
+  const changed = runKey !== lastRun;
+  lastRun = runKey;
   render();
   if (!current && all.length) show(all[0].invoice_id);
+  else if (current && changed) show(current);
   if (!all.length) $("#detail").innerHTML = '<p class="empty">No disputes in the latest run. When triage finds disputed small invoices, they land here with a reason, an owner and drafts.</p>';
 }
 
@@ -362,6 +374,7 @@ function move(step) {
   const i = rows.findIndex(r => r.dataset.id === current);
   const next = rows[Math.min(Math.max(i + step, 0), rows.length - 1)];
   show(next.dataset.id).then(() => {
+    if (next.dataset.id !== current) return;
     const el = [...document.querySelectorAll("#rows .row")].find(r => r.dataset.id === next.dataset.id);
     if (el) { el.focus({preventScroll: true}); el.scrollIntoView({block: "nearest"}); }
   });
@@ -378,13 +391,14 @@ document.addEventListener("click", async e => {
     const text = $("#copy-" + copy.dataset.copy).textContent;
     try { await navigator.clipboard.writeText(text); copy.textContent = "Copied"; copy.classList.add("done"); }
     catch (err) { const r = document.createRange(); r.selectNodeContents($("#copy-" + copy.dataset.copy)); getSelection().removeAllRanges(); getSelection().addRange(r); copy.textContent = "Selected, press Ctrl+C"; }
-    setTimeout(() => { copy.textContent = "Copy"; copy.classList.remove("done"); }, 2000);
+    clearTimeout(copy._reset);
+    copy._reset = setTimeout(() => { copy.textContent = "Copy"; copy.classList.remove("done"); }, 2000);
     return;
   }
   const row = e.target.closest(".row"); if (row) show(row.dataset.id);
 });
 document.addEventListener("keydown", e => {
-  if (!e.target.closest || !e.target.closest("#rows")) return;
+  if (!e.target.closest || !e.target.closest("#rows") || e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key === "ArrowDown" || e.key === "j") { e.preventDefault(); move(1); }
   if (e.key === "ArrowUp" || e.key === "k") { e.preventDefault(); move(-1); }
 });
