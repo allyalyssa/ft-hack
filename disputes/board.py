@@ -388,7 +388,8 @@ async function load() {
   const changed = runKey !== lastRun;
   lastRun = runKey;
   render();
-  const wanted = decodeURIComponent(location.hash.slice(1));
+  let wanted = "";
+  try { wanted = decodeURIComponent(location.hash.slice(1)); } catch (e) { wanted = ""; }
   if (!current && wanted && all.some(d => d.invoice_id === wanted)) show(wanted);
   else if (!current && all.length) show(all[0].invoice_id);
   else if (current && changed) show(current);

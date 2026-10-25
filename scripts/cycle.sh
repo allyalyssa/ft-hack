@@ -41,10 +41,21 @@ step() {
   fi
 }
 
+# A failed side check is logged but does not stop drafting and posting.
+soft() {
+  name="$1"; shift
+  start=$(date +%s)
+  if run "$@"; then
+    echo "$(date -u +%FT%TZ) ok   $name ($(( $(date +%s) - start ))s)"
+  else
+    echo "$(date -u +%FT%TZ) WARN $name failed after $(( $(date +%s) - start ))s; continuing"
+  fi
+}
+
 echo "$(date -u +%FT%TZ) cycle start"
 step triage   "$PYTHON" triage/triage.py
-step recheck  "$PYTHON" triage/revalidate.py
-step disputes "$PYTHON" disputes/disputes.py
+soft recheck  "$PYTHON" triage/revalidate.py
+soft disputes "$PYTHON" disputes/disputes.py
 step draft    "$PYTHON" agent/actions.py --limit "$LIMIT"
 step post     "$PYTHON" channel/post.py
 step summary  "$PYTHON" agent/summary.py

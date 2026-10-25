@@ -90,6 +90,30 @@ def test_responses_are_read_from_files_and_marked_synthetic():
     assert len(got) == 1 and got[0]["synthetic"] is True and got[0]["id"] == "owner.json#0"
 
 
+def test_po_with_missing_or_bad_evidence_is_never_ready():
+    p = packet()
+    for bad in (po(account_id=None), po(amount="nan"), po(valid_until=None), po(invoice_ids="INV-12"), "junk"):
+        assert cases.verify(bad, p, AS_OF), bad
+
+
+def test_replies_keep_file_order_past_nine_and_use_reply_ids():
+    with tempfile.TemporaryDirectory() as tmp:
+        rows = [{"invoice_id": "INV-1", "type": "note", "at": "2026-10-25", "message": str(n)} for n in range(12)]
+        rows[3]["reply_id"] = "owner-42"
+        (Path(tmp) / "r.json").write_text(json.dumps({"responses": rows}))
+        got = cases.load_responses(tmp)
+    assert [r["message"] for r in got] == [str(n) for n in range(12)]
+    assert got[3]["id"] == "owner-42"
+
+
+def test_reopened_case_drops_the_old_package():
+    with tempfile.TemporaryDirectory() as tmp:
+        run([packet()], [reply("po", po=po())], tmp)
+        cases.advance([], [], AS_OF, tmp)
+        back = run([packet()], [reply("po", po=po())], tmp)["INV-1"]
+    assert back["state"] == "requested" and "package" not in back and "po" not in back
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in globals().items() if n.startswith("test_")]
     for name, fn in tests:

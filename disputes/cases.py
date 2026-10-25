@@ -8,6 +8,9 @@ Cases live in out/disputes/cases/<invoice_id>.json and survive every run. Owner 
 data/responses/*.json; in the offline demo those files are synthetic and say so.
 """
 import json
+import math
+import os
+import re
 from datetime import date
 from pathlib import Path
 
@@ -24,21 +27,33 @@ LABELS = {
 }
 
 
+SAFE_ID = re.compile(r"^[A-Za-z0-9_-]+$")
+
+
 def read_json(path):
     try:
-        return json.loads(Path(path).read_text(encoding="utf-8"))
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return None
+    return data if isinstance(data, dict) else None
+
+
+def write_atomic(path, data):
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    os.replace(tmp, path)
 
 
 def load_responses(folder=RESPONSES):
     out = []
     for path in sorted(Path(folder).glob("*.json")):
         data = read_json(path) or {}
-        for n, r in enumerate(data.get("responses") or []):
-            if isinstance(r, dict) and r.get("invoice_id"):
-                out.append({**r, "id": f"{path.name}#{n}", "synthetic": bool(data.get("synthetic"))})
-    return sorted(out, key=lambda r: (str(r.get("at") or ""), r["id"]))
+        rows = data.get("responses")
+        for n, r in enumerate(rows if isinstance(rows, list) else []):
+            if isinstance(r, dict) and isinstance(r.get("invoice_id"), str):
+                rid = str(r.get("reply_id") or f"{path.name}#{n}")
+                out.append({**r, "id": rid, "synthetic": bool(data.get("synthetic")), "_order": (path.name, n)})
+    return sorted(out, key=lambda r: (str(r.get("at") or ""), r["_order"]))
 
 
 def event(case, at, what, detail, source="agent"):
@@ -46,26 +61,34 @@ def event(case, at, what, detail, source="agent"):
 
 
 def verify(po, packet, as_of):
+    """Every check must pass on evidence that is present; a missing field is a problem, not a pass."""
+    if not isinstance(po, dict):
+        return ["the reply has no readable PO"]
     problems = []
-    if po.get("account_id") and po["account_id"] != packet["account_id"]:
-        problems.append(f"PO {po.get('number')} is for account {po['account_id']}, but the invoice is on "
+    number = po.get("number")
+    if not number:
+        problems.append("the reply has no PO number")
+    if not po.get("account_id"):
+        problems.append(f"PO {number} does not say which account it is for")
+    elif po["account_id"] != packet["account_id"]:
+        problems.append(f"PO {number} is for account {po['account_id']}, but the invoice is on "
                         f"{packet['account_id']} ({packet['account_name']})")
     try:
-        if float(po.get("amount") or 0) + 0.005 < float(packet["balance"]):
-            problems.append(f"PO {po.get('number')} covers ${float(po.get('amount') or 0):,.2f}, less than the "
-                            f"${packet['balance']:,.2f} balance")
+        amount = float(po.get("amount"))
+        if not math.isfinite(amount):
+            raise ValueError
+        if amount + 0.005 < float(packet["balance"]):
+            problems.append(f"PO {number} covers ${amount:,.2f}, less than the ${packet['balance']:,.2f} balance")
     except (TypeError, ValueError):
-        problems.append("the PO amount is unreadable")
-    if po.get("valid_until"):
-        try:
-            if date.fromisoformat(po["valid_until"]) < as_of:
-                problems.append(f"PO {po.get('number')} expired on {po['valid_until']}")
-        except ValueError:
-            problems.append("the PO expiry date is unreadable")
-    if po.get("invoice_ids") and packet["invoice_id"] not in po["invoice_ids"]:
-        problems.append(f"PO {po.get('number')} does not list {packet['invoice_id']}")
-    if not po.get("number"):
-        problems.append("the reply has no PO number")
+        problems.append(f"PO {number} has no readable amount")
+    try:
+        if date.fromisoformat(str(po.get("valid_until"))) < as_of:
+            problems.append(f"PO {number} expired on {po['valid_until']}")
+    except (TypeError, ValueError):
+        problems.append(f"PO {number} has no readable expiry date")
+    ids = po.get("invoice_ids")
+    if not isinstance(ids, list) or packet["invoice_id"] not in ids:
+        problems.append(f"PO {number} does not list {packet['invoice_id']}")
     return problems
 
 
@@ -101,24 +124,28 @@ def apply(case, r, packet, as_of):
             case["state"] = "accepted"
         event(case, at, "accepted", f"{who} took it: \"{r.get('message') or 'on it'}\"", tag)
     elif kind == "po":
-        po = r.get("po") or {}
+        po = r.get("po") if isinstance(r.get("po"), dict) else {}
         case["po"] = po
         event(case, at, "po_received", f"{who} sent PO {po.get('number') or '(no number)'}", tag)
-        problems = verify(po, packet, as_of)
-        if problems:
-            case["state"] = "blocked"
-            case["open_questions"] = problems
-            case.pop("package", None)
-            event(case, at, "blocked", "Kept open: " + "; ".join(problems) + ". Asked the owner for the right PO.")
-        else:
-            case["state"] = "ready"
-            case["open_questions"] = []
-            case["package"] = package(po, packet)
-            event(case, at, "verified", f"PO {po['number']} matches the invoice: same account, covers the balance"
-                  + (f", valid until {po['valid_until']}" if po.get("valid_until") else "")
-                  + ". Corrected package drafted for approval.")
+        judge(case, packet, as_of, at)
     else:
         event(case, at, "note", f"{who}: {r.get('message') or ''}".strip(), tag)
+
+
+def judge(case, packet, as_of, at):
+    po = case.get("po") or {}
+    problems = verify(po, packet, as_of)
+    if problems:
+        case["state"] = "blocked"
+        case["open_questions"] = problems
+        case.pop("package", None)
+        event(case, at, "blocked", "Kept open: " + "; ".join(problems) + ". Asked the owner for the right PO.")
+    else:
+        case["state"] = "ready"
+        case["open_questions"] = []
+        case["package"] = package(po, packet)
+        event(case, at, "verified", f"PO {po['number']} matches the invoice: same account, covers the balance, "
+              f"valid until {po['valid_until']}. Corrected package drafted for approval.")
 
 
 def new_case(packet, as_of):
@@ -151,29 +178,44 @@ def advance(packets, responses, as_of, folder=CASES):
     live = {p["invoice_id"]: p for p in packets if p["reason"] in WORKFLOW_REASONS}
     cases = []
     for iid, packet in live.items():
+        if not SAFE_ID.match(iid):
+            continue
         path = folder / f"{iid}.json"
         case = read_json(path) or new_case(packet, as_of)
-        if case["state"] == "closed":
+        case.setdefault("history", [])
+        case.setdefault("applied", [])
+        if case.get("state") not in LABELS:
             case["state"] = "requested"
+        if case["state"] == "closed":
+            case.update(state="requested", open_questions=["the PO number for this invoice"])
+            case.pop("package", None)
+            case.pop("po", None)
             event(case, as_of.isoformat(), "reopened", "Back in the dispute queue; asked the owner again.")
+        balance_moved = abs(float(case.get("balance") or 0) - float(packet["balance"])) >= 0.01
         case["balance"] = packet["balance"]
+        if balance_moved and case["state"] in ("ready", "blocked") and case.get("po"):
+            judge(case, packet, as_of, as_of.isoformat())
         for r in by_invoice.get(iid, []):
             if r["id"] not in case["applied"]:
                 apply(case, r, packet, as_of)
                 case["applied"].append(r["id"])
         case["label"] = LABELS[case["state"]]
-        path.write_text(json.dumps(case, indent=2), encoding="utf-8")
+        write_atomic(path, case)
         packet["case"] = {k: case.get(k) for k in ("state", "label", "open_questions", "history", "po", "package")}
         cases.append(case)
-    for path in sorted(folder.glob("INV-*.json")):
+    still_disputed = {p["invoice_id"] for p in packets}
+    for path in sorted(folder.glob("*.json")):
         if path.stem in live:
             continue
         case = read_json(path)
         if case and case.get("state") != "closed":
+            case.setdefault("history", [])
             case["state"] = "closed"
             case["label"] = LABELS["closed"]
-            event(case, as_of.isoformat(), "closed", "Left the dispute queue: paid, cleared or worked by a person.")
-            path.write_text(json.dumps(case, indent=2), encoding="utf-8")
+            why = ("Still disputed, but no longer for a missing PO; the dispute desk routes it now."
+                   if path.stem in still_disputed else "Left the dispute queue: paid, cleared or worked by a person.")
+            event(case, as_of.isoformat(), "closed", why)
+            write_atomic(path, case)
     return cases
 
 

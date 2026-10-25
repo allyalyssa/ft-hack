@@ -76,6 +76,15 @@ def test_revalidate_writes_sidecars_and_skips_rejected():
     assert status["state"] == "approved"
 
 
+def test_unreadable_queue_does_not_withdraw_everything():
+    by_id = {}
+    assert revalidate.check(DRAFTED, row(), None, by_id, {}) == []
+
+
+def test_contact_compare_ignores_case_and_spaces():
+    assert reasons(row(billing_contact_email=" AP@Test.example ")) == []
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in globals().items() if n.startswith("test_")]
     for name, fn in tests:

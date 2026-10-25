@@ -233,9 +233,11 @@ def add_account_context(items, open_rows, policy, as_of):
     stale = policy["stale_touch_days"]
     open_by_account, queued_by_account = {}, {}
     for r in open_rows:
-        open_by_account.setdefault(r["account_id"], []).append(r)
+        if r["account_id"] and r["balance"] > 0:
+            open_by_account.setdefault(r["account_id"], []).append(r)
     for item in items:
-        queued_by_account.setdefault(item["account_id"], []).append(item)
+        if item["account_id"]:
+            queued_by_account.setdefault(item["account_id"], []).append(item)
 
     def brief(r):
         return {"invoice_id": r["invoice_id"], "balance": r["balance"],
@@ -243,15 +245,15 @@ def add_account_context(items, open_rows, policy, as_of):
                 "last_touch_source": r["last_touch_source"]}
 
     for item in items:
-        rows = open_by_account.get(item["account_id"], [])
+        rows = open_by_account.get(item["account_id"], []) if item["account_id"] else []
         others = [r for r in rows if r["invoice_id"] != item["invoice_id"]]
         largest = max(others, key=lambda r: r["balance"], default=None)
         latest = max((r for r in others if r["last_touch"]), key=lambda r: r["last_touch"], default=None)
-        item["package_id"] = f"PKG-{item['account_id']}"
+        item["package_id"] = f"PKG-{item['account_id']}" if item["account_id"] else None
         item["account_context"] = {
             "open_invoices": len(rows),
             "open_balance": round(sum(r["balance"] for r in rows), 2),
-            "queued_on_account": len(queued_by_account[item["account_id"]]),
+            "queued_on_account": len(queued_by_account.get(item["account_id"], [item])),
             "largest_other": brief(largest) if largest else None,
             "has_large_open": any(r["balance"] > LARGE_INVOICE for r in others),
             "open_disputes": sum(1 for r in others if r["dispute"]),
@@ -312,7 +314,8 @@ def add_writeoff_controls(items, policy, policy_version):
         for i in its:
             reasons = []
             if total > limit:
-                reasons.append(f"the account would write off ${total:,.2f} across {len(its)} invoices, "
+                reasons.append(f"the account would write off ${total:,.2f} across {len(its)} "
+                               f"invoice{'s' if len(its) > 1 else ''}, "
                                f"over the ${limit:g} account limit")
             if len(its) >= BATCH_SIGNOFF:
                 reasons.append(f"{len(its)} write-offs on one account at once; a controller signs off a batch this size")
