@@ -48,7 +48,7 @@ STEMS = [
                                  WHEN 'writeoff' THEN ' It is proposed for write-off'
                                  WHEN 'escalate' THEN ' It is disputed and with a person'
                                  ELSE '' END
-                || CASE WHEN i.bucket IS NULL THEN ''
+                || CASE WHEN i.bucket IS NULL THEN '' WHEN i.bucket = 'escalate' THEN '.'
                         WHEN d.state IS NULL THEN ', not drafted yet.'
                         WHEN d.state IN ('drafted', 'edited') THEN ', with a draft awaiting approval.'
                         ELSE ', ' || d.state || ' by ' || d.by || '.' END

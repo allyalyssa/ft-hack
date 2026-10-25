@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "agent"))
 import ask  # noqa: E402
 import store  # noqa: E402
+import uploads  # noqa: E402
 
 esc = html.escape
 QUEUE_PATH = store.QUEUE
@@ -197,6 +198,32 @@ details.reject .pop label{flex-direction:column;align-items:stretch;gap:4px}
 .ask-try button:hover{border-color:var(--ledger);color:var(--ledger)}
 .ask-form{display:flex;gap:8px;padding:12px 18px 16px;border-top:1px solid var(--line)}
 .ask-form textarea{flex:1;resize:none;height:42px}
+.upload{padding:20px;max-width:760px}
+.drop{display:block;border:1.5px dashed var(--line);border-radius:var(--r-md);padding:28px;text-align:center;cursor:pointer;
+ background:var(--paper);transition:border-color 150ms ease-out,background-color 150ms ease-out}
+.drop:hover,.drop.over{border-color:var(--ledger);background:var(--ledger-soft)}
+.drop .sub{display:block;margin-top:6px}
+.picked{list-style:none;margin:12px 0;padding:0;font-size:13px}
+.picked li{padding:3px 0}
+.upload-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.upload-row label{font-size:13px;color:var(--ink-muted)}
+.report{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,1fr);gap:28px;align-items:start}
+.funnel{list-style:none;margin:0;padding:0}
+.funnel li{display:grid;grid-template-columns:72px minmax(0,1fr) 38%;gap:12px;align-items:center;padding:7px 0;
+ border-bottom:1px solid var(--line)}
+.funnel .n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-muted)}
+.funnel .start .n,.funnel .end .n{color:var(--ink);font-weight:600}
+.funnel .end{font-weight:600}
+.funnel .bar{height:10px;background:var(--band);border-radius:var(--r-sm);overflow:hidden}
+.funnel .bar i{display:block;height:100%;background:var(--line)}
+.funnel .start .bar i{background:var(--ink-muted)}
+.funnel .end .bar i{background:var(--ledger)}
+.split{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:14px 0 0;font-size:13px}
+.report-facts{padding:18px 20px}
+.report-facts p{margin:0 0 10px;max-width:60ch}
+.report-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.report-actions form{margin:0}
+@media (max-width:1100px){.report{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:1100px){.grid{grid-template-columns:minmax(0,1fr)}.drafts{grid-template-columns:minmax(0,1fr)}
  .draft:nth-child(odd){border-right:0}body.ask-open main{margin-right:auto}td.note{max-width:220px}}
 @media (max-width:720px){.top{padding:0 16px;gap:12px}.top .meta span:not(.local){display:none}main{padding:16px}
@@ -276,6 +303,7 @@ document.addEventListener("keydown", e => { if (e.key === "Escape" && !panel.hid
 $("#ask-form").onsubmit = e => { e.preventDefault(); const q = $("#ask-q").value; $("#ask-q").value = ""; send(q); };
 $("#ask-q").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("#ask-form").requestSubmit(); } });
 document.querySelectorAll("#ask-try button").forEach(b => b.onclick = () => send(b.textContent));
+document.querySelectorAll("[data-ask]").forEach(b => b.onclick = () => { setOpen(true); send(b.dataset.ask); });
 render();
 if (sessionStorage.getItem("ask-open")) setOpen(true);
 """
@@ -357,13 +385,14 @@ def exposure_text(item):
     return f"+{count - 1} more queued, {store.money(dollars - item['balance'])}"
 
 
-def page(title, body, active="queue", host="localhost", live=True):
+def page(title, body, active="queue", host="localhost", live=True, script=""):
     summary = store.read_json(store.SUMMARY, {})
     last = (summary.get("last_run") or {}).get("started_at")
     model = (summary.get("last_run") or {}).get("model") or store.model_config()[1]
     snapshot = (queue() or {}).get("as_of")
     nav = "".join(f'<a href="{href}"{" aria-current=page" if key == active else ""}>{label}</a>'
-                  for key, href, label in (("queue", "/", "Queue"), ("crm", "/crm", "Salesforce cases"),
+                  for key, href, label in (("queue", "/", "Queue"), ("upload", "/upload", "Upload"),
+                                           ("crm", "/crm", "Salesforce cases"),
                                            ("disputes", f"http://{esc(host)}:8090/", "Dispute desk")))
     meta = []
     if snapshot:
@@ -388,7 +417,7 @@ def page(title, body, active="queue", host="localhost", live=True):
 <textarea id="ask-q" placeholder="Ask about an invoice, account or owner"></textarea>
 <button class="btn primary" id="ask-send">Ask</button></form>
 </aside>
-<script>{SCRIPT}</script>
+<script>{SCRIPT}{script}</script>
 </body></html>"""
 
 
@@ -641,6 +670,137 @@ def detail(invoice_id, params, reviewer, host):
     return page(f"{invoice_id}, Collections", body, host=host)
 
 
+UPLOAD_SCRIPT = """
+const input = $("#files"), drop = $("#drop"), go = $("#go"), picked = $("#picked"), note = $("#upload-status");
+const ALLOWED = ["salesforce_invoices.csv", "collector_sheet.csv", "slack_threads.json", "manifest.json"];
+let chosen = [];
+function show(list) {
+  chosen = [...list];
+  picked.innerHTML = chosen.map(f => `<li>${escHtml(f.name)} <span class="sub">${Math.max(1, Math.round(f.size / 1024))} KB` +
+    `${ALLOWED.includes(f.name) ? "" : ", not part of an export bundle"}</span></li>`).join("");
+  go.disabled = !chosen.some(f => f.name === "salesforce_invoices.csv");
+  note.textContent = go.disabled && chosen.length ? "salesforce_invoices.csv is required." : "";
+}
+input.onchange = () => show(input.files);
+drop.ondragover = e => { e.preventDefault(); drop.classList.add("over"); };
+drop.ondragleave = () => drop.classList.remove("over");
+drop.ondrop = e => { e.preventDefault(); drop.classList.remove("over"); show(e.dataTransfer.files); };
+go.onclick = async () => {
+  go.disabled = true; go.textContent = "Running the rules"; note.classList.remove("warn");
+  const files = {};
+  for (const f of chosen) if (ALLOWED.includes(f.name)) files[f.name] = await f.text();
+  note.textContent = "Triage, the stale-draft check and disputes are running on this machine. About 10 seconds.";
+  try {
+    const r = await fetch("/api/upload", {method: "POST", headers: {"Content-Type": "application/json"},
+                                          body: JSON.stringify({files, name: $("#batch-name").value})});
+    const body = await r.json();
+    if (!r.ok) throw new Error(body.error);
+    location = body.url;
+  } catch (e) {
+    note.textContent = e.message || "The upload failed."; note.classList.add("warn");
+    go.disabled = false; go.textContent = "Upload and run the rules";
+  }
+};
+"""
+
+
+def load_report(upload_id):
+    if not store.INVOICE_ID.match(upload_id):
+        return None
+    return store.read_json(uploads.REPORTS / f"{upload_id}.json")
+
+
+def draft_candidates(report):
+    items = {i["invoice_id"]: i for i in (queue() or {}).get("items", [])}
+    return [iid for iid in report["queued_ids"] if iid in items and items[iid]["bucket"] != "escalate"
+            and not store.read_status(iid)]
+
+
+def upload_page(params, host):
+    flash = f'<div class="flash" role="status">{esc(params["msg"][0])}</div>' if params.get("msg") else ""
+    past = uploads.reports()
+    rows_ = "".join(
+        f'<tr data-href="/upload/{r["upload_id"]}"><td class="acct"><a href="/upload/{r["upload_id"]}">{esc(r["name"])}</a></td>'
+        f'<td>{stamp_time(r["uploaded_at"])}</td><td class="num">{r["funnel"]["received"]:,}</td>'
+        f'<td class="num">{len(r["queued_ids"]):,}</td><td class="num">{r["queue_before"]:,} to {r["queue_after"]:,}</td></tr>'
+        for r in past)
+    history = (f'<h2 style="margin-top:28px">Uploaded so far</h2><table><thead><tr><th>Batch</th><th>Uploaded</th>'
+               f'<th class="num">Invoices</th><th class="num">Queued</th><th class="num">Queue size</th></tr></thead>'
+               f'<tbody>{rows_}</tbody></table><form method="post" action="/upload/reset" style="margin-top:12px">'
+               f'<button class="btn quiet" data-busy="Removing">Remove all uploads</button></form>') if past else ""
+    body = f"""{flash}<section class="lede"><h1>Upload an export</h1><p>Add a batch of invoices the way the nightly export
+would: the Salesforce invoice file, with the collector sheet and Slack threads if you have them. The same rules the agent
+runs every cycle sort it on this machine in about ten seconds, and the next page shows what happened to every invoice.</p>
+</section><div class="panel upload"><label class="drop" id="drop" for="files"><b>Choose files</b> or drop them here
+<span class="sub">salesforce_invoices.csv (required), collector_sheet.csv, slack_threads.json, manifest.json. Select every
+file in one batch folder, for example data/demo/batch-1.</span></label>
+<input type="file" id="files" class="sr" multiple accept=".csv,.json"><ul id="picked" class="picked"></ul>
+<div class="upload-row"><label for="batch-name">Batch name</label><input id="batch-name" placeholder="batch-1">
+<button class="btn primary" id="go" disabled>Upload and run the rules</button></div>
+<p class="sub" id="upload-status" role="status"></p></div>{history}"""
+    return page("Upload an export", body, active="upload", host=host, script=UPLOAD_SCRIPT)
+
+
+def report_page(upload_id, params, host):
+    report = load_report(upload_id)
+    if report is None:
+        return None
+    f = report["funnel"]
+    total = max(f["received"], 1)
+
+    def width(n):
+        return f"{100 * n / total:.1f}%"
+
+    steps = "".join(f'<li><span class="n">&minus;{s["removed"]:,}</span><span>{esc(s["label"])}</span>'
+                    f'<span class="bar"><i style="width:{width(s["removed"])}"></i></span></li>' for s in f["steps"])
+    b = report["buckets"]
+    queued_dollars = sum(v["dollars"] for v in b.values())
+    funnel_html = (f'<ol class="funnel"><li class="start"><span class="n">{f["received"]:,}</span><span>invoices received</span>'
+                   f'<span class="bar"><i style="width:100%"></i></span></li>{steps}'
+                   f'<li class="end"><span class="n">{f["passed"]:,}</span><span>queued for collections, '
+                   f'{store.money(queued_dollars)}</span><span class="bar"><i style="width:{width(f["passed"])}"></i></span></li></ol>')
+    split = (f'<p class="split">{stamp("Agent", "s-awaiting")} {b["agent"]["count"]:,} for the agent ({store.money(b["agent"]["dollars"])}) '
+             f'{stamp("Write off", "s-writeoff")} {b["writeoff"]["count"]:,} to write off ({store.money(b["writeoff"]["dollars"])}) '
+             f'{stamp("Disputed", "s-escalate")} {b["escalate"]["count"]:,} for a person ({store.money(b["escalate"]["dollars"])})</p>')
+    grown = report["queue_after"] - report["queue_before"]
+    hours = grown * report["minutes_per_touch"] / 60
+    facts = [f'The queue went from {report["queue_before"]:,} to {report["queue_after"]:,} invoices '
+             f'({"+" if grown >= 0 else ""}{grown:,}), about {hours:,.1f} more collector hours.']
+    if report["accounts"]:
+        facts.append(f'{report["accounts_with_more"]:,} of the {plural(report["accounts"], "account")} in this batch already '
+                     f'had other stale invoices, so one message can cover several.')
+    if report["blockers"]:
+        facts.append("Blockers in their notes: " + ", ".join(f"{label} {n}" for label, n in
+                                                           sorted(report["blockers"].items(), key=lambda x: -x[1])) + ".")
+    items = {i["invoice_id"]: i for i in (queue() or {}).get("items", [])}
+    queued = [items[i] for i in report["queued_ids"] if i in items]
+    statuses = store.all_statuses()
+    table = "".join(table_row(i, statuses.get(i["invoice_id"])) for i in queued[:100])
+    model = store.model_config()[1]
+    actions_html = ""
+    if draft_candidates(report):
+        actions_html += (f'<form method="post" action="/upload/{upload_id}/draft"><button class="btn primary" '
+                         f'data-busy="Drafting with {esc(model)}, about a minute">Draft 3 of them now with {esc(model)}</button></form>')
+    if queued:
+        example, account = queued[0]["invoice_id"], esc(queued[0]["account_name"])
+        actions_html += (f'<button class="btn" type="button" data-ask="Has {example} been collected?">Ask: has {example} '
+                         f'been collected?</button><button class="btn" type="button" data-ask="How much does {account} owe?">'
+                         f'Ask: how much does {account} owe?</button>')
+    flash = f'<div class="flash" role="status">{esc(params["msg"][0])}</div>' if params.get("msg") else ""
+    head = (f'{flash}<div class="crumbs"><a href="/upload">Upload</a></div><section class="lede"><h1>{esc(report["name"])}</h1>'
+            f'<p>Uploaded {stamp_time(report["uploaded_at"])}. {f["received"]:,} invoices went through the rules the agent '
+            f'runs every cycle, as of {short_date(f["as_of"])}. No model was used to sort them.</p></section>')
+    summary = (f'<div class="report"><div>{funnel_html}{split}</div><div class="panel report-facts"><p>'
+               + "</p><p>".join(facts) + f'</p><div class="report-actions">{actions_html}</div></div></div>')
+    if queued:
+        listing = ('<h2 style="margin-top:28px">Queued from this upload</h2><table><thead><tr><th>Invoice</th><th>Account</th>'
+                   '<th>Owner</th><th class="num">Balance</th><th class="num">Days past due</th><th>Last touch</th>'
+                   f'<th>Latest note</th><th>Blocker</th><th>Status</th></tr></thead><tbody>{table}</tbody></table>')
+    else:
+        listing = '<div class="empty" style="margin-top:28px"><p>Nothing from this upload needed collections work.</p></div>'
+    return page(report["name"], head + summary + listing, active="upload", host=host)
+
+
 def crm_page(host):
     with closing(store.crm()) as db:
         cases = db.execute(
@@ -713,6 +873,11 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(crm_page(self.host()))
         if url.path == "/api/version":
             return self.send(version(), kind="text/plain; charset=utf-8")
+        if url.path == "/upload":
+            return self.send(upload_page(params, self.host()))
+        if url.path.startswith("/upload/"):
+            text = report_page(url.path.split("/")[2], params, self.host())
+            return self.send(text) if text else self.not_found()
         invoice_id, action = self.invoice_route(url.path)
         text = detail(invoice_id, params, self.reviewer(), self.host()) if invoice_id and not action else None
         if text is None:
@@ -722,7 +887,7 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         path = urlparse(self.path).path
         length = int(self.headers.get("Content-Length") or 0)
-        raw = self.rfile.read(min(length, 1_000_000)).decode("utf-8", "replace")
+        raw = self.rfile.read(min(length, 50_000_000)).decode("utf-8", "replace")
         if path == "/api/ask":
             try:
                 question = str(json.loads(raw).get("question", ""))
@@ -732,6 +897,34 @@ class Handler(BaseHTTPRequestHandler):
             except OSError:
                 result = {"error": True, "answer": "The local model did not answer. Check that Ollama is running."}
             return self.send(json.dumps(result), kind="application/json")
+        if path == "/api/upload":
+            try:
+                body = json.loads(raw)
+                files = {str(k): str(v) for k, v in body.get("files", {}).items()}
+                report = uploads.save(files, str(body.get("name", "")).strip()[:60])
+            except (ValueError, AttributeError) as e:
+                return self.send(json.dumps({"error": str(e) or "That upload was not readable."}), 400, "application/json")
+            return self.send(json.dumps({"url": f"/upload/{report['upload_id']}"}), kind="application/json")
+        if path == "/upload/reset":
+            uploads.reset()
+            store.build_summary(queue())
+            return self.redirect("/upload?msg=" + quote("All uploads removed. The queue is back to the base export."))
+        if path.startswith("/upload/") and path.endswith("/draft"):
+            report = load_report(path.split("/")[2])
+            if report is None:
+                return self.not_found()
+            todo = draft_candidates(report)[:3]
+            if todo:
+                cmd = [sys.executable, str(ROOT / "agent" / "actions.py"), "--queue", str(QUEUE_PATH)]
+                for iid in todo:
+                    cmd += ["--invoice", iid]
+                proc = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
+                lines = (proc.stdout + proc.stderr).strip().splitlines()
+                msg = (f"Drafted {', '.join(todo)} with the local model." if proc.returncode == 0
+                       else f"Drafting failed: {lines[-1] if lines else proc.returncode}")
+            else:
+                msg = "Every invoice the agent can work from this upload already has a draft."
+            return self.redirect(f"/upload/{report['upload_id']}?msg={quote(msg)}")
         invoice_id, action = self.invoice_route(path)
         if not invoice_id or action not in ("approve", "reject", "save", "draft", "undo"):
             return self.not_found()

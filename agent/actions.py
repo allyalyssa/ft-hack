@@ -297,7 +297,7 @@ def main():
     ap.add_argument("--queue", type=Path, default=store.QUEUE)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--bucket", choices=sorted(CASE_TYPE))
-    ap.add_argument("--invoice")
+    ap.add_argument("--invoice", action="append", help="draft this invoice; repeat for several")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -305,9 +305,9 @@ def main():
     queue = store.load_queue(args.queue)
     snapshot = store.snapshot_id(queue)
     buckets = [args.bucket] if args.bucket else list(CASE_TYPE)
-    items = [i for i in queue["items"] if i["bucket"] in buckets and args.invoice in (None, i["invoice_id"])]
+    items = [i for i in queue["items"] if i["bucket"] in buckets and (not args.invoice or i["invoice_id"] in args.invoice)]
     if args.invoice and not items:
-        raise SystemExit(f"{args.invoice} is not in the agent or writeoff bucket of {args.queue}")
+        raise SystemExit(f"{', '.join(args.invoice)} not in the agent or writeoff bucket of {args.queue}")
     pending = [i for i in items if needs_draft(i, snapshot)]
     pending.sort(key=lambda i: store.read_status(i["invoice_id"]) is not None)
     todo = pending[:args.limit] if args.limit else pending

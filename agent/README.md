@@ -12,6 +12,8 @@ python3 channel/dashboard.py                       # http://<box>:8080, approve 
 python3 agent/status.py list | show ID | approve ID --by NAME | reject ID --by NAME
 python3 agent/summary.py                           # refresh out/summary.json, post the heartbeat
 python3 channel/post.py                            # post new packages to Slack or Telegram if configured
+python3 agent/ask.py "has INV-116288 been collected?"   # the Ask sidebar from the command line
+python3 data/demo_batch.py                         # upload-ready batches in data/demo/ for the Upload page
 ```
 
 ## What gets drafted
@@ -36,6 +38,18 @@ it leaves the queue. Every case is also a row in `agent/crm_mock/crm.sqlite` (ta
    is under 600 characters, the owner note asks a question, there is no legal or fee language, and no dollar amount
    appears that is not in the facts. Failing fields get one retry with the problems listed. Anything still failing
    uses a fixed template and is listed in `template_fields` in `salesforce_case.json` and tagged on the dashboard.
+
+## Ask and Upload
+
+The Ask sidebar (`agent/ask.py`) never writes SQL. Its 15 question stems are fixed read-only queries with an answer
+sentence, kept in the `stems` table of `out/ask.sqlite` (all invoices, notes, Slack, disputes; drafts are read fresh).
+The model only picks the stem and fills its values (an invoice id, an account, an owner, a blocker), so answers take
+a few seconds and can only say what the records say.
+
+Upload (`agent/uploads.py`, the dashboard's Upload page) keeps every uploaded bundle in `data/uploads/`, rebuilds
+`data/inbox/` as their union, reruns triage, the stale-draft check and disputes, and writes `out/uploads/<id>.json`:
+how many of the uploaded invoices each triage filter removed, what was queued per bucket, and how the queue grew.
+The funnel is recomputed with triage's own rules and checked against what triage queued.
 
 ## Idempotency
 

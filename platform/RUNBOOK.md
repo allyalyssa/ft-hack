@@ -87,7 +87,13 @@ First thing after starting: `python3 agent/actions.py --limit 20` so the dashboa
 
 ## 6. Live drop for the demo
 
-On the Mac:
+Upload page (the visible version): `python3 data/demo_batch.py` writes three 300-invoice batches to `data/demo/`.
+On the dashboard open Upload, select every file in `data/demo/batch-1`, and upload. Triage, the stale-draft check and
+disputes run in about ten seconds, and the report shows each filter's cut (batch-1: 300 received, 101 paid, 59 under
+30 days, 33 touched recently, 24 over $500, 83 queued), the queue growth, and buttons to draft three of them with the
+model and to ask about one. "Remove all uploads" on the same page puts the queue back for the next rehearsal.
+
+Over rsync instead, on the Mac:
 
 ```bash
 python3 data/generate.py --delta                       # 200 invoices two days later -> data/delta/

@@ -43,7 +43,8 @@ nav.side { background:var(--forest); color:var(--forest-ink); display:flex; flex
 .navlink { display:flex; align-items:center; gap:11px; padding:9px 11px; border-radius:2px; color:var(--forest-muted);
            border:0; background:none; text-align:left; cursor:pointer; width:100%; transition:background-color 150ms ease-out, color 150ms ease-out; }
 .navlink .lbl { flex:1; }
-.navlink:hover { background:var(--forest-2); color:var(--forest-ink); }
+.navlink:hover, .navout:hover { background:var(--forest-2); color:var(--forest-ink); }
+.navout { display:flex; align-items:center; gap:11px; padding:9px 11px; border-radius:2px; color:var(--forest-muted); text-decoration:none; }
 .navlink[aria-current="page"] { background:var(--forest-3); color:#fff; }
 .navlink[aria-current="page"] svg.i { color:var(--lime); }
 .badge { min-width:24px; padding:0 8px; border-radius:2px; font-size:12px; line-height:21px; text-align:center; background:var(--forest-2); color:var(--forest-muted); font-weight:600; }
@@ -224,6 +225,8 @@ form.askbar input:focus { border-color:var(--green); outline:none; box-shadow:0 
     <button class="navlink" data-view="cases"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg><span class="lbl">PO cases</span><span class="badge" id="b-cases"></span></button>
     <button class="navlink" data-view="disputes"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17v.01"/></svg><span class="lbl">Disputes</span><span class="badge" id="b-disputes"></span></button>
     <button class="navlink" data-view="writeoffs"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg><span class="lbl">Write-offs</span><span class="badge" id="b-writeoffs"></span></button>
+    <div class="group">Data</div>
+    <a class="navout" id="upload-link" href="http://localhost:8080/upload"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><span class="lbl">Upload export</span></a>
     <div class="boxinfo" id="boxinfo"><div class="live">Running on this box</div></div>
   </nav>
 
@@ -533,6 +536,7 @@ async function refresh() {
 promptsView();
 refresh().then(fromHash);
 setInterval(() => { if (!document.hidden) refresh(); }, 30000);
+$("#upload-link").href = `${location.protocol}//${location.hostname}:8080/upload`;
 </script>
 </body>
 </html>

@@ -5,3 +5,5 @@ data/delta/
 data/inbox/*
 !data/inbox/.gitkeep
 data/responses/
+data/demo/
+data/uploads/

@@ -6,6 +6,7 @@ import json
 import os
 import re
 import sqlite3
+import subprocess
 import sys
 import tempfile
 import threading
@@ -22,6 +23,7 @@ sys.path.insert(0, str(HERE.parent / "channel"))
 import actions  # noqa: E402
 import ask  # noqa: E402
 import store  # noqa: E402
+import uploads  # noqa: E402
 import dashboard  # noqa: E402
 import post  # noqa: E402
 
@@ -286,6 +288,42 @@ def test_draft_claiming_no_follow_up_is_rejected_when_there_was_one():
     item = next(i for i in q["items"] if i.get("last_touch_date"))
     note = f"Hi, {item['invoice_id']} has had no prior follow-up. Can you help?"
     assert "last touch" in actions.problems(item, q, {"internal_note": note}, date(2026, 11, 2))["internal_note"]
+
+
+def test_upload_rejects_files_that_are_not_an_export():
+    for files in ({"evil.exe": "x"}, {"collector_sheet.csv": "invoice_id,collector,touch_date,note\n"},
+                  {"salesforce_invoices.csv": "invoice_id,amount\nINV-1,5\n"}):
+        try:
+            uploads.check(files)
+            raise AssertionError(files)
+        except uploads.UploadError:
+            pass
+
+
+def test_upload_funnel_agrees_with_triage_and_reset_restores_the_queue():
+    saved = {k: getattr(uploads, k) for k in ("UPLOADS", "INBOX", "REPORTS")}
+    with sandbox() as tmp:
+        subprocess.run([sys.executable, str(store.ROOT / "data" / "demo_batch.py"), "--batches", "1", "--size", "120",
+                        "--out", str(tmp / "demo")], check=True, capture_output=True)
+        uploads.UPLOADS, uploads.INBOX, uploads.REPORTS = tmp / "uploads", tmp / "inbox", tmp / "reports"
+        uploads.INBOX.mkdir()
+        pipeline = uploads.PIPELINE
+        uploads.PIPELINE = (["triage/triage.py", "--inbox", str(uploads.INBOX), "--out", str(store.OUT)],)
+        try:
+            uploads.run_pipeline()
+            files = {p.name: p.read_text(encoding="utf-8") for p in (tmp / "demo" / "batch-1").iterdir()}
+            report = uploads.save(files, "test batch")
+            assert report["funnel"]["received"] == 120
+            assert report["funnel"]["passed"] == len(report["queued_ids"]) > 0
+            assert report["queue_after"] == report["queue_before"] + len(report["queued_ids"])
+            assert sum(s["removed"] for s in report["funnel"]["steps"]) + report["funnel"]["passed"] == 120
+            uploads.reset()
+            assert [p.name for p in uploads.INBOX.iterdir()] == []
+            assert store.read_json(store.QUEUE)["totals"]["queued"] == report["queue_before"]
+        finally:
+            uploads.PIPELINE = pipeline
+            for k, v in saved.items():
+                setattr(uploads, k, v)
 
 
 def test_channel_post_fails_quietly_without_network():
