@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenbar Collections</title>
+<style>
+/* Dark ledger console: sidebar nav, list + detail in the middle, the agent docked on the right. Green is the brand:
+   primary actions, money recovered, the agent's own voice. Amber = needs a person, red = don't send / blocked. */
+:root {
+  --side:#0B0F0D; --bg:#111613; --panel:#171E1A; --panel-2:#1D2621; --line:#28332C; --line-2:#334039;
+  --ink:#E6ECE7; --muted:#97A49B; --faint:#6E7B72;
+  --green:#5FD28F; --green-ink:#06140C; --green-soft:#15301F; --green-line:#2B5A3E;
+  --amber:#E9B54F; --amber-soft:#33280F; --red:#F2836F; --red-soft:#3B1C16;
+  --sans:Inter, "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme:dark;
+}
+* { box-sizing:border-box; }
+html, body { height:100%; }
+body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.5 var(--sans); font-variant-numeric:tabular-nums;
+       accent-color:var(--green); caret-color:var(--green); scrollbar-color:var(--line-2) transparent; }
+::selection { background:var(--green-soft); color:var(--ink); }
+:focus-visible { outline:2px solid var(--green); outline-offset:2px; }
+button { font:inherit; color:inherit; }
+.mono { font-family:var(--mono); font-size:.92em; }
+.muted { color:var(--muted); }
+a { color:var(--green); }
+
+.shell { display:grid; grid-template-columns:232px minmax(0, 1fr) 380px; height:100%; }
+
+/* sidebar */
+nav.side { background:var(--side); border-right:1px solid var(--line); display:flex; flex-direction:column; padding:18px 12px; gap:4px; }
+.brand { display:flex; align-items:center; gap:10px; padding:4px 8px 18px; }
+.mark { width:28px; height:28px; border-radius:7px; background:var(--green); display:grid; place-items:center; }
+.mark i { display:block; width:16px; height:3px; background:var(--green-ink); box-shadow:0 6px 0 var(--green-ink), 0 -6px 0 var(--green-ink); border-radius:2px; }
+.brand b { font-size:15px; letter-spacing:-.01em; }
+.brand span { display:block; color:var(--faint); font-size:12px; line-height:1.2; }
+.navlink { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; border-radius:8px; color:var(--muted);
+           text-decoration:none; border:0; background:none; text-align:left; cursor:pointer; width:100%; }
+.navlink:hover { background:var(--panel); color:var(--ink); }
+.navlink[aria-current="page"] { background:var(--green-soft); color:var(--green); }
+.badge { min-width:22px; padding:0 7px; border-radius:999px; font-size:12px; line-height:20px; text-align:center; background:var(--panel-2); color:var(--muted); }
+.badge.hot { background:var(--amber-soft); color:var(--amber); }
+.badge.go { background:var(--green-soft); color:var(--green); }
+.badge.stop { background:var(--red-soft); color:var(--red); }
+.group { margin:14px 10px 4px; color:var(--faint); font-size:12px; }
+.boxinfo { margin-top:auto; padding:12px 10px; border-top:1px solid var(--line); font-size:12px; color:var(--faint); display:grid; gap:4px; }
+.live { display:flex; align-items:center; gap:8px; color:var(--muted); }
+.live::before { content:""; width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 3px var(--green-soft); }
+
+/* main */
+main { overflow:auto; padding:24px 28px 48px; min-width:0; }
+.head { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:12px; margin-bottom:18px; }
+.head h1 { margin:0; font-size:22px; line-height:1.25; letter-spacing:-.01em; }
+.head p { margin:4px 0 0; color:var(--muted); max-width:70ch; }
+.kpis { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:12px; margin-bottom:18px; }
+.kpi { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; text-align:left; cursor:pointer; }
+.kpi:hover { border-color:var(--line-2); }
+.kpi .n { font-size:28px; font-weight:650; letter-spacing:-.02em; line-height:1.1; }
+.kpi .l { color:var(--ink); margin-top:4px; }
+.kpi .s { color:var(--muted); font-size:12px; }
+.kpi.go .n { color:var(--green); } .kpi.hot .n { color:var(--amber); } .kpi.stop .n { color:var(--red); }
+.cols { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:12px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; min-width:0; }
+.card h2 { margin:0 0 2px; font-size:15px; }
+.card .sub { color:var(--muted); font-size:13px; margin-bottom:10px; }
+.todo { display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:center; padding:10px 0; border-top:1px solid var(--line); cursor:pointer; background:none; border-left:0; border-right:0; border-bottom:0; width:100%; text-align:left; }
+.todo:first-of-type { border-top:0; }
+.todo:hover .t { color:var(--green); }
+.dot { width:8px; height:8px; border-radius:50%; }
+.dot.go { background:var(--green); } .dot.hot { background:var(--amber); } .dot.stop { background:var(--red); } .dot.idle { background:var(--faint); }
+
+.split { display:grid; grid-template-columns:minmax(300px, 420px) minmax(0, 1fr); gap:12px; align-items:start; }
+.list { background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+.chip { border:1px solid var(--line-2); background:var(--panel); color:var(--muted); border-radius:999px; padding:4px 12px; cursor:pointer; font-size:13px; }
+.chip[aria-pressed="true"] { border-color:var(--green-line); background:var(--green-soft); color:var(--green); }
+.row { display:block; width:100%; text-align:left; background:none; border:0; border-top:1px solid var(--line); padding:12px 14px; cursor:pointer; }
+.row:first-child { border-top:0; }
+.row:hover { background:var(--panel-2); }
+.row[aria-current="true"] { background:var(--green-soft); }
+.row .top { display:flex; justify-content:space-between; gap:10px; }
+.row .who { font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.row .amt { font-family:var(--mono); }
+.row .meta { color:var(--muted); font-size:12.5px; margin-top:2px; }
+.pill { display:inline-block; font-size:11.5px; line-height:18px; padding:0 8px; border-radius:999px; background:var(--panel-2); color:var(--muted); white-space:nowrap; }
+.pill.go { background:var(--green-soft); color:var(--green); } .pill.hot { background:var(--amber-soft); color:var(--amber); }
+.pill.stop { background:var(--red-soft); color:var(--red); }
+.more { padding:10px 14px; color:var(--faint); font-size:12.5px; border-top:1px solid var(--line); }
+
+.detail { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px 22px; min-width:0; }
+.detail h2 { margin:0; font-size:20px; letter-spacing:-.01em; }
+.idline { color:var(--muted); margin-top:2px; }
+.figs { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; margin:16px 0; padding:14px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.figs .k { color:var(--muted); font-size:12.5px; } .figs .v { font-size:19px; font-weight:600; font-family:var(--mono); }
+.figs .v.go { color:var(--green); }
+.suggest { border:1px solid var(--green-line); background:var(--green-soft); border-radius:10px; padding:12px 14px; margin:14px 0; }
+.suggest.stop { border-color:#5a2a22; background:var(--red-soft); }
+.suggest.hot { border-color:#5a4718; background:var(--amber-soft); }
+.suggest .k { font-size:12px; font-weight:650; color:var(--green); margin-bottom:2px; }
+.suggest.stop .k { color:var(--red); } .suggest.hot .k { color:var(--amber); }
+.section { margin-top:16px; }
+.section h3 { margin:0 0 8px; font-size:13.5px; color:var(--muted); font-weight:600; }
+.doc { background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:12px 14px; white-space:pre-wrap; font-size:13.5px; max-width:80ch; }
+.facts { display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:10px 18px; }
+.facts .k { color:var(--muted); font-size:12.5px; }
+.timeline { list-style:none; margin:0; padding:0; }
+.timeline li { display:grid; grid-template-columns:96px 1fr; gap:12px; padding:8px 0; border-top:1px solid var(--line); }
+.timeline li:first-child { border-top:0; }
+.actions { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:18px; }
+.btn { border:1px solid var(--line-2); background:var(--panel-2); border-radius:9px; padding:9px 14px; cursor:pointer; }
+.btn:hover { border-color:var(--muted); }
+.btn.primary { background:var(--green); color:var(--green-ink); border-color:var(--green); font-weight:650; }
+.btn.primary:hover { filter:brightness(1.06); }
+.btn.danger { color:var(--red); border-color:#5a2a22; background:none; }
+.btn:disabled { opacity:.5; cursor:default; }
+.reviewer { background:var(--bg); border:1px solid var(--line-2); border-radius:9px; padding:8px 10px; color:var(--ink); width:150px; }
+.toast { margin-left:4px; color:var(--muted); }
+.empty { color:var(--muted); padding:28px; text-align:center; }
+.skel { height:62px; border-top:1px solid var(--line); background:linear-gradient(90deg, var(--panel) 0, var(--panel-2) 40%, var(--panel) 80%); }
+
+/* the agent */
+aside.ask { background:var(--side); border-left:1px solid var(--line); display:flex; flex-direction:column; min-height:0; }
+.ask header { padding:18px 18px 12px; border-bottom:1px solid var(--line); }
+.ask header b { font-size:15px; }
+.ask header p { margin:2px 0 0; color:var(--muted); font-size:12.5px; }
+.thread { flex:1; overflow:auto; padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
+.prompts { display:grid; gap:6px; }
+.prompt { text-align:left; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:9px 12px; cursor:pointer; color:var(--ink); }
+.prompt:hover { border-color:var(--green-line); color:var(--green); }
+.q { align-self:flex-end; max-width:85%; background:var(--green-soft); color:var(--ink); border:1px solid var(--green-line); border-radius:12px 12px 4px 12px; padding:8px 12px; }
+.a { background:var(--panel); border:1px solid var(--line); border-radius:12px 12px 12px 4px; padding:12px 14px; }
+.a .who { font-size:12px; color:var(--green); font-weight:650; margin-bottom:4px; display:flex; justify-content:space-between; }
+.a .who span { color:var(--faint); font-weight:400; }
+.a .txt { white-space:pre-wrap; }
+.inv { color:var(--green); cursor:pointer; text-decoration:underline; text-underline-offset:3px; background:none; border:0; padding:0; font-family:var(--mono); font-size:.92em; }
+details.how { margin-top:10px; border-top:1px solid var(--line); padding-top:8px; }
+details.how summary { cursor:pointer; color:var(--muted); font-size:12.5px; }
+details.how ol { margin:8px 0 6px; padding-left:18px; color:var(--muted); font-size:12.5px; }
+.src { display:flex; flex-wrap:wrap; gap:4px; }
+.src span { font-family:var(--mono); font-size:11px; color:var(--faint); background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+form.askbar { display:flex; gap:8px; padding:12px 14px; border-top:1px solid var(--line); }
+form.askbar input { flex:1; min-width:0; background:var(--panel); border:1px solid var(--line-2); color:var(--ink); border-radius:10px; padding:10px 12px; font:inherit; }
+form.askbar input::placeholder { color:var(--faint); }
+.asktoggle { display:none; }
+
+@media (max-width:1280px) {
+  .shell { grid-template-columns:200px minmax(0, 1fr); }
+  aside.ask { position:fixed; right:0; top:0; bottom:0; width:min(380px, 100%); z-index:20; transform:translateX(100%); transition:transform 200ms ease-out; }
+  aside.ask.open { transform:none; }
+  .asktoggle { display:block; position:fixed; right:18px; bottom:18px; z-index:21; }
+}
+@media (max-width:900px) {
+  .shell { grid-template-columns:minmax(0, 1fr); }
+  nav.side { flex-direction:row; flex-wrap:wrap; padding:10px; } .group, .boxinfo { display:none; } .brand { padding:4px 8px; }
+  .navlink { width:auto; }
+  .split, .cols { grid-template-columns:minmax(0, 1fr); }
+  .kpis { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  main { padding:16px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="side" aria-label="Main">
+    <div class="brand"><div class="mark"><i></i></div><div><b>Greenbar</b><span>Small-dollar collections</span></div></div>
+    <button class="navlink" data-view="today">Today</button>
+    <div class="group">Work</div>
+    <button class="navlink" data-view="approvals">Approvals <span class="badge" id="b-approvals"></span></button>
+    <button class="navlink" data-view="accounts">Accounts <span class="badge" id="b-accounts"></span></button>
+    <button class="navlink" data-view="cases">PO cases <span class="badge" id="b-cases"></span></button>
+    <button class="navlink" data-view="disputes">Disputes <span class="badge" id="b-disputes"></span></button>
+    <button class="navlink" data-view="writeoffs">Write-offs <span class="badge" id="b-writeoffs"></span></button>
+    <div class="boxinfo" id="boxinfo"><div class="live">Running on this box</div></div>
+  </nav>
+
+  <main id="main" aria-live="polite"></main>
+
+  <aside class="ask" id="ask" aria-label="Ask the agent">
+    <header><b>Ask the agent</b><p>Answers come from the agent's own records on this box. Each one shows how it was found.</p></header>
+    <div class="thread" id="thread">
+      <div class="prompts" id="prompts"></div>
+    </div>
+    <form class="askbar" id="askform">
+      <input id="askq" autocomplete="off" placeholder="Has INV-112347 been approved?" aria-label="Ask the agent">
+      <button class="btn primary" type="submit">Ask</button>
+    </form>
+  </aside>
+</div>
+<button class="btn primary asktoggle" id="asktoggle">Ask the agent</button>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money = n => "$" + Number(n || 0).toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const num = n => Number(n || 0).toLocaleString();
+const pl = (n, one, many) => `${num(n)} ${Number(n) === 1 ? one : (many || one + "s")}`;
+const PROMPTS = ["What's waiting for my approval?", "Has INV-112347 been approved?", "Why hasn't INV-100036 been drafted?",
+                 "Which PO cases are ready?", "Was anything withdrawn?", "Which write-offs need a controller?"];
+let ov = null, view = "today", selected = null, cache = {};
+
+async function api(path, body) {
+  const r = await fetch(path, body ? {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)} : undefined);
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error || r.statusText);
+  return data;
+}
+function reviewer() { try { return localStorage.getItem("reviewer") || ""; } catch (e) { return ""; } }
+function setReviewer(v) { try { localStorage.setItem("reviewer", v); } catch (e) {} }
+function linkInvoices(text) {
+  return esc(text).replace(/\bINV-\d{5,}\b/g, m => `<button class="inv" data-inv="${m}">${m}</button>`);
+}
+
+/* ---------- navigation ---------- */
+function go(v, id) {
+  view = v; selected = id || null;
+  const hash = id ? `${v}/${id}` : v;
+  if (location.hash.slice(1) !== hash) history.replaceState(null, "", "#" + hash);
+  document.querySelectorAll(".navlink").forEach(a => a.setAttribute("aria-current", a.dataset.view === v ? "page" : "false"));
+  render();
+}
+function fromHash() {
+  let h = "";
+  try { h = decodeURIComponent(location.hash.slice(1)); } catch (e) {}
+  const [v, id] = h.split("/");
+  go(["today", "approvals", "accounts", "cases", "disputes", "writeoffs", "invoice"].includes(v) ? v : "today", id);
+}
+
+/* ---------- sidebar ---------- */
+function sidebar() {
+  if (!ov) return;
+  const set = (id, n, cls) => { const b = $(id); b.textContent = n ? num(n) : ""; b.className = "badge " + (n ? cls : ""); };
+  set("#b-approvals", ov.awaiting + ov.withdrawn, ov.withdrawn ? "stop" : "hot");
+  set("#b-accounts", ov.packages, "");
+  set("#b-cases", (ov.blockers.by_state || {}).ready, "go");
+  set("#b-disputes", ov.p1, "hot");
+  set("#b-writeoffs", ov.controller, "hot");
+  $("#boxinfo").innerHTML = `<div class="live">Running on this box, offline</div>
+    <div>Model <span class="mono">${esc(ov.model || "local")}</span></div>
+    <div>Snapshot ${esc(ov.as_of)}</div>${ov.last_run ? `<div>Last run ${esc(String(ov.last_run).replace("T", " "))}</div>` : ""}`;
+}
+
+/* ---------- views ---------- */
+async function render() {
+  const m = $("#main");
+  try {
+    if (view === "today") return today(m);
+    if (view === "approvals") return listView(m, "Approvals", "Drafts the agent made, waiting for you. Anything the stale-draft check pulled is at the top in red.",
+      "/api/drafts", approvalRow, r => r.invoice_id);
+    if (view === "accounts") return listView(m, "Accounts", "Queued invoices grouped by customer, so one conversation covers every small balance on the account.",
+      "/api/packages", accountRow, r => r.package_id, packageDetail);
+    if (view === "cases") return listView(m, "PO cases", "Disputes blocked on a missing purchase order. The agent keeps each one open until the PO checks out against the invoice.",
+      "/api/cases", caseRow, r => r.invoice_id);
+    if (view === "disputes") return listView(m, "Disputes", "Disputed small invoices with a reason, an owner and a reply-by date. Highest priority first.",
+      "/api/disputes", disputeRow, r => r.invoice_id);
+    if (view === "writeoffs") return listView(m, "Write-offs", "Balances under the write-off limit. Batches and large account totals wait for a controller.",
+      "/api/writeoffs", writeoffRow, r => r.invoice_id);
+    if (view === "invoice") return invoiceOnly(m);
+  } catch (e) {
+    m.innerHTML = `<div class="empty">Couldn't load this view: ${esc(e.message)}. The agent's files may be mid-update; try again in a moment.</div>`;
+  }
+}
+
+function today(m) {
+  if (!ov) { m.innerHTML = '<div class="empty">Loading the latest run.</div>'; return; }
+  const st = ov.blockers.by_state || {};
+  const todo = [
+    ov.withdrawn && ["stop", `${pl(ov.withdrawn, "draft")} withdrawn before sending`, "The invoice changed after the draft: paid, disputed, new contact or touched by a person.", "approvals"],
+    ov.awaiting && ["hot", `${pl(ov.awaiting, "draft")} waiting for your approval`, "Reminders the agent wrote from the invoice and account history.", "approvals"],
+    st.ready && ["go", `${pl(st.ready, "PO case")} ready to send`, "The PO matched the invoice; a corrected invoice email is drafted.", "cases"],
+    st.blocked && ["stop", `${pl(st.blocked, "PO case")} blocked`, "The PO the owner sent doesn't match the invoice.", "cases"],
+    ov.p1 && ["hot", `${pl(ov.p1, "P1 dispute")} need${Number(ov.p1) === 1 ? "s" : ""} a reply`, "Routed to the account owner, deal desk or billing ops with a reply-by date.", "disputes"],
+    ov.controller && ["hot", `${pl(ov.controller, "write-off")} need${Number(ov.controller) === 1 ? "s" : ""} a controller`, "A batch on one account, or more than the account limit.", "writeoffs"],
+  ].filter(Boolean);
+  m.innerHTML = `
+    <div class="head"><div><h1>Today</h1><p>As of ${esc(ov.as_of)}, the agent is working ${num(ov.queued)} small invoices worth ${money(ov.queued_dollars)} that nobody had followed up on, out of ${num(ov.invoices)} on the books.</p></div></div>
+    <div class="kpis">
+      <button class="kpi" data-goto="accounts"><div class="n">${num(ov.packages)}</div><div class="l">Accounts to work</div><div class="s">${num(ov.queued)} invoices, ${money(ov.queued_dollars)}</div></button>
+      <button class="kpi hot" data-goto="approvals"><div class="n">${num(ov.awaiting)}</div><div class="l">Waiting for you</div><div class="s">${num(ov.drafted)} drafted so far</div></button>
+      <button class="kpi go" data-goto="cases"><div class="n">${num(st.ready)}</div><div class="l">PO cases ready</div><div class="s">${num(ov.blockers.open)} open, ${num(st.blocked)} blocked</div></button>
+      <button class="kpi ${ov.withdrawn ? "stop" : ""}" data-goto="approvals"><div class="n">${num(ov.withdrawn)}</div><div class="l">Withdrawn before sending</div><div class="s">stale-draft check, every cycle</div></button>
+    </div>
+    <div class="cols">
+      <section class="card"><h2>Needs you</h2><div class="sub">In the order the agent would work them.</div>
+        ${todo.map(([c, t, s, v]) => `<button class="todo" data-goto="${v}"><span class="dot ${c}"></span><span><span class="t">${esc(t)}</span><br><span class="muted" style="font-size:12.5px">${esc(s)}</span></span><span class="muted">&rsaquo;</span></button>`).join("") || '<div class="empty">Nothing needs you right now.</div>'}
+      </section>
+      <section class="card"><h2>What the agent did</h2><div class="sub">From the latest run on this box.</div>
+        <ul class="timeline">
+          <li><span class="muted">Read</span><span>${num(ov.invoices)} invoices from Salesforce, the collector sheet and Slack.</span></li>
+          <li><span class="muted">Triaged</span><span>${num(ov.queued)} small, aged, untouched invoices into ${num(ov.packages)} accounts; ${num(ov.coordinate)} held for an owner who is already talking to the customer.</span></li>
+          <li><span class="muted">Drafted</span><span>${pl(ov.drafted, "follow-up")} with the local model; ${num(ov.approved)} approved (${money(ov.approved_dollars)}).</span></li>
+          <li><span class="muted">Disputes</span><span>${num(ov.disputes)} worked with a reason and owner; ${num(ov.blockers.open)} carried as PO cases.</span></li>
+          <li><span class="muted">Checked</span><span>Every draft against the newest export; ${num(ov.withdrawn)} withdrawn.</span></li>
+          <li><span class="muted">Saved you</span><span>About ${num(ov.hours)} collector hours at 6 minutes a touch.</span></li>
+        </ul>
+      </section>
+    </div>`;
+}
+
+async function listView(m, title, sub, url, rowFn, idOf, detailFn) {
+  m.innerHTML = `<div class="head"><div><h1>${esc(title)}</h1><p>${esc(sub)}</p></div></div>
+    <div class="split"><div class="list" id="list">${'<div class="skel"></div>'.repeat(5)}</div><div class="detail" id="detail"><div class="empty">Pick one from the list.</div></div></div>`;
+  const rows = cache[url] = await api(url);
+  if (view !== m.dataset.view && m.dataset.view) {}
+  const shown = rows.slice(0, 150);
+  $("#list").innerHTML = shown.length ? shown.map(r => rowFn(r, idOf(r) === selected)).join("")
+    + (rows.length > shown.length ? `<div class="more">Showing ${num(shown.length)} of ${num(rows.length)}. Ask the agent about any invoice or account by name.</div>` : "")
+    : '<div class="empty">Nothing here yet. The agent fills this list every cycle.</div>';
+  const first = selected || (shown[0] && idOf(shown[0]));
+  if (first) openDetail(first, detailFn);
+}
+
+function approvalRow(r, sel) {
+  const pill = r.withdraw ? '<span class="pill stop">withdrawn</span>'
+    : {drafted: '<span class="pill hot">waiting for you</span>', edited: '<span class="pill hot">edited, waiting</span>',
+       approved: '<span class="pill go">approved</span>', rejected: '<span class="pill">rejected</span>'}[r.state] || "";
+  return `<button class="row" data-id="${esc(r.invoice_id)}" aria-current="${sel}"><div class="top"><span class="who">${esc(r.account_name)}</span><span class="amt">${money(r.balance)}</span></div>
+    <div class="meta"><span class="mono">${esc(r.invoice_id)}</span> &middot; ${esc(r.days_past_due)} days past due &middot; ${pill}</div></button>`;
+}
+function accountRow(r, sel) {
+  return `<button class="row" data-id="${esc(r.package_id)}" aria-current="${sel}"><div class="top"><span class="who">${esc(r.account_name)}</span><span class="amt">${money(r.dollars)}</span></div>
+    <div class="meta">${num(r.count)} invoices &middot; oldest ${esc(r.oldest_days_past_due)} days &middot; ${esc(r.account_owner)}${r.coordinate ? ' &middot; <span class="pill hot">owner is talking to them</span>' : ""}</div></button>`;
+}
+function caseRow(r, sel) {
+  const cls = {ready: "go", blocked: "stop"}[r.state] || "";
+  return `<button class="row" data-id="${esc(r.invoice_id)}" aria-current="${sel}"><div class="top"><span class="who">${esc(r.account_name)}</span><span class="amt">${money(r.balance)}</span></div>
+    <div class="meta"><span class="mono">${esc(r.invoice_id)}</span> &middot; <span class="pill ${cls}">${esc(r.label)}</span></div></button>`;
+}
+function disputeRow(r, sel) {
+  return `<button class="row" data-id="${esc(r.invoice_id)}" aria-current="${sel}"><div class="top"><span class="who">${esc(r.account_name)}</span><span class="amt">${money(r.balance)}</span></div>
+    <div class="meta"><span class="pill ${r.priority === "P1" ? "hot" : ""}">${esc(r.priority)}</span> ${esc(r.reason_label)} &middot; reply by ${esc(r.respond_by)}${r.concede_recommended ? ' &middot; <span class="pill">concede</span>' : ""}</div></button>`;
+}
+function writeoffRow(r, sel) {
+  const c = r.controls || {};
+  return `<button class="row" data-id="${esc(r.invoice_id)}" aria-current="${sel}"><div class="top"><span class="who">${esc(r.account_name)}</span><span class="amt">${money(r.balance)}</span></div>
+    <div class="meta"><span class="mono">${esc(r.invoice_id)}</span> &middot; ${r.tiny_origin === "residual" ? "left over after a partial payment" : "issued tiny"} &middot; ${c.needs_controller ? '<span class="pill hot">needs a controller</span>' : '<span class="pill go">within limits</span>'}</div></button>`;
+}
+
+async function openDetail(id, detailFn) {
+  selected = id;
+  document.querySelectorAll("#list .row").forEach(r => r.setAttribute("aria-current", r.dataset.id === id ? "true" : "false"));
+  history.replaceState(null, "", `#${view}/${id}`);
+  const d = $("#detail");
+  d.innerHTML = '<div class="empty">Loading.</div>';
+  try { d.innerHTML = await (detailFn || invoiceDetail)(id); }
+  catch (e) { d.innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+}
+
+async function packageDetail(id) {
+  const p = await api("/api/package/" + encodeURIComponent(id));
+  return `<h2>${esc(p.account_name)}</h2><div class="idline"><span class="mono">${esc(p.account_id)}</span> &middot; owner ${esc(p.account_owner)}</div>
+    <div class="figs"><div><div class="k">Queued here</div><div class="v">${money(p.dollars)}</div></div><div><div class="k">Invoices</div><div class="v">${num(p.count)}</div></div><div><div class="k">Open on the whole account</div><div class="v">${money(p.open_balance)}</div></div></div>
+    ${p.coordinate_reason ? `<div class="suggest hot"><div class="k">Go through the owner</div>${esc(p.coordinate_reason)}</div>`
+      : `<div class="suggest"><div class="k">Suggested action</div>Send one reminder that lists all ${num(p.count)} invoices instead of ${num(p.count)} separate emails.</div>`}
+    <div class="section"><h3>Invoices in this package</h3><div class="list">${p.items.map(i => `<button class="row" data-inv="${esc(i.invoice_id)}"><div class="top"><span class="mono">${esc(i.invoice_id)}</span><span class="amt">${money(i.balance)}</span></div><div class="meta">${esc(i.bucket)} &middot; ${esc(i.days_past_due)} days past due &middot; last touch ${esc(i.last_touch_date || "never")}</div></button>`).join("")}</div></div>`;
+}
+
+async function invoiceDetail(id) {
+  const d = await api("/api/invoice/" + encodeURIComponent(id));
+  const q = d.queue || {}, a = d.action || {}, s = a.status || {}, r = a.recheck || {};
+  let box = "";
+  if (r.verdict === "withdraw") box = `<div class="suggest stop"><div class="k">Don't send this</div>${esc((r.reasons || []).join("; "))}. Withdrawn by the stale-draft check against the ${esc(r.checked_against)} export.</div>`;
+  else if (d.case && d.case.state === "ready") box = `<div class="suggest"><div class="k">Ready to send</div>${esc(d.case.history.at(-1).detail)}</div>`;
+  else if (d.case && d.case.state === "blocked") box = `<div class="suggest stop"><div class="k">Blocked</div>${esc((d.case.open_questions || []).join("; "))}</div>`;
+  else if (q.coordinate) box = `<div class="suggest hot"><div class="k">Go through the owner</div>${esc(q.coordinate.reason)}</div>`;
+  else if (d.dispute) box = `<div class="suggest hot"><div class="k">Suggested action</div>${esc(d.dispute.resolution)}</div>`;
+  else if (q.writeoff_controls) box = `<div class="suggest ${q.writeoff_controls.needs_controller ? "hot" : ""}"><div class="k">${q.writeoff_controls.needs_controller ? "Needs a controller" : "Write off"}</div>${esc((q.writeoff_controls.reasons || []).join("; "))}.</div>`;
+  else if (s.state) box = `<div class="suggest"><div class="k">Suggested action</div>Approve the reminder below; it goes out with the next send.</div>`;
+
+  const drafts = Object.entries(d.drafts || {}).map(([k, v]) => `<div class="section"><h3>${esc({customer_email: "Email to the customer", customer_slack: "Slack to the customer", internal_note: "Note to the account owner", writeoff_memo: "Write-off memo"}[k] || k)}</h3><div class="doc">${esc(v)}</div></div>`).join("");
+  const casePart = d.case ? `<div class="section"><h3>PO case: ${esc(d.case.label)}</h3><ul class="timeline">${(d.case.history || []).map(h => `<li><span class="muted">${esc(h.at)}</span><span>${esc(h.detail)} <span class="muted" style="font-size:12px">${esc(h.source)}</span></span></li>`).join("")}</ul></div>`
+    + (d.case.package ? `<div class="section"><h3>Corrected invoice email</h3><div class="doc">${esc(d.case.package.customer_email.body)}</div></div>` : "") : "";
+  const disputePart = d.dispute && !d.case ? `<div class="section"><h3>Note to ${esc(d.dispute.route_email)}</h3><div class="doc">${esc(d.dispute.owner_note.body)}</div></div>` : "";
+
+  let actions = "";
+  const canDecide = ["drafted", "edited"].includes(s.state) && r.verdict !== "withdraw";
+  if (canDecide) actions = `<div class="actions"><input class="reviewer" id="who" placeholder="Your name" value="${esc(reviewer())}" aria-label="Your name">
+      <button class="btn primary" data-decide="approve" data-id="${esc(id)}">Approve and queue to send</button>
+      <button class="btn danger" data-decide="reject" data-id="${esc(id)}">Reject</button><span class="toast" id="toast"></span></div>`;
+  else if (!s.state && q.bucket === "agent") actions = `<div class="actions"><button class="btn primary" data-decide="draft" data-id="${esc(id)}">Draft it now</button><span class="toast" id="toast">The local model writes it in a few seconds on the box.</span></div>`;
+
+  return `<h2>${esc(d.account_name)}</h2><div class="idline"><span class="mono">${esc(id)}</span> &middot; ${esc(d.status)} &middot; owner ${esc(d.account_owner)}</div>
+    <div class="figs"><div><div class="k">Balance</div><div class="v">${money(d.balance)}</div></div><div><div class="k">Days past due</div><div class="v">${esc(q.days_past_due ?? "-")}</div></div><div><div class="k">Last touch</div><div class="v" style="font-size:15px">${esc(q.last_touch_date || "never")}</div></div></div>
+    ${box}<p class="muted" style="margin:0">${linkInvoices(d.explain)}</p>${casePart}${drafts}${disputePart}${actions}`;
+}
+
+async function invoiceOnly(m) {
+  m.innerHTML = `<div class="head"><div><h1>Invoice</h1><p>Everything the agent knows about it.</p></div></div><div class="detail" id="detail"></div>`;
+  $("#detail").innerHTML = await invoiceDetail(selected);
+}
+
+/* ---------- decisions ---------- */
+async function decide(btn) {
+  const id = btn.dataset.id, action = btn.dataset.decide, who = ($("#who") || {}).value || "";
+  if (who) setReviewer(who);
+  document.querySelectorAll("[data-decide]").forEach(b => b.disabled = true);
+  $("#toast").textContent = action === "draft" ? "Drafting on the box..." : "Saving...";
+  try {
+    const r = await api("/api/decide", {invoice_id: id, action, by: who});
+    $("#toast").textContent = r.message;
+    await refresh();
+    if (view !== "today") openDetail(id);
+  } catch (e) { $("#toast").textContent = e.message; document.querySelectorAll("[data-decide]").forEach(b => b.disabled = false); }
+}
+
+/* ---------- the agent ---------- */
+function promptsView() {
+  $("#prompts").innerHTML = '<div class="muted" style="font-size:12.5px">Try one:</div>' + PROMPTS.map(p => `<button class="prompt" data-ask="${esc(p)}">${esc(p)}</button>`).join("");
+}
+async function ask(q) {
+  q = q.trim(); if (!q) return;
+  const t = $("#thread");
+  t.insertAdjacentHTML("beforeend", `<div class="q">${esc(q)}</div>`);
+  const slot = document.createElement("div"); slot.className = "a"; slot.innerHTML = '<div class="who">Agent</div><div class="txt muted">Checking the records...</div>';
+  t.appendChild(slot); t.scrollTop = t.scrollHeight;
+  try {
+    const r = await api("/api/ask", {q});
+    slot.innerHTML = `<div class="who">Agent <span>${esc(r.ms)} ms &middot; snapshot ${esc(r.as_of)}</span></div><div class="txt">${linkInvoices(r.answer)}</div>
+      ${r.steps.length ? `<details class="how"><summary>How I found this</summary><ol>${r.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol><div class="src">${r.sources.map(s => `<span>${esc(s)}</span>`).join("")}</div></details>` : ""}`;
+  } catch (e) { slot.innerHTML = `<div class="who">Agent</div><div class="txt">I couldn't read the records just now (${esc(e.message)}). Try again in a moment.</div>`; }
+  t.scrollTop = t.scrollHeight;
+}
+
+/* ---------- wiring ---------- */
+document.addEventListener("click", e => {
+  const nav = e.target.closest(".navlink"); if (nav) return go(nav.dataset.view);
+  const g = e.target.closest("[data-goto]"); if (g) return go(g.dataset.goto);
+  const inv = e.target.closest("[data-inv]"); if (inv) { $("#ask").classList.remove("open"); return go("invoice", inv.dataset.inv); }
+  const row = e.target.closest("#list .row"); if (row) return openDetail(row.dataset.id, view === "accounts" ? packageDetail : null);
+  const dec = e.target.closest("[data-decide]"); if (dec) return decide(dec);
+  const p = e.target.closest("[data-ask]"); if (p) return ask(p.dataset.ask);
+  if (e.target.id === "asktoggle") $("#ask").classList.toggle("open");
+});
+$("#askform").addEventListener("submit", e => { e.preventDefault(); const v = $("#askq").value; $("#askq").value = ""; ask(v); });
+async function refresh() {
+  try { ov = await api("/api/overview"); sidebar(); if (view === "today") today($("#main")); } catch (e) {}
+}
+promptsView();
+refresh().then(fromHash);
+setInterval(() => { if (!document.hidden) refresh(); }, 30000);
+</script>
+</body>
+</html>

@@ -11,6 +11,18 @@ python platform/preflight.py       # tests, local model, one full cycle, dashboa
 python platform/run.py             # dashboard on http://localhost:8080 plus a cycle every 2 minutes
 ```
 
+### The collector workspace
+
+```
+python app/server.py               # http://<box>:8000 ; approvals are forwarded to channel/dashboard.py on :8080
+```
+
+One page for the demo: Today (what needs you and what the agent did), Approvals (stale drafts withdrawn in red),
+Accounts (invoices grouped by customer), PO cases, Disputes and Write-offs, with **Ask the agent** docked on the right.
+Ask "Has INV-112347 been approved?", "Why hasn't INV-100036 been drafted?", "Which PO cases are ready?" or an account
+name; every answer comes from lookups on the agent's own files and lists them under "How I found this". Approve,
+reject and "draft it now" go through the approval dashboard, which owns those decisions.
+
 `platform/RUNBOOK.md` covers the GB10: copying models to a box with no internet, always-on services, the live drop
 and pulling the cable. Drafting and approval are in `agent/README.md`.
 
