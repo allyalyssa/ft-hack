@@ -1,0 +1,13 @@
+{
+  "snapshot_id": "2026-10-25T0600-s43-i140000",
+  "exported_at": "2026-10-25T06:00:00",
+  "source_files": [
+    "salesforce_invoices.csv",
+    "collector_sheet.csv",
+    "slack_threads.json"
+  ],
+  "synthetic": true,
+  "seed": 43,
+  "invoice_start": 140000,
+  "invoice_count": 20000
+}

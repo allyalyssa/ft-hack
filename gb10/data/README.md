@@ -5,6 +5,14 @@ Synthetic exports in the CONTRACT.md formats. Seed 7, so every run writes the sa
     python3 data/generate.py            # data/exports/, 20,000 invoices
     python3 data/generate.py --delta    # data/exports/delta/, the same 20,000 plus 200 new
 
+To create an additional independent batch without replacing the demo export, run from the repository root:
+
+    python gb10/data/generate.py --seed 43 --invoice-start 140000 --out data/batches/role-b-20000
+    python gb10/triage/triage.py --input data/batches/role-b-20000 --out data/batches/role-b-20000/out
+
+The seed and first ID are recorded in the manifest. Reusing these arguments reproduces the same export bytes.
+Triage decisions are deterministic; its run timestamp and timing diagnostics describe each execution.
+
 The full export, as of 2026-10-25, snapshot `2026-10-25T0600`:
 
 - `salesforce_invoices.csv`: 20,000 invoices, 1,200 accounts, 12 account owners. 70% are $500 or less, 3% under $5 (191 under $1), 252 over $100,000. Aging runs 0 to 180 days past due. 35% of open invoices have no `last_touch_date`.

@@ -8,3 +8,7 @@ data/responses/
 data/demo/
 data/uploads/
 .impeccable/review/
+# Keep the additional Role B handoff complete, including its generated triage outputs.
+!data/batches/role-b-20000/out/
+!data/batches/role-b-20000/out/queue.json
+!data/batches/role-b-20000/out/headline.json

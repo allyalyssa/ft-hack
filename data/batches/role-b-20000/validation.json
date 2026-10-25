@@ -1,0 +1,40 @@
+{
+  "synthetic": true,
+  "seed": 43,
+  "invoices": 20000,
+  "accounts": 1200,
+  "owners": 12,
+  "invoice_ids": {
+    "first": "INV-140000",
+    "last": "INV-159999"
+  },
+  "under_500": 13981,
+  "under_5": 598,
+  "under_1": 197,
+  "over_100000": 304,
+  "status": {
+    "open": 14994,
+    "paid": 2628,
+    "partially_paid": 1623,
+    "disputed": 755
+  },
+  "queue": {
+    "invoices": 20000,
+    "open": 17372,
+    "under_agent_max": 12137,
+    "queued": 3183,
+    "writeoff": 451,
+    "agent": 2600,
+    "escalate": 132,
+    "dollars_queued": 441398.26
+  },
+  "generator_byte_reproducible": true,
+  "triage_decisions_reproducible": true,
+  "sha256": {
+    "salesforce_invoices.csv": "6b7b1950ca467aece3194bc41930b949ae5e65455ceee40620cb8ab81528e8b2",
+    "collector_sheet.csv": "c96826220e04ca0940dc18d49b68574bd2885dde9a7215b153ad51c196a600f3",
+    "slack_threads.json": "4a2891de0c1f9b64797f6c2e29712a7e5fa00961e954fc2f8e6ecb49a0d91c8a",
+    "policy.yaml": "55fc84feade96848f7d8f5a348808d3a02455d8424fa1a6e403a6d4301343a04",
+    "manifest.json": "a4b1cb0f6f43710c0c85f69debc4ef7693a67c5f5d8ac50b4ed08759507656c9"
+  }
+}

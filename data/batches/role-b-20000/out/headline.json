@@ -1,0 +1,36 @@
+{
+  "as_of": "2026-10-25",
+  "snapshot_id": "2026-10-25T0600-s43-i140000",
+  "source": "data\\batches\\role-b-20000",
+  "invoices": 20000,
+  "open": 17372,
+  "dollars_open": 102648115.67,
+  "under_agent_max": 12137,
+  "under_agent_max_pct_of_open": 69.9,
+  "past_due_under_agent_max": 4547,
+  "queued": 3183,
+  "dollars_queued": 441398.26,
+  "never_touched_queued": 1841,
+  "buckets": {
+    "writeoff": {
+      "count": 451,
+      "dollars": 2807.19
+    },
+    "agent": {
+      "count": 2600,
+      "dollars": 417074.47
+    },
+    "escalate": {
+      "count": 132,
+      "dollars": 21516.6
+    }
+  },
+  "conflicts": 240,
+  "held_back_by_sheet_or_slack": 89,
+  "held_back_by_agent": 0,
+  "minutes_per_touch": 6,
+  "hours_per_week": 318.3,
+  "hours_handed_back_per_week": 305.1,
+  "hours_basis": "6 minutes per touch, each queued invoice touched once a week; handed back counts the writeoff and agent buckets",
+  "triage_seconds": 0.818
+}

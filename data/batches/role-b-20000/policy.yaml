@@ -1,0 +1,6 @@
+as_of: 2026-10-25
+min_days_past_due: 30
+stale_touch_days: 8
+write_off_max_amount: 25.00
+agent_max_amount: 500.00
+currency: USD

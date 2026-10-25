@@ -570,24 +570,24 @@ def summarize(out_dir, invoices, sheet_rows, threads, showcase, snapshot_id, new
     print("\n".join(lines))
 
 
-def full_world():
-    rng = random.Random(SEED)
+def full_world(seed=SEED, invoice_start=1):
+    rng = random.Random(seed)
     accounts = build_accounts(rng)
     invoices = build_invoices(rng, accounts)
     showcase = pin_showcase(invoices)
-    assign_ids(invoices, start=1)
+    assign_ids(invoices, start=invoice_start)
     sheet_rows = build_sheet(rng, invoices, n_newer=200, n_sheet_disputes=40)
     threads = build_slack(rng, invoices, {"large": 60, "mid": 130, "small": 95, "tiny": 15})
     return invoices, sheet_rows, threads, showcase
 
 
-def new_since_full():
+def new_since_full(seed=SEED, invoice_start=1):
     """The 200 invoices the 14:30 snapshot adds, with their sheet rows and Slack threads.
     A second stream from the same seed replays the accounts, so they land on existing customers."""
-    rng = random.Random(SEED)
+    rng = random.Random(seed)
     accounts = build_accounts(rng)
     invoices = build_delta_invoices(rng, accounts)
-    assign_ids(invoices, start=N_INVOICES + 1)
+    assign_ids(invoices, start=invoice_start + N_INVOICES)
     sheet_rows = build_sheet(rng, invoices, n_newer=3, n_sheet_disputes=1)
     threads = build_slack(rng, invoices, {"mid": 2, "small": 4})
     return invoices, sheet_rows, threads
@@ -597,17 +597,32 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="Write the synthetic collections exports (seed 7).")
     parser.add_argument("--delta", action="store_true",
                         help="write the later snapshot (full export plus 200 new invoices) to data/exports/delta/")
+    parser.add_argument("--seed", type=int, default=SEED, help="reproducible random seed (default: 7)")
+    parser.add_argument("--invoice-start", type=int, default=1,
+                        help="first invoice number; use a new range for an additional batch")
+    parser.add_argument("--out", type=Path, help="separate export folder; defaults to data/exports/")
     args = parser.parse_args(argv)
+    if args.invoice_start < 1:
+        parser.error("--invoice-start must be positive")
 
-    invoices, sheet_rows, threads, showcase = full_world()
+    invoices, sheet_rows, threads, showcase = full_world(args.seed, args.invoice_start)
     new = []
     if args.delta:  # a later export: the whole list again, plus what arrived since
-        new, new_rows, new_threads = new_since_full()
+        new, new_rows, new_threads = new_since_full(args.seed, args.invoice_start)
         invoices = invoices + new
         sheet_rows = sorted(sheet_rows + new_rows, key=lambda row: (row["note_date"], row["invoice_id"]))
         threads = threads + new_threads
     out_dir, snapshot = (EXPORTS / "delta", SNAPSHOTS["delta"]) if args.delta else (EXPORTS, SNAPSHOTS["full"])
+    if args.out:
+        out_dir = args.out
+    if args.seed != SEED or args.invoice_start != 1:
+        snapshot = (f"{snapshot[0]}-s{args.seed}-i{args.invoice_start}", snapshot[1])
     write_export(out_dir, invoices, sheet_rows, threads, snapshot)
+    manifest_path = out_dir / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest.update(synthetic=True, seed=args.seed, invoice_start=args.invoice_start,
+                    invoice_count=len(invoices))
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     summarize(out_dir, invoices, sheet_rows, threads, showcase, snapshot[0], new)
 
 

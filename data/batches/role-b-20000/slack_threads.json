@@ -1,0 +1,6752 @@
+[
+  {
+    "invoice_id": "INV-140038",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-23T09:39:00",
+        "user": "npatel",
+        "text": "Anyone know why Yarrow Freight Inc stopped paying? INV-140038 is 133 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-09-23T10:02:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-09-25T11:03:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-09-25T13:56:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140081",
+    "channel": "#ext-pinecrestmanufacturing",
+    "messages": [
+      {
+        "ts": "2026-09-10T14:07:00",
+        "user": "jason.tanaka",
+        "text": "Hi, we can't find INV-140081 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-09-10T15:31:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to jason.tanaka@pinecrestmanufacturing.example.com now. It's $562.79, due May 26."
+      },
+      {
+        "ts": "2026-09-10T17:54:00",
+        "user": "jason.tanaka",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140231",
+    "channel": "#ext-ashfordsoftware",
+    "messages": [
+      {
+        "ts": "2026-10-03T10:14:00",
+        "user": "james.walsh",
+        "text": "Hi, we can't find INV-140231 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-05T11:35:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to james.walsh@ashfordsoftware.example.com now. It's $176.38, due May 7."
+      },
+      {
+        "ts": "2026-10-06T12:13:00",
+        "user": "james.walsh",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      },
+      {
+        "ts": "2026-10-08T13:57:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-08T14:43:00",
+        "user": "jreyes",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140251",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-20T14:58:00",
+        "user": "jreyes",
+        "text": "INV-140251 for Lakeshore Partners Co is $1.11 and 165 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-21T15:38:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-21T18:30:00",
+        "user": "jreyes",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140311",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-24T11:13:00",
+        "user": "cdonovan",
+        "text": "@rkowalski Orchard Energy Inc still owes $115,272.15 on INV-140311, 135 days past due. Omar hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-09-24T12:07:00",
+        "user": "rkowalski",
+        "text": "I think Omar moved to another team. Try Rachel Lambert, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-09-26T12:21:00",
+        "user": "cdonovan",
+        "text": "Thanks, emailing Rachel today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140507",
+    "channel": "#ext-cornerstonefarms",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:34:00",
+        "user": "natalie.kaur",
+        "text": "Payment for INV-140507 goes out on Oct 27."
+      },
+      {
+        "ts": "2026-10-24T14:23:00",
+        "user": "mthompson",
+        "text": "Thanks Natalie, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140577",
+    "channel": "#ext-riverbendtooling",
+    "messages": [
+      {
+        "ts": "2026-09-25T09:47:00",
+        "user": "linda.murphy",
+        "text": "Hi, we can't find INV-140577 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-09-25T12:33:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to linda.murphy@riverbendtooling.example.com now. It's $399.00, due May 12."
+      },
+      {
+        "ts": "2026-09-25T15:02:00",
+        "user": "linda.murphy",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140611",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-28T09:59:00",
+        "user": "mthompson",
+        "text": "@mbell Eastgate Health LLC still owes $16,715.99 on INV-140611, 122 days past due. Tara hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-09-30T10:54:00",
+        "user": "mbell",
+        "text": "I think Tara moved to another team. Try Omar Becker, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-02T11:36:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Omar today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140667",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T09:18:00",
+        "user": "mthompson",
+        "text": "@gwhitfield Ironwood Labs Group still owes $158.20 on INV-140667, 131 days past due. Ana hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-24T10:50:00",
+        "user": "gwhitfield",
+        "text": "I think Ana moved to another team. Try Ahmed Moreno, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-24T12:33:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Ahmed today."
+      },
+      {
+        "ts": "2026-10-25T13:18:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-25T14:38:00",
+        "user": "mthompson",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140736",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-21T14:58:00",
+        "user": "npatel",
+        "text": "INV-140736 for Cardinal Brewing Corp is $4.27 and 153 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-21T17:39:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-21T20:23:00",
+        "user": "npatel",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140741",
+    "channel": "#ext-hawthorneenergy",
+    "messages": [
+      {
+        "ts": "2026-09-12T14:47:00",
+        "user": "tara.ortiz",
+        "text": "Payment for INV-140741 goes out on Sep 24."
+      },
+      {
+        "ts": "2026-09-12T15:40:00",
+        "user": "mthompson",
+        "text": "Thanks Tara, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140807",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-03T16:36:00",
+        "user": "npatel",
+        "text": "@dokafor Ridgeline Hospitality LLC still owes $5,782.22 on INV-140807, 117 days past due. Mei hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-03T17:39:00",
+        "user": "dokafor",
+        "text": "I think Mei moved to another team. Try Laura Wright, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-04T18:18:00",
+        "user": "npatel",
+        "text": "Thanks, emailing Laura today."
+      },
+      {
+        "ts": "2026-10-04T20:52:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140851",
+    "channel": "#ext-whitecapdesign",
+    "messages": [
+      {
+        "ts": "2026-09-16T09:25:00",
+        "user": "jason.moreno",
+        "text": "Hi, we can't find INV-140851 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-09-16T12:15:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to jason.moreno@whitecapdesign.example.com now. It's $17,525.16, due Jun 11."
+      },
+      {
+        "ts": "2026-09-16T13:52:00",
+        "user": "jason.moreno",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-140949",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-13T12:58:00",
+        "user": "jreyes",
+        "text": "@praman Boulder Medical Group still owes $750.74 on INV-140949, 119 days past due. Ana hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-13T14:57:00",
+        "user": "praman",
+        "text": "I think Ana moved to another team. Try Raj Lambert, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-13T15:32:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Raj today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141015",
+    "channel": "#ext-westbrookmedia",
+    "messages": [
+      {
+        "ts": "2026-09-10T16:49:00",
+        "user": "jreyes",
+        "text": "Hi Linda, checking on INV-141015 ($220.07). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-09-10T18:44:00",
+        "user": "linda.chen",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-09-10T21:07:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141079",
+    "channel": "#ext-riverbendtooling",
+    "messages": [
+      {
+        "ts": "2026-10-11T16:26:00",
+        "user": "jreyes",
+        "text": "Hi Linda, checking on INV-141079 ($2,020.61). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-11T17:33:00",
+        "user": "linda.murphy",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-12T17:37:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141109",
+    "channel": "#ext-silverleaffoods",
+    "messages": [
+      {
+        "ts": "2026-10-18T16:34:00",
+        "user": "leila.dubois",
+        "text": "Hi, we can't find INV-141109 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-19T17:48:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to leila.dubois@silverleaffoods.example.com now. It's $299.00, due Jun 23."
+      },
+      {
+        "ts": "2026-10-21T18:16:00",
+        "user": "leila.dubois",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141179",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-10-09T13:23:00",
+        "user": "amensah",
+        "text": "Heads up, Amberline Packaging LLC is disputing INV-141179. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-10-11T13:48:00",
+        "user": "npatel",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-10-12T15:47:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      },
+      {
+        "ts": "2026-10-12T18:02:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-14T18:18:00",
+        "user": "npatel",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141214",
+    "channel": "#ext-applewoodstaffing",
+    "messages": [
+      {
+        "ts": "2026-10-17T13:24:00",
+        "user": "raj.brown",
+        "text": "Hi, we can't find INV-141214 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-18T14:35:00",
+        "user": "npatel",
+        "text": "Sure, sending it to raj.brown@applewoodstaffing.example.com now. It's $97.03, due Jul 28."
+      },
+      {
+        "ts": "2026-10-19T15:58:00",
+        "user": "raj.brown",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141237",
+    "channel": "#ext-ironwoodhealth",
+    "messages": [
+      {
+        "ts": "2026-09-12T09:42:00",
+        "user": "raj.iqbal",
+        "text": "Hi, we can't find INV-141237 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-09-12T11:30:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to raj.iqbal@ironwoodhealth.example.com now. It's $128.49, due Jun 13."
+      },
+      {
+        "ts": "2026-09-12T13:37:00",
+        "user": "raj.iqbal",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141382",
+    "channel": "#ext-trilliumtooling",
+    "messages": [
+      {
+        "ts": "2026-09-25T10:47:00",
+        "user": "omar.mason",
+        "text": "Payment for INV-141382 goes out on Oct 4."
+      },
+      {
+        "ts": "2026-09-25T13:16:00",
+        "user": "jreyes",
+        "text": "Thanks Omar, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141470",
+    "channel": "#ext-rockportveterinary",
+    "messages": [
+      {
+        "ts": "2026-09-06T10:17:00",
+        "user": "jason.nakamura",
+        "text": "Payment for INV-141470 goes out on Sep 15."
+      },
+      {
+        "ts": "2026-09-07T11:02:00",
+        "user": "mthompson",
+        "text": "Thanks Jason, noted."
+      },
+      {
+        "ts": "2026-09-07T13:25:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-09-08T14:03:00",
+        "user": "mthompson",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141481",
+    "channel": "#ext-granitetextiles",
+    "messages": [
+      {
+        "ts": "2026-09-11T10:18:00",
+        "user": "cdonovan",
+        "text": "Hi Owen, checking on INV-141481 ($862.98). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-09-12T10:57:00",
+        "user": "owen.ali",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-09-13T11:36:00",
+        "user": "cdonovan",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-09-13T12:17:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141629",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-09-22T13:39:00",
+        "user": "dokafor",
+        "text": "Heads up, Aspen Tooling Corp is disputing INV-141629. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-09-23T15:25:00",
+        "user": "npatel",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-09-23T16:45:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      },
+      {
+        "ts": "2026-09-25T18:23:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141693",
+    "channel": "#ext-brightwaterdental",
+    "messages": [
+      {
+        "ts": "2026-09-12T16:24:00",
+        "user": "nicole.jensen",
+        "text": "Hi, we can't find INV-141693 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-09-12T17:02:00",
+        "user": "cdonovan",
+        "text": "Sure, sending it to nicole.jensen@brightwaterdental.example.com now. It's $20,662.54, due Jul 10."
+      },
+      {
+        "ts": "2026-09-12T18:37:00",
+        "user": "nicole.jensen",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141859",
+    "channel": "#ext-bluestempartners",
+    "messages": [
+      {
+        "ts": "2026-10-24T08:07:00",
+        "user": "npatel",
+        "text": "Hi Olivia, checking on INV-141859 ($159,446.59). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-24T11:00:00",
+        "user": "olivia.schmidt",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-24T12:27:00",
+        "user": "npatel",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141911",
+    "channel": "#ext-brightwaterveterinary",
+    "messages": [
+      {
+        "ts": "2026-09-10T14:16:00",
+        "user": "jreyes",
+        "text": "Hi Wei, checking on INV-141911 ($3,707.85). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-09-10T15:16:00",
+        "user": "wei.costa",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-09-11T15:23:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-09-12T16:18:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141928",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-09T16:14:00",
+        "user": "npatel",
+        "text": "Anyone know why Harbor Energy Inc stopped paying? INV-141928 is 25 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-09-09T16:41:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-09-09T17:12:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-09-09T18:24:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141938",
+    "channel": "#ext-tamarackhealth",
+    "messages": [
+      {
+        "ts": "2026-10-15T12:49:00",
+        "user": "diego.becker",
+        "text": "Payment for INV-141938 goes out on Oct 28."
+      },
+      {
+        "ts": "2026-10-15T15:25:00",
+        "user": "lortega",
+        "text": "Thanks Diego, noted."
+      },
+      {
+        "ts": "2026-10-15T18:16:00",
+        "user": "lortega",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141953",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-21T08:32:00",
+        "user": "cdonovan",
+        "text": "INV-141953 for Cobalt Farms LLC is $0.97 and 67 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-09-22T10:03:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-09-22T12:19:00",
+        "user": "cdonovan",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141968",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-08T10:12:00",
+        "user": "dokafor",
+        "text": "@npatel I have a renewal call with Saltwater Pharmacy Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-09-08T12:23:00",
+        "user": "npatel",
+        "text": "INV-141968 for $3,574.51, 53 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-09-08T14:11:00",
+        "user": "dokafor",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-141993",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-20T09:25:00",
+        "user": "amensah",
+        "text": "@npatel I have a renewal call with Applewood Staffing Corp on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-09-20T11:11:00",
+        "user": "npatel",
+        "text": "INV-141993 for $62.11, 35 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-09-20T11:43:00",
+        "user": "amensah",
+        "text": "Got it, I'll bring it up."
+      },
+      {
+        "ts": "2026-09-20T14:37:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-09-20T16:44:00",
+        "user": "npatel",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142030",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-22T15:54:00",
+        "user": "npatel",
+        "text": "Anyone know why Boulder Foods LLC stopped paying? INV-142030 is 66 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-09-22T16:05:00",
+        "user": "amensah",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-09-22T18:51:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-09-23T19:55:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142055",
+    "channel": "#ext-ridgelineprint",
+    "messages": [
+      {
+        "ts": "2026-09-19T15:59:00",
+        "user": "linda.ramos",
+        "text": "Payment for INV-142055 goes out on Sep 25."
+      },
+      {
+        "ts": "2026-09-19T16:51:00",
+        "user": "npatel",
+        "text": "Thanks Linda, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142059",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-19T09:34:00",
+        "user": "dokafor",
+        "text": "@npatel I have a renewal call with Yarrow Freight Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-09-20T10:02:00",
+        "user": "npatel",
+        "text": "INV-142059 for $98.09, 63 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-09-22T10:17:00",
+        "user": "dokafor",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142204",
+    "channel": "#ext-windmerehospitality",
+    "messages": [
+      {
+        "ts": "2026-09-15T13:51:00",
+        "user": "maria.adams",
+        "text": "Hi, we can't find INV-142204 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-09-15T16:16:00",
+        "user": "npatel",
+        "text": "Sure, sending it to maria.adams@windmerehospitality.example.com now. It's $342,011.92, due Jul 7."
+      },
+      {
+        "ts": "2026-09-15T18:27:00",
+        "user": "maria.adams",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      },
+      {
+        "ts": "2026-09-15T20:55:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142261",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-21T12:24:00",
+        "user": "jreyes",
+        "text": "INV-142261 for Ironwood Hospitality LLC is $3.69 and 75 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-21T13:28:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-21T16:12:00",
+        "user": "jreyes",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142310",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-16T11:24:00",
+        "user": "npatel",
+        "text": "INV-142310 for Harbor Energy Inc is $0.53 and 54 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-09-16T13:00:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-09-18T14:57:00",
+        "user": "npatel",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142414",
+    "channel": "#ext-southportfarms",
+    "messages": [
+      {
+        "ts": "2026-10-12T08:51:00",
+        "user": "hiroshi.ivanova",
+        "text": "Payment for INV-142414 goes out on Oct 17."
+      },
+      {
+        "ts": "2026-10-12T09:39:00",
+        "user": "npatel",
+        "text": "Thanks Hiroshi, noted."
+      },
+      {
+        "ts": "2026-10-12T10:30:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142419",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-03T08:41:00",
+        "user": "npatel",
+        "text": "@dokafor Sandstone Design Group still owes $66.44 on INV-142419, 68 days past due. Ivan hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-03T11:14:00",
+        "user": "dokafor",
+        "text": "I think Ivan moved to another team. Try Hassan Ali, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-03T11:22:00",
+        "user": "npatel",
+        "text": "Thanks, emailing Hassan today."
+      },
+      {
+        "ts": "2026-10-03T12:41:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142442",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-25T12:44:00",
+        "user": "rkowalski",
+        "text": "@cdonovan I have a renewal call with Cedar Ridge Farms LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-09-25T14:54:00",
+        "user": "cdonovan",
+        "text": "INV-142442 for $8,214.77, 60 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-09-25T16:59:00",
+        "user": "rkowalski",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142495",
+    "channel": "#ext-trilliumbuilders",
+    "messages": [
+      {
+        "ts": "2026-09-05T13:00:00",
+        "user": "amara.ivanova",
+        "text": "Payment for INV-142495 goes out on Sep 10."
+      },
+      {
+        "ts": "2026-09-06T13:01:00",
+        "user": "jreyes",
+        "text": "Thanks Amara, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142599",
+    "channel": "#ext-hillcrestmedia",
+    "messages": [
+      {
+        "ts": "2026-09-10T16:26:00",
+        "user": "brandon.hayes",
+        "text": "Hi, we can't find INV-142599 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-09-10T17:16:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to brandon.hayes@hillcrestmedia.example.com now. It's $1,230.92, due Jul 30."
+      },
+      {
+        "ts": "2026-09-12T17:45:00",
+        "user": "brandon.hayes",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      },
+      {
+        "ts": "2026-09-13T19:31:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142640",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-17T16:26:00",
+        "user": "npatel",
+        "text": "INV-142640 for Sawtooth Logistics Inc is $0.84 and 79 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-17T17:27:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-17T18:16:00",
+        "user": "npatel",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142651",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-15T08:47:00",
+        "user": "jreyes",
+        "text": "Anyone know why Whitecap Brewing LLC stopped paying? INV-142651 is 77 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-15T08:56:00",
+        "user": "therrera",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-15T11:30:00",
+        "user": "jreyes",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-15T13:23:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-15T15:44:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142840",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-12T16:56:00",
+        "user": "mthompson",
+        "text": "Anyone know why Ridgeline Supply Corp stopped paying? INV-142840 is 40 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-09-12T18:27:00",
+        "user": "mbell",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-09-12T20:19:00",
+        "user": "mthompson",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-09-12T21:27:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142842",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-12T10:55:00",
+        "user": "npatel",
+        "text": "Anyone know why Yarrow Freight Inc stopped paying? INV-142842 is 40 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-09-13T11:35:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-09-13T12:38:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-09-13T12:51:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-142965",
+    "channel": "#ext-ridgelinesupply",
+    "messages": [
+      {
+        "ts": "2026-10-18T14:20:00",
+        "user": "mthompson",
+        "text": "Hi Thomas, checking on INV-142965 ($48.09). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-18T16:20:00",
+        "user": "thomas.price",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-18T16:32:00",
+        "user": "mthompson",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-20T16:37:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143025",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-07T11:08:00",
+        "user": "praman",
+        "text": "@jreyes I have a renewal call with Blackwater Print Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-07T12:01:00",
+        "user": "jreyes",
+        "text": "INV-143025 for $110.85, 63 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-07T12:26:00",
+        "user": "praman",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143032",
+    "channel": "#ext-southportsoftware",
+    "messages": [
+      {
+        "ts": "2026-10-23T16:33:00",
+        "user": "thomas.wright",
+        "text": "Hi, we can't find INV-143032 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-23T17:22:00",
+        "user": "npatel",
+        "text": "Sure, sending it to thomas.wright@southportsoftware.example.com now. It's $4,020.57, due Aug 6."
+      },
+      {
+        "ts": "2026-10-24T18:42:00",
+        "user": "thomas.wright",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143126",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T15:28:00",
+        "user": "lortega",
+        "text": "Anyone know why Orchard Packaging LLC stopped paying? INV-143126 is 76 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-22T16:19:00",
+        "user": "kwatanabe",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-23T17:51:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-23T18:03:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-23T18:30:00",
+        "user": "lortega",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143182",
+    "channel": "#ext-baysidefreight",
+    "messages": [
+      {
+        "ts": "2026-09-26T12:53:00",
+        "user": "ahmed.dubois",
+        "text": "Payment for INV-143182 goes out on Sep 29."
+      },
+      {
+        "ts": "2026-09-26T13:12:00",
+        "user": "cdonovan",
+        "text": "Thanks Ahmed, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143218",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-03T15:13:00",
+        "user": "cdonovan",
+        "text": "INV-143218 for Old Mill Brewing Co is $2.50 and 71 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-03T16:01:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-03T17:23:00",
+        "user": "cdonovan",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143393",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-21T09:06:00",
+        "user": "jreyes",
+        "text": "INV-143393 for Willow Labs Co is $4.50 and 56 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-21T10:43:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-21T12:37:00",
+        "user": "jreyes",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143405",
+    "channel": "#ext-cardinalbrewing",
+    "messages": [
+      {
+        "ts": "2026-09-27T13:00:00",
+        "user": "npatel",
+        "text": "Hi Sarah, checking on INV-143405 ($2,782.30). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-09-27T15:35:00",
+        "user": "sarah.vasquez",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-09-27T17:43:00",
+        "user": "npatel",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143464",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-21T15:07:00",
+        "user": "therrera",
+        "text": "@jreyes I have a renewal call with Crescent Medical on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-09-21T16:09:00",
+        "user": "jreyes",
+        "text": "INV-143464 for $18.34, 54 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-09-21T16:46:00",
+        "user": "therrera",
+        "text": "Got it, I'll bring it up."
+      },
+      {
+        "ts": "2026-09-21T18:13:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143535",
+    "channel": "#ext-applewoodstaffing",
+    "messages": [
+      {
+        "ts": "2026-10-22T13:23:00",
+        "user": "npatel",
+        "text": "Hi Raj, checking on INV-143535 ($4,676.27). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-22T15:12:00",
+        "user": "raj.brown",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-22T17:44:00",
+        "user": "npatel",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-22T19:58:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143645",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-09T11:25:00",
+        "user": "hlindqvist",
+        "text": "@cdonovan I have a renewal call with Northgate Health Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-10T13:09:00",
+        "user": "cdonovan",
+        "text": "INV-143645 for $4,673.42, 55 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-10T14:09:00",
+        "user": "hlindqvist",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143804",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-03T13:07:00",
+        "user": "mthompson",
+        "text": "INV-143804 for Saltwater Textiles Inc is $4.03 and 46 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-03T15:00:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-03T16:44:00",
+        "user": "mthompson",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143827",
+    "channel": "#ext-cobaltfarms",
+    "messages": [
+      {
+        "ts": "2026-10-03T11:49:00",
+        "user": "chloe.brown",
+        "text": "Payment for INV-143827 goes out on Oct 8."
+      },
+      {
+        "ts": "2026-10-03T12:11:00",
+        "user": "cdonovan",
+        "text": "Thanks Chloe, noted."
+      },
+      {
+        "ts": "2026-10-04T13:12:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143846",
+    "channel": "#ext-tamarackhealth",
+    "messages": [
+      {
+        "ts": "2026-09-05T09:48:00",
+        "user": "diego.becker",
+        "text": "Hi, we can't find INV-143846 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-09-05T12:42:00",
+        "user": "lortega",
+        "text": "Sure, sending it to diego.becker@tamarackhealth.example.com now. It's $3,696.80, due Aug 18."
+      },
+      {
+        "ts": "2026-09-06T13:39:00",
+        "user": "diego.becker",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143884",
+    "channel": "#ext-saltwaterpharmacy",
+    "messages": [
+      {
+        "ts": "2026-09-29T15:56:00",
+        "user": "npatel",
+        "text": "Hi Nicole, checking on INV-143884 ($49.00). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-09-29T17:44:00",
+        "user": "nicole.nakamura",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-09-29T19:08:00",
+        "user": "npatel",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-143953",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-10T09:04:00",
+        "user": "cdonovan",
+        "text": "INV-143953 for Redwood Farms Group is $3.36 and 37 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-09-10T11:05:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-09-12T11:38:00",
+        "user": "cdonovan",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144050",
+    "channel": "#ext-crescentfoods",
+    "messages": [
+      {
+        "ts": "2026-09-05T10:35:00",
+        "user": "ahmed.walsh",
+        "text": "Payment for INV-144050 goes out on Sep 15."
+      },
+      {
+        "ts": "2026-09-05T12:06:00",
+        "user": "jreyes",
+        "text": "Thanks Ahmed, noted."
+      },
+      {
+        "ts": "2026-09-05T12:37:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144089",
+    "channel": "#ext-pinecreststaffing",
+    "messages": [
+      {
+        "ts": "2026-10-04T16:11:00",
+        "user": "ahmed.brown",
+        "text": "Payment for INV-144089 goes out on Oct 18."
+      },
+      {
+        "ts": "2026-10-04T17:35:00",
+        "user": "npatel",
+        "text": "Thanks Ahmed, noted."
+      },
+      {
+        "ts": "2026-10-06T19:10:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144300",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-14T13:55:00",
+        "user": "jreyes",
+        "text": "@praman Southport Brewing Co still owes $705.87 on INV-144300, 21 days past due. James hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-09-15T15:41:00",
+        "user": "praman",
+        "text": "I think James moved to another team. Try Tara Kaur, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-09-17T16:19:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Tara today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144377",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-09-30T13:06:00",
+        "user": "esokolova",
+        "text": "Heads up, Woodland Tooling LLC is disputing INV-144377. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-09-30T13:57:00",
+        "user": "lortega",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-09-30T16:10:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144404",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T09:12:00",
+        "user": "jreyes",
+        "text": "@therrera Lighthouse Manufacturing LLC still owes $9,625.49 on INV-144404, 40 days past due. Hassan hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-19T11:57:00",
+        "user": "therrera",
+        "text": "I think Hassan moved to another team. Try Omar Lambert, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-19T14:01:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Omar today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144410",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-07T14:33:00",
+        "user": "jreyes",
+        "text": "@smarchetti Ironwood Health Co still owes $5,901.73 on INV-144410, 43 days past due. Raj hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-09T15:13:00",
+        "user": "smarchetti",
+        "text": "I think Raj moved to another team. Try Jason Haddad, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-09T16:25:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Jason today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144429",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-06T12:11:00",
+        "user": "cdonovan",
+        "text": "@hlindqvist Birchwood Brewing Group still owes $104,237.96 on INV-144429, 42 days past due. Laura hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-06T14:54:00",
+        "user": "hlindqvist",
+        "text": "I think Laura moved to another team. Try Andre Kaur, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-08T16:29:00",
+        "user": "cdonovan",
+        "text": "Thanks, emailing Andre today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144446",
+    "channel": "#ext-windmeredental",
+    "messages": [
+      {
+        "ts": "2026-09-27T14:13:00",
+        "user": "patrick.becker",
+        "text": "Payment for INV-144446 goes out on Oct 10."
+      },
+      {
+        "ts": "2026-09-27T15:35:00",
+        "user": "mthompson",
+        "text": "Thanks Patrick, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144452",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-30T10:10:00",
+        "user": "therrera",
+        "text": "@jreyes I have a renewal call with Calder Health Group on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-09-30T13:06:00",
+        "user": "jreyes",
+        "text": "INV-144452 for $3,101.21, 5 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-01T14:18:00",
+        "user": "therrera",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144517",
+    "channel": "#ext-hillcrestanalytics",
+    "messages": [
+      {
+        "ts": "2026-10-01T11:58:00",
+        "user": "ivan.torres",
+        "text": "Payment for INV-144517 goes out on Oct 15."
+      },
+      {
+        "ts": "2026-10-02T12:40:00",
+        "user": "lortega",
+        "text": "Thanks Ivan, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144614",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-05T11:33:00",
+        "user": "mbell",
+        "text": "@mthompson I have a renewal call with Greenleaf Partners Corp on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-06T11:46:00",
+        "user": "mthompson",
+        "text": "INV-144614 for $199.00, 9 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-06T12:20:00",
+        "user": "mbell",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-144825",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-15T10:51:00",
+        "user": "npatel",
+        "text": "INV-144825 for Yarrow Freight Inc is $0.89 and 17 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-09-15T11:38:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-09-15T12:04:00",
+        "user": "npatel",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145018",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-11T12:22:00",
+        "user": "dokafor",
+        "text": "@npatel I have a renewal call with Keystone Farms Corp on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-09-11T12:34:00",
+        "user": "npatel",
+        "text": "INV-145018 for $1,903.66, 12 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-09-13T14:01:00",
+        "user": "dokafor",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145103",
+    "channel": "#ext-quarrymedia",
+    "messages": [
+      {
+        "ts": "2026-10-15T16:59:00",
+        "user": "peter.park",
+        "text": "Hi, we can't find INV-145103 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-15T17:17:00",
+        "user": "cdonovan",
+        "text": "Sure, sending it to peter.park@quarrymedia.example.com now. It's $2,890.98, due Sep 30."
+      },
+      {
+        "ts": "2026-10-15T18:14:00",
+        "user": "peter.park",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      },
+      {
+        "ts": "2026-10-17T18:34:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-17T20:06:00",
+        "user": "cdonovan",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145162",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-09T10:03:00",
+        "user": "mthompson",
+        "text": "@gwhitfield Lighthouse Builders Inc still owes $458,111.80 on INV-145162, 39 days past due. Diego hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-09T11:49:00",
+        "user": "gwhitfield",
+        "text": "I think Diego moved to another team. Try Megan Turner, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-09T12:27:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Megan today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145180",
+    "channel": "#ext-amberlineprint",
+    "messages": [
+      {
+        "ts": "2026-10-14T11:25:00",
+        "user": "jreyes",
+        "text": "Hi Patrick, checking on INV-145180 ($265,552.02). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-14T14:09:00",
+        "user": "patrick.novak",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-14T16:19:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145190",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-15T12:06:00",
+        "user": "jreyes",
+        "text": "@therrera Granite Analytics Inc still owes $166.03 on INV-145190, 15 days past due. Rosa hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-16T13:25:00",
+        "user": "therrera",
+        "text": "I think Rosa moved to another team. Try Raj Ivanova, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-18T14:42:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Raj today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145293",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-08T11:01:00",
+        "user": "cdonovan",
+        "text": "Anyone know why Tamarack Software Group stopped paying? INV-145293 is 7 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-09-08T11:37:00",
+        "user": "rkowalski",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-09-08T13:00:00",
+        "user": "cdonovan",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-09-08T13:17:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145388",
+    "channel": "#ext-arcadiapharmacy",
+    "messages": [
+      {
+        "ts": "2026-10-02T09:56:00",
+        "user": "tara.price",
+        "text": "Hi, we can't find INV-145388 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-02T11:59:00",
+        "user": "npatel",
+        "text": "Sure, sending it to tara.price@arcadiapharmacy.example.com now. It's $134,367.32, due Sep 1."
+      },
+      {
+        "ts": "2026-10-02T13:19:00",
+        "user": "tara.price",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145409",
+    "channel": "#ext-arcadiaenergy",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:52:00",
+        "user": "chloe.silva",
+        "text": "Hi, we can't find INV-145409 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-25T14:53:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to chloe.silva@arcadiaenergy.example.com now. It's $187,411.33, due Oct 2."
+      },
+      {
+        "ts": "2026-10-25T17:28:00",
+        "user": "chloe.silva",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145463",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-05T13:14:00",
+        "user": "lortega",
+        "text": "@kwatanabe Millbrook Logistics LLC still owes $1,682.77 on INV-145463, 3 days past due. Owen hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-09-05T15:41:00",
+        "user": "kwatanabe",
+        "text": "I think Owen moved to another team. Try Martin Walsh, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-09-05T18:16:00",
+        "user": "lortega",
+        "text": "Thanks, emailing Martin today."
+      },
+      {
+        "ts": "2026-09-05T18:58:00",
+        "user": "lortega",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-09-05T21:36:00",
+        "user": "lortega",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145492",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-09-11T12:55:00",
+        "user": "kwatanabe",
+        "text": "Heads up, Prairie Software LLC is disputing INV-145492. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-09-12T13:19:00",
+        "user": "lortega",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-09-14T15:03:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145553",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-03T08:51:00",
+        "user": "mthompson",
+        "text": "@gwhitfield Thornbury Tooling LLC still owes $5,594.74 on INV-145553, 30 days past due. Olivia hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-03T10:21:00",
+        "user": "gwhitfield",
+        "text": "I think Olivia moved to another team. Try Olivia Nash, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-03T11:55:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Olivia today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145582",
+    "channel": "#ext-yarrowpharmacy",
+    "messages": [
+      {
+        "ts": "2026-10-12T13:14:00",
+        "user": "ana.oliveira",
+        "text": "Hi, we can't find INV-145582 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-12T15:48:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to ana.oliveira@yarrowpharmacy.example.com now. It's $97.29, due Oct 3."
+      },
+      {
+        "ts": "2026-10-13T16:55:00",
+        "user": "ana.oliveira",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145639",
+    "channel": "#ext-meadowbrookveterinary",
+    "messages": [
+      {
+        "ts": "2026-10-07T12:29:00",
+        "user": "mthompson",
+        "text": "Hi Sarah, checking on INV-145639 ($6,163.77). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-07T13:19:00",
+        "user": "sarah.stone",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-07T15:07:00",
+        "user": "mthompson",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-07T16:01:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145642",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-11T16:10:00",
+        "user": "lortega",
+        "text": "Anyone know why Saltwater Builders Inc stopped paying? INV-145642 is 8 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-09-12T18:06:00",
+        "user": "esokolova",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-09-12T18:49:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-09-12T19:58:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145680",
+    "channel": "#ext-whitecapdental",
+    "messages": [
+      {
+        "ts": "2026-10-22T09:02:00",
+        "user": "lortega",
+        "text": "Hi Rachel, checking on INV-145680 ($69.37). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-22T10:22:00",
+        "user": "rachel.mason",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-24T12:21:00",
+        "user": "lortega",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145719",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-02T14:39:00",
+        "user": "mthompson",
+        "text": "@badeyemi Windmere Analytics LLC still owes $280,506.04 on INV-145719, 28 days past due. Sarah hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-02T16:07:00",
+        "user": "badeyemi",
+        "text": "I think Sarah moved to another team. Try Peter Nguyen, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-02T17:25:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Peter today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145915",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-16T15:00:00",
+        "user": "esokolova",
+        "text": "@lortega I have a renewal call with Anchorpoint Design Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-09-18T16:49:00",
+        "user": "lortega",
+        "text": "INV-145915 for $6,303.18, 11 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-09-20T18:20:00",
+        "user": "esokolova",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-145988",
+    "channel": "#ext-ridgelinepartners",
+    "messages": [
+      {
+        "ts": "2026-10-16T11:26:00",
+        "user": "cdonovan",
+        "text": "Hi Linda, checking on INV-145988 ($180,469.98). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-16T12:20:00",
+        "user": "linda.evans",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-16T13:28:00",
+        "user": "cdonovan",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146104",
+    "channel": "#ext-bluebirdhealth",
+    "messages": [
+      {
+        "ts": "2026-10-22T10:45:00",
+        "user": "wei.jensen",
+        "text": "Hi, we can't find INV-146104 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T11:43:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to wei.jensen@bluebirdhealth.example.com now. It's $24.48, due Oct 7."
+      },
+      {
+        "ts": "2026-10-25T13:18:00",
+        "user": "wei.jensen",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146121",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-24T16:26:00",
+        "user": "lortega",
+        "text": "Anyone know why Tamarack Foods Inc stopped paying? INV-146121 is 17 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-09-24T18:24:00",
+        "user": "kwatanabe",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-09-24T19:59:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-09-24T20:26:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-09-24T21:39:00",
+        "user": "lortega",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146126",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-06T08:55:00",
+        "user": "therrera",
+        "text": "@jreyes I have a renewal call with Lakeshore Robotics Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-06T10:27:00",
+        "user": "jreyes",
+        "text": "INV-146126 for $115,782.14, 29 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-06T10:58:00",
+        "user": "therrera",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146128",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-12T11:43:00",
+        "user": "dokafor",
+        "text": "@npatel I have a renewal call with Cornerstone Freight LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-12T14:37:00",
+        "user": "npatel",
+        "text": "INV-146128 for $99.00, 5 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-12T15:14:00",
+        "user": "dokafor",
+        "text": "Got it, I'll bring it up."
+      },
+      {
+        "ts": "2026-10-12T15:42:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146192",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-25T16:50:00",
+        "user": "npatel",
+        "text": "@dokafor Whitecap Energy still owes $13,511.59 on INV-146192, 17 days past due. Tara hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-09-25T18:52:00",
+        "user": "dokafor",
+        "text": "I think Tara moved to another team. Try Linda Lopez, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-09-25T21:00:00",
+        "user": "npatel",
+        "text": "Thanks, emailing Linda today."
+      },
+      {
+        "ts": "2026-09-25T22:07:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146263",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-28T15:02:00",
+        "user": "cdonovan",
+        "text": "@rkowalski Ironwood Farms Co still owes $79.04 on INV-146263, 20 days past due. Samuel hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-09-28T15:40:00",
+        "user": "rkowalski",
+        "text": "I think Samuel moved to another team. Try Maria Foster, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-09-28T16:57:00",
+        "user": "cdonovan",
+        "text": "Thanks, emailing Maria today."
+      },
+      {
+        "ts": "2026-09-28T19:42:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146323",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-10-24T08:20:00",
+        "user": "gwhitfield",
+        "text": "Heads up, Thornbury Tooling LLC is disputing INV-146323. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-10-25T08:48:00",
+        "user": "mthompson",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-10-25T10:58:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146358",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-15T13:34:00",
+        "user": "npatel",
+        "text": "Anyone know why Yarrow Freight Inc stopped paying? INV-146358 is 6 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-15T13:50:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-15T16:23:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-15T16:55:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146409",
+    "channel": "#ext-crescentfreight",
+    "messages": [
+      {
+        "ts": "2026-10-17T15:47:00",
+        "user": "sarah.murphy",
+        "text": "Payment for INV-146409 goes out on Oct 28."
+      },
+      {
+        "ts": "2026-10-18T17:10:00",
+        "user": "npatel",
+        "text": "Thanks Sarah, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146535",
+    "channel": "#ext-yarrowstaffing",
+    "messages": [
+      {
+        "ts": "2026-10-18T10:44:00",
+        "user": "sarah.price",
+        "text": "Hi, we can't find INV-146535 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-18T11:53:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to sarah.price@yarrowstaffing.example.com now. It's $8,448.97, due Oct 10."
+      },
+      {
+        "ts": "2026-10-18T13:19:00",
+        "user": "sarah.price",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146571",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-08T16:03:00",
+        "user": "npatel",
+        "text": "Anyone know why Cardinal Outfitters Inc stopped paying? INV-146571 is 43 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-08T17:43:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-08T18:53:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-10T19:10:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146579",
+    "channel": "#ext-silverleaffarms",
+    "messages": [
+      {
+        "ts": "2026-10-14T11:59:00",
+        "user": "samuel.oliveira",
+        "text": "Payment for INV-146579 goes out on Oct 28."
+      },
+      {
+        "ts": "2026-10-14T13:52:00",
+        "user": "jreyes",
+        "text": "Thanks Samuel, noted."
+      },
+      {
+        "ts": "2026-10-16T15:24:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146738",
+    "channel": "#ext-ridgelineprint",
+    "messages": [
+      {
+        "ts": "2026-10-20T12:45:00",
+        "user": "npatel",
+        "text": "Hi Linda, checking on INV-146738 ($280,898.61). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-20T13:31:00",
+        "user": "linda.ramos",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-21T15:18:00",
+        "user": "npatel",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146795",
+    "channel": "#ext-cornerstonebuilders",
+    "messages": [
+      {
+        "ts": "2026-10-05T13:08:00",
+        "user": "jreyes",
+        "text": "Hi Amara, checking on INV-146795 ($206.75). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-06T13:46:00",
+        "user": "amara.novak",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-06T16:22:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-08T16:50:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146823",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-10-01T13:32:00",
+        "user": "hlindqvist",
+        "text": "Heads up, Old Mill Farms LLC is disputing INV-146823. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-10-01T14:23:00",
+        "user": "cdonovan",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-10-03T14:28:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      },
+      {
+        "ts": "2026-10-03T16:39:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-03T17:35:00",
+        "user": "cdonovan",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146843",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-10-14T16:36:00",
+        "user": "smarchetti",
+        "text": "Heads up, Brookside Brewing Group is disputing INV-146843. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-10-16T17:05:00",
+        "user": "jreyes",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-10-16T19:29:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146858",
+    "channel": "#ext-whitecapsoftware",
+    "messages": [
+      {
+        "ts": "2026-10-22T14:48:00",
+        "user": "npatel",
+        "text": "Hi Thomas, checking on INV-146858 ($5,920.69). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-23T16:26:00",
+        "user": "thomas.oliveira",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-23T18:37:00",
+        "user": "npatel",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146891",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-21T11:01:00",
+        "user": "hlindqvist",
+        "text": "@cdonovan I have a renewal call with Old Mill Farms LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-23T11:02:00",
+        "user": "cdonovan",
+        "text": "INV-146891 for $1,598.49, 9 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-23T13:09:00",
+        "user": "hlindqvist",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-146955",
+    "channel": "#ext-yarrowmedical",
+    "messages": [
+      {
+        "ts": "2026-10-18T09:51:00",
+        "user": "olivia.stone",
+        "text": "Payment for INV-146955 goes out on Oct 25."
+      },
+      {
+        "ts": "2026-10-18T12:11:00",
+        "user": "cdonovan",
+        "text": "Thanks Olivia, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147130",
+    "channel": "#ext-brightwaterfarms",
+    "messages": [
+      {
+        "ts": "2026-09-24T15:22:00",
+        "user": "mthompson",
+        "text": "Hi Fatima, checking on INV-147130 ($1,939.34). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-09-24T17:50:00",
+        "user": "fatima.fischer",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-09-25T18:42:00",
+        "user": "mthompson",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147150",
+    "channel": "#ext-twinpinesfoods",
+    "messages": [
+      {
+        "ts": "2026-09-24T12:12:00",
+        "user": "jreyes",
+        "text": "Hi Thomas, checking on INV-147150 ($400.36). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-09-24T12:23:00",
+        "user": "thomas.larsen",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-09-25T13:40:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147186",
+    "channel": "#ext-lighthousemanufacturing",
+    "messages": [
+      {
+        "ts": "2026-10-17T08:50:00",
+        "user": "hassan.nguyen",
+        "text": "Payment for INV-147186 goes out on Oct 31."
+      },
+      {
+        "ts": "2026-10-19T10:25:00",
+        "user": "jreyes",
+        "text": "Thanks Hassan, noted."
+      },
+      {
+        "ts": "2026-10-21T11:26:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147224",
+    "channel": "#ext-silverleaffarms",
+    "messages": [
+      {
+        "ts": "2026-10-21T08:46:00",
+        "user": "samuel.oliveira",
+        "text": "Payment for INV-147224 goes out on Nov 1."
+      },
+      {
+        "ts": "2026-10-21T10:24:00",
+        "user": "jreyes",
+        "text": "Thanks Samuel, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147306",
+    "channel": "#ext-blackwaterprint",
+    "messages": [
+      {
+        "ts": "2026-10-23T09:03:00",
+        "user": "tara.haddad",
+        "text": "Hi, we can't find INV-147306 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-23T11:34:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to tara.haddad@blackwaterprint.example.com now. It's $3,090.03, due Oct 14."
+      },
+      {
+        "ts": "2026-10-23T12:59:00",
+        "user": "tara.haddad",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147472",
+    "channel": "#ext-crescentpharmacy",
+    "messages": [
+      {
+        "ts": "2026-09-26T11:30:00",
+        "user": "carlos.grant",
+        "text": "Hi, we can't find INV-147472 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-09-28T12:25:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to carlos.grant@crescentpharmacy.example.com now. It's $127,690.19, due Sep 15."
+      },
+      {
+        "ts": "2026-09-30T12:41:00",
+        "user": "carlos.grant",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147501",
+    "channel": "#ext-arcadiasystems",
+    "messages": [
+      {
+        "ts": "2026-09-29T16:01:00",
+        "user": "hiroshi.okoye",
+        "text": "Payment for INV-147501 goes out on Oct 6."
+      },
+      {
+        "ts": "2026-09-29T16:06:00",
+        "user": "jreyes",
+        "text": "Thanks Hiroshi, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147576",
+    "channel": "#ext-cedarridgeprint",
+    "messages": [
+      {
+        "ts": "2026-10-14T10:02:00",
+        "user": "npatel",
+        "text": "Hi Fatima, checking on INV-147576 ($249.00). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-14T11:21:00",
+        "user": "fatima.duarte",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-14T11:56:00",
+        "user": "npatel",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147640",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-09T13:02:00",
+        "user": "jreyes",
+        "text": "Anyone know why Sunrise Packaging Inc stopped paying? INV-147640 is 23 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-09T13:16:00",
+        "user": "therrera",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-09T13:39:00",
+        "user": "jreyes",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-11T14:36:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-11T17:31:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147654",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-09-19T13:07:00",
+        "user": "dokafor",
+        "text": "Heads up, Cardinal Outfitters Inc is disputing INV-147654. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-09-20T14:33:00",
+        "user": "npatel",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-09-20T17:32:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147710",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-29T11:06:00",
+        "user": "jreyes",
+        "text": "Anyone know why Clearwater Pharmacy LLC stopped paying? INV-147710 is 12 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-09-29T11:18:00",
+        "user": "praman",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-09-29T14:02:00",
+        "user": "jreyes",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-09-30T14:05:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147913",
+    "channel": "#ext-sawtoothanalytics",
+    "messages": [
+      {
+        "ts": "2026-10-17T16:24:00",
+        "user": "mthompson",
+        "text": "Hi Rosa, checking on INV-147913 ($120,925.28). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-19T16:38:00",
+        "user": "rosa.dubois",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-21T18:26:00",
+        "user": "mthompson",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-22T18:51:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147923",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-21T12:33:00",
+        "user": "lortega",
+        "text": "@esokolova Riverbend Hospitality Inc still owes $8,162.06 on INV-147923, 3 days past due. Rachel hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-09-21T14:24:00",
+        "user": "esokolova",
+        "text": "I think Rachel moved to another team. Try Robert Usman, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-09-22T14:26:00",
+        "user": "lortega",
+        "text": "Thanks, emailing Robert today."
+      },
+      {
+        "ts": "2026-09-24T15:34:00",
+        "user": "lortega",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-147928",
+    "channel": "#ext-amberlinetooling",
+    "messages": [
+      {
+        "ts": "2026-10-23T16:47:00",
+        "user": "raj.hughes",
+        "text": "Hi, we can't find INV-147928 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-23T17:49:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to raj.hughes@amberlinetooling.example.com now. It's $2,677.01, due Oct 18."
+      },
+      {
+        "ts": "2026-10-24T18:14:00",
+        "user": "raj.hughes",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-148019",
+    "channel": "#ext-pinecresthospitality",
+    "messages": [
+      {
+        "ts": "2026-10-24T15:44:00",
+        "user": "lortega",
+        "text": "Hi Rachel, checking on INV-148019 ($7,570.33). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-24T18:18:00",
+        "user": "rachel.tanaka",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-24T18:30:00",
+        "user": "lortega",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-148290",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-11T15:23:00",
+        "user": "npatel",
+        "text": "Anyone know why Yarrow Freight Inc stopped paying? INV-148290 is 6 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-09-11T16:46:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-09-11T17:10:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-09-12T17:16:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-148331",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-11T15:48:00",
+        "user": "jreyes",
+        "text": "@praman Cascade Health LLC still owes $16,004.46 on INV-148331, 6 days past due. Patrick hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-12T17:14:00",
+        "user": "praman",
+        "text": "I think Patrick moved to another team. Try Brandon Grant, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-14T18:43:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Brandon today."
+      },
+      {
+        "ts": "2026-10-16T19:59:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-148341",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-20T09:36:00",
+        "user": "esokolova",
+        "text": "@lortega I have a renewal call with Harbor Software Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-21T11:12:00",
+        "user": "lortega",
+        "text": "INV-148341 for $499.00, 30 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-21T12:30:00",
+        "user": "esokolova",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-148343",
+    "channel": "#ext-rockportpharmacy",
+    "messages": [
+      {
+        "ts": "2026-10-09T15:01:00",
+        "user": "jreyes",
+        "text": "Hi Natalie, checking on INV-148343 ($132.67). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-11T15:58:00",
+        "user": "natalie.costa",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-11T16:40:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-148397",
+    "channel": "#ext-applewoodmanufacturing",
+    "messages": [
+      {
+        "ts": "2026-10-09T10:34:00",
+        "user": "hassan.rossi",
+        "text": "Hi, we can't find INV-148397 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-09T11:46:00",
+        "user": "cdonovan",
+        "text": "Sure, sending it to hassan.rossi@applewoodmanufacturing.example.com now. It's $35.65, due Sep 20."
+      },
+      {
+        "ts": "2026-10-09T13:04:00",
+        "user": "hassan.rossi",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-148437",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-05T13:59:00",
+        "user": "gwhitfield",
+        "text": "@mthompson I have a renewal call with Woodland Brewing on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-05T16:07:00",
+        "user": "mthompson",
+        "text": "INV-148437 for $154,787.51, 14 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-05T16:56:00",
+        "user": "gwhitfield",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-148472",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T16:33:00",
+        "user": "jreyes",
+        "text": "Anyone know why Alder Dental stopped paying? INV-148472 is 3 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-24T18:17:00",
+        "user": "therrera",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-24T19:56:00",
+        "user": "jreyes",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-24T21:11:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-25T22:19:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-148667",
+    "channel": "#ext-highlandbrewing",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:07:00",
+        "user": "jessica.baker",
+        "text": "Payment for INV-148667 goes out on Oct 29."
+      },
+      {
+        "ts": "2026-10-24T13:47:00",
+        "user": "cdonovan",
+        "text": "Thanks Jessica, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-148910",
+    "channel": "#ext-aldertextiles",
+    "messages": [
+      {
+        "ts": "2026-10-08T13:39:00",
+        "user": "npatel",
+        "text": "Hi Nicole, checking on INV-148910 ($8,367.69). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-08T14:01:00",
+        "user": "nicole.nakamura",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-10T14:50:00",
+        "user": "npatel",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149022",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-10-24T12:42:00",
+        "user": "dokafor",
+        "text": "Heads up, Bluestem Partners LLC is disputing INV-149022. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-10-24T13:41:00",
+        "user": "npatel",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-10-24T15:28:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149045",
+    "channel": "#ext-woodlandbrewing",
+    "messages": [
+      {
+        "ts": "2026-09-14T12:36:00",
+        "user": "maria.mendes",
+        "text": "Payment for INV-149045 goes out on Sep 20."
+      },
+      {
+        "ts": "2026-09-14T12:52:00",
+        "user": "mthompson",
+        "text": "Thanks Maria, noted."
+      },
+      {
+        "ts": "2026-09-14T13:02:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149197",
+    "channel": "#ext-prairielabs",
+    "messages": [
+      {
+        "ts": "2026-10-23T09:32:00",
+        "user": "mthompson",
+        "text": "Hi Fatima, checking on INV-149197 ($11,684.50). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-23T11:54:00",
+        "user": "fatima.baker",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-24T12:22:00",
+        "user": "mthompson",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149281",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-16T11:06:00",
+        "user": "npatel",
+        "text": "INV-149281 for Yarrow Freight Inc is $4.09 and 20 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-16T12:30:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-16T13:28:00",
+        "user": "npatel",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149283",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-15T08:08:00",
+        "user": "jreyes",
+        "text": "@smarchetti Bayside Pharmacy Inc still owes $29.86 on INV-149283, 19 days past due. Yuki hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-15T08:40:00",
+        "user": "smarchetti",
+        "text": "I think Yuki moved to another team. Try Robert Ramos, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-17T09:49:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Robert today."
+      },
+      {
+        "ts": "2026-10-17T11:13:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-17T11:35:00",
+        "user": "jreyes",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149308",
+    "channel": "#ext-cascadedental",
+    "messages": [
+      {
+        "ts": "2026-10-19T16:45:00",
+        "user": "jason.duarte",
+        "text": "Payment for INV-149308 goes out on Oct 24."
+      },
+      {
+        "ts": "2026-10-20T16:50:00",
+        "user": "npatel",
+        "text": "Thanks Jason, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149313",
+    "channel": "#ext-windmereprint",
+    "messages": [
+      {
+        "ts": "2026-10-22T11:07:00",
+        "user": "victor.turner",
+        "text": "Payment for INV-149313 goes out on Nov 2."
+      },
+      {
+        "ts": "2026-10-22T14:06:00",
+        "user": "cdonovan",
+        "text": "Thanks Victor, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149366",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T15:30:00",
+        "user": "esokolova",
+        "text": "@lortega I have a renewal call with Cardinal Textiles Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-22T17:20:00",
+        "user": "lortega",
+        "text": "INV-149366 for $34.10, 11 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-22T18:46:00",
+        "user": "esokolova",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149643",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T10:06:00",
+        "user": "lortega",
+        "text": "Anyone know why Saltwater Builders Inc stopped paying? INV-149643 is 25 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-22T12:36:00",
+        "user": "esokolova",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-22T13:14:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-23T13:35:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149761",
+    "channel": "#ext-northgateoutfitters",
+    "messages": [
+      {
+        "ts": "2026-10-22T15:16:00",
+        "user": "mthompson",
+        "text": "Hi Patrick, checking on INV-149761 ($198.65). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-22T16:00:00",
+        "user": "patrick.mason",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-22T18:08:00",
+        "user": "mthompson",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149821",
+    "channel": "#ext-sawtoothlabs",
+    "messages": [
+      {
+        "ts": "2026-10-18T09:08:00",
+        "user": "megan.zhang",
+        "text": "Payment for INV-149821 goes out on Oct 23."
+      },
+      {
+        "ts": "2026-10-20T09:32:00",
+        "user": "jreyes",
+        "text": "Thanks Megan, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149830",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-01T09:08:00",
+        "user": "npatel",
+        "text": "Anyone know why Yarrow Freight Inc stopped paying? INV-149830 is 4 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-01T10:40:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-02T11:00:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-02T12:13:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-149954",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-13T15:11:00",
+        "user": "lortega",
+        "text": "@kwatanabe Bluebird Media LLC still owes $149.00 on INV-149954, 15 days past due. Mei hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-13T17:44:00",
+        "user": "kwatanabe",
+        "text": "I think Mei moved to another team. Try Ingrid Foster, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-14T19:33:00",
+        "user": "lortega",
+        "text": "Thanks, emailing Ingrid today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150048",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-08T09:02:00",
+        "user": "mbell",
+        "text": "@mthompson I have a renewal call with Foxglove Partners LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-08T11:38:00",
+        "user": "mthompson",
+        "text": "INV-150048 for $195,415.93, 10 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-09T12:14:00",
+        "user": "mbell",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150295",
+    "channel": "#ext-quarrysoftware",
+    "messages": [
+      {
+        "ts": "2026-10-04T12:37:00",
+        "user": "emily.johnson",
+        "text": "Hi, we can't find INV-150295 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-04T15:21:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to emily.johnson@quarrysoftware.example.com now. It's $2,374.50, due Sep 28."
+      },
+      {
+        "ts": "2026-10-04T17:39:00",
+        "user": "emily.johnson",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150300",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-06T09:01:00",
+        "user": "therrera",
+        "text": "@jreyes I have a renewal call with Sunrise Packaging Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-07T09:51:00",
+        "user": "jreyes",
+        "text": "INV-150300 for $29.00, 8 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-08T10:31:00",
+        "user": "therrera",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150318",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-09T10:05:00",
+        "user": "jreyes",
+        "text": "@smarchetti Cornerstone Dental LLC still owes $307,879.55 on INV-150318, 10 days past due. Zoe hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-09T10:32:00",
+        "user": "smarchetti",
+        "text": "I think Zoe moved to another team. Try Yuki Larsen, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-09T11:58:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Yuki today."
+      },
+      {
+        "ts": "2026-10-10T13:15:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150345",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-21T11:52:00",
+        "user": "npatel",
+        "text": "@dokafor Cascade Dental Inc still owes $3,195.80 on INV-150345, 22 days past due. Jason hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-23T12:13:00",
+        "user": "dokafor",
+        "text": "I think Jason moved to another team. Try Yuki Brown, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-23T14:59:00",
+        "user": "npatel",
+        "text": "Thanks, emailing Yuki today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150370",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-09-28T14:40:00",
+        "user": "mbell",
+        "text": "@mthompson I have a renewal call with Lakeshore Pharmacy on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-09-28T16:51:00",
+        "user": "mthompson",
+        "text": "INV-150370 for $3,113.95, 14 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-09-29T17:20:00",
+        "user": "mbell",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150387",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-17T09:03:00",
+        "user": "mthompson",
+        "text": "Anyone know why Willow Dental LLC stopped paying? INV-150387 is 18 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-17T10:22:00",
+        "user": "mbell",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-19T10:48:00",
+        "user": "mthompson",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-19T12:26:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-19T12:41:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150433",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-15T11:48:00",
+        "user": "praman",
+        "text": "@jreyes I have a renewal call with Meadowbrook Energy LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-15T12:30:00",
+        "user": "jreyes",
+        "text": "INV-150433 for $128,972.63, 16 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-16T14:30:00",
+        "user": "praman",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150512",
+    "channel": "#ext-yarrowfreight",
+    "messages": [
+      {
+        "ts": "2026-10-06T11:44:00",
+        "user": "chloe.murphy",
+        "text": "Payment for INV-150512 goes out on Oct 15."
+      },
+      {
+        "ts": "2026-10-07T13:44:00",
+        "user": "npatel",
+        "text": "Thanks Chloe, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150566",
+    "channel": "#ext-prairiefarms",
+    "messages": [
+      {
+        "ts": "2026-10-14T10:27:00",
+        "user": "cdonovan",
+        "text": "Hi Hiroshi, checking on INV-150566 ($2,371.33). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-14T11:31:00",
+        "user": "hiroshi.oliveira",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-14T11:37:00",
+        "user": "cdonovan",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150601",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-05T11:28:00",
+        "user": "dokafor",
+        "text": "@npatel I have a renewal call with Canyon Design Co on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-06T11:48:00",
+        "user": "npatel",
+        "text": "INV-150601 for $151,036.18, 6 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-08T13:46:00",
+        "user": "dokafor",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150678",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-21T16:14:00",
+        "user": "cdonovan",
+        "text": "@rkowalski Cedar Ridge Farms LLC still owes $29.00 on INV-150678, 21 days past due. Martin hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-22T16:56:00",
+        "user": "rkowalski",
+        "text": "I think Martin moved to another team. Try Linda Johnson, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-22T19:02:00",
+        "user": "cdonovan",
+        "text": "Thanks, emailing Linda today."
+      },
+      {
+        "ts": "2026-10-22T21:14:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150700",
+    "channel": "#ext-cornerstonedental",
+    "messages": [
+      {
+        "ts": "2026-10-18T08:09:00",
+        "user": "zoe.park",
+        "text": "Hi, we can't find INV-150700 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-20T09:36:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to zoe.park@cornerstonedental.example.com now. It's $257,220.19, due Oct 15."
+      },
+      {
+        "ts": "2026-10-22T09:48:00",
+        "user": "zoe.park",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150881",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-07T15:44:00",
+        "user": "npatel",
+        "text": "@amensah Boulder Foods LLC still owes $146.56 on INV-150881, 22 days past due. Tara hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-09T17:03:00",
+        "user": "amensah",
+        "text": "I think Tara moved to another team. Try Owen Johnson, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-09T19:04:00",
+        "user": "npatel",
+        "text": "Thanks, emailing Owen today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150898",
+    "channel": "#ext-oakridgehospitality",
+    "messages": [
+      {
+        "ts": "2026-10-21T10:12:00",
+        "user": "cdonovan",
+        "text": "Hi Sarah, checking on INV-150898 ($4,091.50). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-21T12:21:00",
+        "user": "sarah.silva",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-21T14:17:00",
+        "user": "cdonovan",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-21T15:16:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150948",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-20T12:43:00",
+        "user": "kwatanabe",
+        "text": "@lortega I have a renewal call with Valleyview Energy Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-22T13:46:00",
+        "user": "lortega",
+        "text": "INV-150948 for $132,279.12, 20 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-22T15:36:00",
+        "user": "kwatanabe",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150959",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-07T12:22:00",
+        "user": "praman",
+        "text": "@jreyes I have a renewal call with Tamarack Print LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-07T14:57:00",
+        "user": "jreyes",
+        "text": "INV-150959 for $765.34, 7 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-07T17:10:00",
+        "user": "praman",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-150982",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-08T10:54:00",
+        "user": "amensah",
+        "text": "@npatel I have a renewal call with Applewood Staffing Corp on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-08T13:37:00",
+        "user": "npatel",
+        "text": "INV-150982 for $4,975.15, 7 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-10T15:25:00",
+        "user": "amensah",
+        "text": "Got it, I'll bring it up."
+      },
+      {
+        "ts": "2026-10-10T15:34:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151038",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T12:47:00",
+        "user": "npatel",
+        "text": "Anyone know why Yarrow Freight Inc stopped paying? INV-151038 is 8 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-24T14:25:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-24T15:28:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-24T16:25:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-24T17:36:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151158",
+    "channel": "#ext-southportpharmacy",
+    "messages": [
+      {
+        "ts": "2026-10-09T12:09:00",
+        "user": "hassan.novak",
+        "text": "Payment for INV-151158 goes out on Oct 14."
+      },
+      {
+        "ts": "2026-10-10T14:05:00",
+        "user": "jreyes",
+        "text": "Thanks Hassan, noted."
+      },
+      {
+        "ts": "2026-10-10T15:49:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151201",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-18T10:43:00",
+        "user": "mthompson",
+        "text": "@mbell Cornerstone Design LLC still owes $3,800.69 on INV-151201, 17 days past due. James hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-18T12:42:00",
+        "user": "mbell",
+        "text": "I think James moved to another team. Try Omar Costa, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-18T15:29:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Omar today."
+      },
+      {
+        "ts": "2026-10-18T17:45:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-18T19:15:00",
+        "user": "mthompson",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151278",
+    "channel": "#ext-valleyviewoutfitters",
+    "messages": [
+      {
+        "ts": "2026-10-22T16:40:00",
+        "user": "amara.novak",
+        "text": "Payment for INV-151278 goes out on Nov 5."
+      },
+      {
+        "ts": "2026-10-23T17:06:00",
+        "user": "jreyes",
+        "text": "Thanks Amara, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151288",
+    "channel": "#ext-southportbrewing",
+    "messages": [
+      {
+        "ts": "2026-10-15T12:26:00",
+        "user": "jreyes",
+        "text": "Hi James, checking on INV-151288 ($193,118.12). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-16T14:00:00",
+        "user": "james.kelly",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-16T15:40:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151350",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-09T08:22:00",
+        "user": "npatel",
+        "text": "Anyone know why Stonebridge Dental Corp stopped paying? INV-151350 is 7 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-09T08:57:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-09T11:32:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-09T13:51:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151394",
+    "channel": "#ext-timberlinelogistics",
+    "messages": [
+      {
+        "ts": "2026-10-19T14:57:00",
+        "user": "jason.park",
+        "text": "Hi, we can't find INV-151394 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-20T15:30:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to jason.park@timberlinelogistics.example.com now. It's $72.39, due Oct 2."
+      },
+      {
+        "ts": "2026-10-20T16:56:00",
+        "user": "jason.park",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151445",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T08:37:00",
+        "user": "lortega",
+        "text": "@kwatanabe Orchard Systems Co still owes $6,854.11 on INV-151445, 17 days past due. Michael hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-21T09:56:00",
+        "user": "kwatanabe",
+        "text": "I think Michael moved to another team. Try Lucas Nakamura, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-23T11:04:00",
+        "user": "lortega",
+        "text": "Thanks, emailing Lucas today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151453",
+    "channel": "#ext-woodlandbrewing",
+    "messages": [
+      {
+        "ts": "2026-10-10T12:45:00",
+        "user": "maria.mendes",
+        "text": "Payment for INV-151453 goes out on Oct 16."
+      },
+      {
+        "ts": "2026-10-10T13:38:00",
+        "user": "mthompson",
+        "text": "Thanks Maria, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151459",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-09T15:05:00",
+        "user": "mthompson",
+        "text": "@gwhitfield Lighthouse Builders Inc still owes $72.75 on INV-151459, 7 days past due. Diego hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-10T15:31:00",
+        "user": "gwhitfield",
+        "text": "I think Diego moved to another team. Try Tara Wright, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-12T16:11:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Tara today."
+      },
+      {
+        "ts": "2026-10-12T18:36:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151473",
+    "channel": "#ext-arcadiapharmacy",
+    "messages": [
+      {
+        "ts": "2026-10-14T12:12:00",
+        "user": "tara.price",
+        "text": "Payment for INV-151473 goes out on Oct 20."
+      },
+      {
+        "ts": "2026-10-14T12:30:00",
+        "user": "npatel",
+        "text": "Thanks Tara, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151556",
+    "channel": "#ext-copperlinelogistics",
+    "messages": [
+      {
+        "ts": "2026-10-23T13:46:00",
+        "user": "jreyes",
+        "text": "Hi Rosa, checking on INV-151556 ($6,093.06). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-25T14:31:00",
+        "user": "rosa.dubois",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-25T14:57:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151617",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-18T09:44:00",
+        "user": "jreyes",
+        "text": "Anyone know why Timberline Health LLC stopped paying? INV-151617 is 16 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-19T10:32:00",
+        "user": "therrera",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-19T11:52:00",
+        "user": "jreyes",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-19T14:40:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151649",
+    "channel": "#ext-ashforddesign",
+    "messages": [
+      {
+        "ts": "2026-10-12T10:13:00",
+        "user": "jessica.fischer",
+        "text": "Hi, we can't find INV-151649 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-12T13:09:00",
+        "user": "cdonovan",
+        "text": "Sure, sending it to jessica.fischer@ashforddesign.example.com now. It's $12,160.92, due Oct 3."
+      },
+      {
+        "ts": "2026-10-13T13:10:00",
+        "user": "jessica.fischer",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151715",
+    "channel": "#ext-lakeshoreoutfitters",
+    "messages": [
+      {
+        "ts": "2026-10-24T16:42:00",
+        "user": "thomas.zhang",
+        "text": "Hi, we can't find INV-151715 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T17:33:00",
+        "user": "cdonovan",
+        "text": "Sure, sending it to thomas.zhang@lakeshoreoutfitters.example.com now. It's $5,347.91, due Oct 3."
+      },
+      {
+        "ts": "2026-10-24T17:50:00",
+        "user": "thomas.zhang",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      },
+      {
+        "ts": "2026-10-24T18:52:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151767",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-05T16:39:00",
+        "user": "amensah",
+        "text": "@npatel I have a renewal call with Sawtooth Design Group on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-06T18:19:00",
+        "user": "npatel",
+        "text": "INV-151767 for $745.15, 17 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-06T20:01:00",
+        "user": "amensah",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151777",
+    "channel": "#ext-copperlinepharmacy",
+    "messages": [
+      {
+        "ts": "2026-10-22T16:27:00",
+        "user": "samuel.fischer",
+        "text": "Payment for INV-151777 goes out on Oct 25."
+      },
+      {
+        "ts": "2026-10-23T18:25:00",
+        "user": "cdonovan",
+        "text": "Thanks Samuel, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151873",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T16:15:00",
+        "user": "lortega",
+        "text": "Anyone know why Valleyview Logistics LLC stopped paying? INV-151873 is 16 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-19T17:40:00",
+        "user": "esokolova",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-19T17:57:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-19T18:17:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-21T18:27:00",
+        "user": "lortega",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151888",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T14:48:00",
+        "user": "jreyes",
+        "text": "@praman Pinecrest Energy Inc still owes $120,568.43 on INV-151888, 16 days past due. Maria hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-19T16:02:00",
+        "user": "praman",
+        "text": "I think Maria moved to another team. Try Leila Mendes, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-20T17:52:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Leila today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151897",
+    "channel": "#ext-blackwaterprint",
+    "messages": [
+      {
+        "ts": "2026-10-22T14:33:00",
+        "user": "jreyes",
+        "text": "Hi Tara, checking on INV-151897 ($422.70). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-23T16:32:00",
+        "user": "tara.haddad",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-23T17:50:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151904",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T09:23:00",
+        "user": "jreyes",
+        "text": "@praman Cobalt Packaging Corp still owes $23.43 on INV-151904, 21 days past due. Kevin hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-24T11:27:00",
+        "user": "praman",
+        "text": "I think Kevin moved to another team. Try Chloe Jensen, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-24T13:28:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Chloe today."
+      },
+      {
+        "ts": "2026-10-24T13:35:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-24T15:38:00",
+        "user": "jreyes",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151910",
+    "channel": "#ext-willowdental",
+    "messages": [
+      {
+        "ts": "2026-10-15T15:21:00",
+        "user": "mthompson",
+        "text": "Hi Hassan, checking on INV-151910 ($1,487.17). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-15T17:09:00",
+        "user": "hassan.ortiz",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-15T20:00:00",
+        "user": "mthompson",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-151927",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T11:42:00",
+        "user": "lortega",
+        "text": "@esokolova Twin Pines Textiles Inc still owes $3,508.24 on INV-151927, 16 days past due. Tara hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-21T12:49:00",
+        "user": "esokolova",
+        "text": "I think Tara moved to another team. Try Emily Nakamura, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-21T15:05:00",
+        "user": "lortega",
+        "text": "Thanks, emailing Emily today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-152046",
+    "channel": "#ext-keystonepackaging",
+    "messages": [
+      {
+        "ts": "2026-10-17T10:24:00",
+        "user": "laura.park",
+        "text": "Hi, we can't find INV-152046 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-17T12:46:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to laura.park@keystonepackaging.example.com now. It's $5,236.82, due Oct 4."
+      },
+      {
+        "ts": "2026-10-17T13:21:00",
+        "user": "laura.park",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      },
+      {
+        "ts": "2026-10-17T15:22:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-152097",
+    "channel": "#ext-windmerestaffing",
+    "messages": [
+      {
+        "ts": "2026-10-07T14:21:00",
+        "user": "james.fischer",
+        "text": "Hi, we can't find INV-152097 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-08T15:13:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to james.fischer@windmerestaffing.example.com now. It's $865.28, due Oct 4."
+      },
+      {
+        "ts": "2026-10-08T16:53:00",
+        "user": "james.fischer",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-152113",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T09:36:00",
+        "user": "gwhitfield",
+        "text": "@mthompson I have a renewal call with Ironwood Systems LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-22T12:10:00",
+        "user": "mthompson",
+        "text": "INV-152113 for $376.73, 18 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-23T12:48:00",
+        "user": "gwhitfield",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-152202",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-20T10:28:00",
+        "user": "cdonovan",
+        "text": "INV-152202 for Woodland Analytics is $1.67 and 16 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-20T11:10:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-20T11:23:00",
+        "user": "cdonovan",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-152488",
+    "channel": "#ext-cedarridgeprint",
+    "messages": [
+      {
+        "ts": "2026-10-24T15:33:00",
+        "user": "fatima.duarte",
+        "text": "Payment for INV-152488 goes out on Oct 29."
+      },
+      {
+        "ts": "2026-10-24T17:32:00",
+        "user": "npatel",
+        "text": "Thanks Fatima, noted."
+      },
+      {
+        "ts": "2026-10-24T20:22:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-152543",
+    "channel": "#ext-yarrowstaffing",
+    "messages": [
+      {
+        "ts": "2026-10-21T15:11:00",
+        "user": "sarah.price",
+        "text": "Hi, we can't find INV-152543 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-21T16:08:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to sarah.price@yarrowstaffing.example.com now. It's $5,177.24, due Oct 5."
+      },
+      {
+        "ts": "2026-10-21T18:45:00",
+        "user": "sarah.price",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-152713",
+    "channel": "#ext-yarrowmanufacturing",
+    "messages": [
+      {
+        "ts": "2026-10-17T08:13:00",
+        "user": "patrick.evans",
+        "text": "Hi, we can't find INV-152713 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-18T08:15:00",
+        "user": "npatel",
+        "text": "Sure, sending it to patrick.evans@yarrowmanufacturing.example.com now. It's $113,401.41, due Oct 6."
+      },
+      {
+        "ts": "2026-10-18T08:30:00",
+        "user": "patrick.evans",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      },
+      {
+        "ts": "2026-10-18T10:51:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-152822",
+    "channel": "#ext-quarryprint",
+    "messages": [
+      {
+        "ts": "2026-10-24T09:21:00",
+        "user": "jreyes",
+        "text": "Hi Linda, checking on INV-152822 ($79.00). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-25T09:25:00",
+        "user": "linda.foster",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-25T10:22:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153021",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T15:03:00",
+        "user": "dokafor",
+        "text": "@npatel I have a renewal call with Blackwater Design Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-24T15:45:00",
+        "user": "npatel",
+        "text": "INV-153021 for $4,588.96, 17 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-24T16:33:00",
+        "user": "dokafor",
+        "text": "Got it, I'll bring it up."
+      },
+      {
+        "ts": "2026-10-24T16:52:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-24T17:46:00",
+        "user": "npatel",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153209",
+    "channel": "#ext-twinpineshospitality",
+    "messages": [
+      {
+        "ts": "2026-10-23T14:43:00",
+        "user": "tara.wright",
+        "text": "Hi, we can't find INV-153209 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-23T17:03:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to tara.wright@twinpineshospitality.example.com now. It's $101,877.72, due Oct 7."
+      },
+      {
+        "ts": "2026-10-23T19:23:00",
+        "user": "tara.wright",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153346",
+    "channel": "#ext-southportoutfitters",
+    "messages": [
+      {
+        "ts": "2026-10-22T08:47:00",
+        "user": "rachel.zhang",
+        "text": "Payment for INV-153346 goes out on Oct 26."
+      },
+      {
+        "ts": "2026-10-22T09:43:00",
+        "user": "npatel",
+        "text": "Thanks Rachel, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153356",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T09:24:00",
+        "user": "jreyes",
+        "text": "@praman Ashford Freight LLC still owes $299.00 on INV-153356, 16 days past due. Claire hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-24T09:55:00",
+        "user": "praman",
+        "text": "I think Claire moved to another team. Try Natalie Nash, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-24T11:26:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Natalie today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153361",
+    "channel": "#ext-brightwaterenergy",
+    "messages": [
+      {
+        "ts": "2026-10-16T11:20:00",
+        "user": "jreyes",
+        "text": "Hi Kevin, checking on INV-153361 ($212,436.72). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-17T12:23:00",
+        "user": "kevin.duarte",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-17T15:22:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153363",
+    "channel": "#ext-canyondesign",
+    "messages": [
+      {
+        "ts": "2026-10-14T08:08:00",
+        "user": "laura.yamada",
+        "text": "Hi, we can't find INV-153363 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-14T10:21:00",
+        "user": "npatel",
+        "text": "Sure, sending it to laura.yamada@canyondesign.example.com now. It's $18,709.06, due Oct 8."
+      },
+      {
+        "ts": "2026-10-16T10:33:00",
+        "user": "laura.yamada",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153439",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-21T11:29:00",
+        "user": "npatel",
+        "text": "Anyone know why Whitecap Energy stopped paying? INV-153439 is 13 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-21T12:08:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-22T12:55:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-22T13:56:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153442",
+    "channel": "#ext-lighthouselabs",
+    "messages": [
+      {
+        "ts": "2026-10-16T11:59:00",
+        "user": "martin.evans",
+        "text": "Hi, we can't find INV-153442 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-17T12:52:00",
+        "user": "npatel",
+        "text": "Sure, sending it to martin.evans@lighthouselabs.example.com now. It's $15.46, due Oct 8."
+      },
+      {
+        "ts": "2026-10-18T13:23:00",
+        "user": "martin.evans",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153473",
+    "channel": "#ext-greenleafpartners",
+    "messages": [
+      {
+        "ts": "2026-10-22T11:14:00",
+        "user": "james.novak",
+        "text": "Hi, we can't find INV-153473 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-23T12:56:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to james.novak@greenleafpartners.example.com now. It's $136.60, due Oct 8."
+      },
+      {
+        "ts": "2026-10-24T13:34:00",
+        "user": "james.novak",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153508",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T09:15:00",
+        "user": "jreyes",
+        "text": "Anyone know why Brightwater Energy LLC stopped paying? INV-153508 is 11 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-21T10:16:00",
+        "user": "praman",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-21T11:32:00",
+        "user": "jreyes",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-21T13:32:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153513",
+    "channel": "#ext-stonebridgefreight",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:54:00",
+        "user": "rachel.lambert",
+        "text": "Hi, we can't find INV-153513 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T14:49:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to rachel.lambert@stonebridgefreight.example.com now. It's $5,181.64, due Oct 23."
+      },
+      {
+        "ts": "2026-10-24T16:15:00",
+        "user": "rachel.lambert",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153789",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-08T16:25:00",
+        "user": "jreyes",
+        "text": "@therrera Westbrook Foods Co still owes $179,098.84 on INV-153789, 14 days past due. Yuki hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-10T17:09:00",
+        "user": "therrera",
+        "text": "I think Yuki moved to another team. Try Hiroshi Torres, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-11T18:19:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Hiroshi today."
+      },
+      {
+        "ts": "2026-10-11T20:56:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-153866",
+    "channel": "#ext-arcadiatextiles",
+    "messages": [
+      {
+        "ts": "2026-10-24T15:00:00",
+        "user": "lortega",
+        "text": "Hi Thomas, checking on INV-153866 ($79.00). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-24T17:05:00",
+        "user": "thomas.oliveira",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-24T18:59:00",
+        "user": "lortega",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-24T21:50:00",
+        "user": "lortega",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154017",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-14T11:06:00",
+        "user": "mthompson",
+        "text": "@mbell Keystone Packaging Corp still owes $127.84 on INV-154017, 4 days past due. Laura hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-14T12:00:00",
+        "user": "mbell",
+        "text": "I think Laura moved to another team. Try Hiroshi Grant, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-16T12:12:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Hiroshi today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154019",
+    "channel": "#ext-cobaltfarms",
+    "messages": [
+      {
+        "ts": "2026-10-21T12:31:00",
+        "user": "chloe.brown",
+        "text": "Hi, we can't find INV-154019 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-21T14:19:00",
+        "user": "cdonovan",
+        "text": "Sure, sending it to chloe.brown@cobaltfarms.example.com now. It's $247.65, due Oct 10."
+      },
+      {
+        "ts": "2026-10-21T17:16:00",
+        "user": "chloe.brown",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154034",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-21T10:21:00",
+        "user": "praman",
+        "text": "@jreyes I have a renewal call with Applewood Design Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-21T13:04:00",
+        "user": "jreyes",
+        "text": "INV-154034 for $399.00, 11 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-21T16:03:00",
+        "user": "praman",
+        "text": "Got it, I'll bring it up."
+      },
+      {
+        "ts": "2026-10-21T17:31:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154045",
+    "channel": "#ext-pinecrestenergy",
+    "messages": [
+      {
+        "ts": "2026-10-22T15:45:00",
+        "user": "maria.rossi",
+        "text": "Hi, we can't find INV-154045 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-22T17:31:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to maria.rossi@pinecrestenergy.example.com now. It's $135,246.04, due Oct 10."
+      },
+      {
+        "ts": "2026-10-22T17:39:00",
+        "user": "maria.rossi",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154053",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-20T13:29:00",
+        "user": "mbell",
+        "text": "@mthompson I have a renewal call with Willow Dental LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-21T13:39:00",
+        "user": "mthompson",
+        "text": "INV-154053 for $99.00, 10 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-21T14:35:00",
+        "user": "mbell",
+        "text": "Got it, I'll bring it up."
+      },
+      {
+        "ts": "2026-10-21T16:14:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154137",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T10:34:00",
+        "user": "jreyes",
+        "text": "@praman Highland Veterinary Group still owes $136.69 on INV-154137, 9 days past due. James hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-19T11:18:00",
+        "user": "praman",
+        "text": "I think James moved to another team. Try Mei Evans, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-19T11:26:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Mei today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154149",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-20T13:06:00",
+        "user": "cdonovan",
+        "text": "Anyone know why Riverbend Health LLC stopped paying? INV-154149 is 10 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-20T13:14:00",
+        "user": "rkowalski",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-20T15:15:00",
+        "user": "cdonovan",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-20T16:12:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-20T17:36:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154153",
+    "channel": "#ext-aspendental",
+    "messages": [
+      {
+        "ts": "2026-10-14T15:29:00",
+        "user": "mthompson",
+        "text": "Hi Lucas, checking on INV-154153 ($12,555.31). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-16T16:06:00",
+        "user": "lucas.quinn",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-16T16:26:00",
+        "user": "mthompson",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-17T16:45:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154157",
+    "channel": "#ext-amberlineprint",
+    "messages": [
+      {
+        "ts": "2026-10-22T10:31:00",
+        "user": "patrick.novak",
+        "text": "Hi, we can't find INV-154157 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-22T13:12:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to patrick.novak@amberlineprint.example.com now. It's $212,025.06, due Oct 10."
+      },
+      {
+        "ts": "2026-10-22T14:34:00",
+        "user": "patrick.novak",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154351",
+    "channel": "#ext-prairiedesign",
+    "messages": [
+      {
+        "ts": "2026-10-13T09:00:00",
+        "user": "wei.ivanova",
+        "text": "Payment for INV-154351 goes out on Oct 17."
+      },
+      {
+        "ts": "2026-10-14T09:45:00",
+        "user": "npatel",
+        "text": "Thanks Wei, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154366",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-15T09:08:00",
+        "user": "kwatanabe",
+        "text": "@lortega I have a renewal call with Foxglove Pharmacy LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-17T10:05:00",
+        "user": "lortega",
+        "text": "INV-154366 for $2,357.43, 5 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-18T11:57:00",
+        "user": "kwatanabe",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154371",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-20T10:43:00",
+        "user": "hlindqvist",
+        "text": "@cdonovan I have a renewal call with Fieldstone Analytics Corp on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-21T11:27:00",
+        "user": "cdonovan",
+        "text": "INV-154371 for $10,406.72, 9 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-21T14:25:00",
+        "user": "hlindqvist",
+        "text": "Got it, I'll bring it up."
+      },
+      {
+        "ts": "2026-10-21T15:54:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154453",
+    "channel": "#ext-falconbrewing",
+    "messages": [
+      {
+        "ts": "2026-10-15T11:48:00",
+        "user": "rachel.turner",
+        "text": "Hi, we can't find INV-154453 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-15T12:27:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to rachel.turner@falconbrewing.example.com now. It's $70,405.18, due Oct 11."
+      },
+      {
+        "ts": "2026-10-15T14:20:00",
+        "user": "rachel.turner",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154507",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-23T15:28:00",
+        "user": "mbell",
+        "text": "@mthompson I have a renewal call with Millbrook Staffing Co on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-23T16:16:00",
+        "user": "mthompson",
+        "text": "INV-154507 for $100,511.14, 12 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-24T16:47:00",
+        "user": "mbell",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154530",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-20T09:13:00",
+        "user": "lortega",
+        "text": "@esokolova Valleyview Logistics LLC still owes $5,299.49 on INV-154530, 9 days past due. Michael hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-20T09:34:00",
+        "user": "esokolova",
+        "text": "I think Michael moved to another team. Try Felix Tanaka, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-20T11:32:00",
+        "user": "lortega",
+        "text": "Thanks, emailing Felix today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154600",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T11:19:00",
+        "user": "cdonovan",
+        "text": "Anyone know why Cedar Ridge Farms LLC stopped paying? INV-154600 is 8 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-21T12:34:00",
+        "user": "rkowalski",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-21T14:46:00",
+        "user": "cdonovan",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-23T16:11:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154634",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-23T15:09:00",
+        "user": "mthompson",
+        "text": "INV-154634 for Bluestem Freight Inc is $0.18 and 12 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-23T17:10:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-25T17:33:00",
+        "user": "mthompson",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154701",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-18T09:18:00",
+        "user": "mbell",
+        "text": "@mthompson I have a renewal call with Lakeshore Systems Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-18T09:51:00",
+        "user": "mthompson",
+        "text": "INV-154701 for $1,116.92, 7 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-19T10:17:00",
+        "user": "mbell",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154706",
+    "channel": "#ext-highlandmanufacturing",
+    "messages": [
+      {
+        "ts": "2026-10-16T14:20:00",
+        "user": "cdonovan",
+        "text": "Hi Omar, checking on INV-154706 ($3,501.12). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-17T16:07:00",
+        "user": "omar.yamada",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-17T17:35:00",
+        "user": "cdonovan",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154756",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-18T08:27:00",
+        "user": "dokafor",
+        "text": "@npatel I have a renewal call with Cornerstone Robotics LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-18T09:43:00",
+        "user": "npatel",
+        "text": "INV-154756 for $299.00, 6 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-18T12:00:00",
+        "user": "dokafor",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154846",
+    "channel": "#ext-riverbendmedical",
+    "messages": [
+      {
+        "ts": "2026-10-15T14:31:00",
+        "user": "brandon.johnson",
+        "text": "Hi, we can't find INV-154846 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-16T16:22:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to brandon.johnson@riverbendmedical.example.com now. It's $3,471.43, due Oct 12."
+      },
+      {
+        "ts": "2026-10-16T19:11:00",
+        "user": "brandon.johnson",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      },
+      {
+        "ts": "2026-10-16T21:02:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154883",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-17T16:36:00",
+        "user": "jreyes",
+        "text": "Anyone know why Blackwater Print Inc stopped paying? INV-154883 is 5 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-18T17:04:00",
+        "user": "praman",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-18T19:25:00",
+        "user": "jreyes",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-18T21:05:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154923",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:17:00",
+        "user": "praman",
+        "text": "@jreyes I have a renewal call with Keystone Partners Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-24T14:43:00",
+        "user": "jreyes",
+        "text": "INV-154923 for $8,188.23, 12 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-25T15:54:00",
+        "user": "praman",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-154973",
+    "channel": "#ext-southportveterinary",
+    "messages": [
+      {
+        "ts": "2026-10-24T12:07:00",
+        "user": "rosa.torres",
+        "text": "Payment for INV-154973 goes out on Oct 27."
+      },
+      {
+        "ts": "2026-10-25T13:37:00",
+        "user": "npatel",
+        "text": "Thanks Rosa, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155007",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-20T13:47:00",
+        "user": "mthompson",
+        "text": "@gwhitfield Woodland Brewing still owes $4,455.91 on INV-155007, 8 days past due. Maria hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-21T15:29:00",
+        "user": "gwhitfield",
+        "text": "I think Maria moved to another team. Try Wei Evans, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-21T15:58:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Wei today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155096",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T14:09:00",
+        "user": "cdonovan",
+        "text": "@hlindqvist Whitecap Pharmacy LLC still owes $115,282.54 on INV-155096, 6 days past due. Omar hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-19T16:24:00",
+        "user": "hlindqvist",
+        "text": "I think Omar moved to another team. Try Diego Garcia, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-19T17:13:00",
+        "user": "cdonovan",
+        "text": "Thanks, emailing Diego today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155134",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T13:44:00",
+        "user": "praman",
+        "text": "@jreyes I have a renewal call with Silverleaf Farms Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-19T14:34:00",
+        "user": "jreyes",
+        "text": "INV-155134 for $206.72, 6 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-19T15:13:00",
+        "user": "praman",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155156",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-17T13:22:00",
+        "user": "jreyes",
+        "text": "@smarchetti Meridian Manufacturing Inc still owes $5,481.41 on INV-155156, 4 days past due. Peter hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-17T15:18:00",
+        "user": "smarchetti",
+        "text": "I think Peter moved to another team. Try Amara Kelly, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-17T17:24:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Amara today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155187",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-16T09:38:00",
+        "user": "lortega",
+        "text": "Anyone know why Bluebird Media LLC stopped paying? INV-155187 is 3 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-16T10:37:00",
+        "user": "kwatanabe",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-16T11:59:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-17T13:18:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155239",
+    "channel": "#ext-prairiesystems",
+    "messages": [
+      {
+        "ts": "2026-10-23T12:14:00",
+        "user": "laura.price",
+        "text": "Payment for INV-155239 goes out on Nov 5."
+      },
+      {
+        "ts": "2026-10-23T12:34:00",
+        "user": "lortega",
+        "text": "Thanks Laura, noted."
+      },
+      {
+        "ts": "2026-10-23T15:28:00",
+        "user": "lortega",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155253",
+    "channel": "#ext-hawthornehospitality",
+    "messages": [
+      {
+        "ts": "2026-10-24T16:04:00",
+        "user": "rachel.tanaka",
+        "text": "Hi, we can't find INV-155253 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T17:40:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to rachel.tanaka@hawthornehospitality.example.com now. It's $190.22, due Oct 13."
+      },
+      {
+        "ts": "2026-10-24T20:12:00",
+        "user": "rachel.tanaka",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155265",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-10-24T08:03:00",
+        "user": "smarchetti",
+        "text": "Heads up, Driftwood Print Inc is disputing INV-155265. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-10-24T09:30:00",
+        "user": "jreyes",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-10-24T10:53:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155428",
+    "channel": "#ext-eastgatemedical",
+    "messages": [
+      {
+        "ts": "2026-10-17T09:45:00",
+        "user": "martin.wright",
+        "text": "Payment for INV-155428 goes out on Oct 25."
+      },
+      {
+        "ts": "2026-10-17T11:20:00",
+        "user": "jreyes",
+        "text": "Thanks Martin, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155538",
+    "channel": "#ext-evergreenhospitality",
+    "messages": [
+      {
+        "ts": "2026-10-19T13:51:00",
+        "user": "jreyes",
+        "text": "Hi Rachel, checking on INV-155538 ($374,260.98). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-19T14:24:00",
+        "user": "rachel.hughes",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-19T16:41:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155732",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-23T13:37:00",
+        "user": "mbell",
+        "text": "@mthompson I have a renewal call with Meadowbrook Veterinary on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-23T16:32:00",
+        "user": "mthompson",
+        "text": "INV-155732 for $1,761.01, 9 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-23T19:21:00",
+        "user": "mbell",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155808",
+    "channel": "#ext-cascadedesign",
+    "messages": [
+      {
+        "ts": "2026-10-24T11:56:00",
+        "user": "michael.hayes",
+        "text": "Hi, we can't find INV-155808 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T14:17:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to michael.hayes@cascadedesign.example.com now. It's $11,386.49, due Oct 15."
+      },
+      {
+        "ts": "2026-10-25T14:31:00",
+        "user": "michael.hayes",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155831",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-23T13:53:00",
+        "user": "jreyes",
+        "text": "Anyone know why Cobalt Packaging Corp stopped paying? INV-155831 is 8 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-24T14:42:00",
+        "user": "praman",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-24T16:21:00",
+        "user": "jreyes",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-24T18:41:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-155946",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T16:47:00",
+        "user": "amensah",
+        "text": "@npatel I have a renewal call with Amberline Pharmacy Group on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-24T19:44:00",
+        "user": "npatel",
+        "text": "INV-155946 for $11,300.09, 9 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-24T19:51:00",
+        "user": "amensah",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156082",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-21T11:30:00",
+        "user": "jreyes",
+        "text": "Anyone know why Juniper Dental LLC stopped paying? INV-156082 is 5 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-21T11:48:00",
+        "user": "praman",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-21T12:58:00",
+        "user": "jreyes",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-21T13:11:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156134",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T15:02:00",
+        "user": "lortega",
+        "text": "Anyone know why Fieldstone Hospitality Group stopped paying? INV-156134 is 3 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-20T15:48:00",
+        "user": "kwatanabe",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-20T17:19:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-20T17:42:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156191",
+    "channel": "#ext-aldermarine",
+    "messages": [
+      {
+        "ts": "2026-10-12T16:05:00",
+        "user": "lortega",
+        "text": "Hi Patrick, checking on INV-156191 ($27,071.28). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-12T18:49:00",
+        "user": "patrick.mendes",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-12T20:27:00",
+        "user": "lortega",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-12T21:33:00",
+        "user": "lortega",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156232",
+    "channel": "#ext-riverbendtextiles",
+    "messages": [
+      {
+        "ts": "2026-10-22T12:06:00",
+        "user": "yuki.hughes",
+        "text": "Payment for INV-156232 goes out on Nov 4."
+      },
+      {
+        "ts": "2026-10-22T14:12:00",
+        "user": "jreyes",
+        "text": "Thanks Yuki, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156287",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T14:20:00",
+        "user": "gwhitfield",
+        "text": "@mthompson I have a renewal call with Hawthorne Energy Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-24T16:04:00",
+        "user": "mthompson",
+        "text": "INV-156287 for $175.74, 8 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-24T18:25:00",
+        "user": "gwhitfield",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156323",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T12:16:00",
+        "user": "dokafor",
+        "text": "@npatel I have a renewal call with Keystone Brewing Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-22T12:40:00",
+        "user": "npatel",
+        "text": "INV-156323 for $225,896.59, 6 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-23T13:41:00",
+        "user": "dokafor",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156325",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-19T09:58:00",
+        "user": "jreyes",
+        "text": "INV-156325 for Maple Systems Co is $3.07 and 3 days past due. Worth chasing?"
+      },
+      {
+        "ts": "2026-10-19T11:07:00",
+        "user": "dwhitaker",
+        "text": "Anything under $25 falls under the write-off policy. Leave it for the batch."
+      },
+      {
+        "ts": "2026-10-19T13:40:00",
+        "user": "jreyes",
+        "text": "Ok, leaving it."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156503",
+    "channel": "#ext-alderanalytics",
+    "messages": [
+      {
+        "ts": "2026-10-10T12:42:00",
+        "user": "james.jensen",
+        "text": "Payment for INV-156503 goes out on Oct 14."
+      },
+      {
+        "ts": "2026-10-11T14:32:00",
+        "user": "jreyes",
+        "text": "Thanks James, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156542",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T13:28:00",
+        "user": "mbell",
+        "text": "@mthompson I have a renewal call with Aspen Textiles LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-22T14:04:00",
+        "user": "mthompson",
+        "text": "INV-156542 for $78.84, 5 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-22T16:02:00",
+        "user": "mbell",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156595",
+    "channel": "#ext-cornerstonerobotics",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:52:00",
+        "user": "felix.torres",
+        "text": "Hi, we can't find INV-156595 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T16:34:00",
+        "user": "npatel",
+        "text": "Sure, sending it to felix.torres@cornerstonerobotics.example.com now. It's $113,444.39, due Oct 17."
+      },
+      {
+        "ts": "2026-10-24T19:00:00",
+        "user": "felix.torres",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156624",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-10-22T09:30:00",
+        "user": "praman",
+        "text": "Heads up, Blackwater Print Inc is disputing INV-156624. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-10-24T10:43:00",
+        "user": "jreyes",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-10-24T12:59:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      },
+      {
+        "ts": "2026-10-24T13:12:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156693",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-21T09:34:00",
+        "user": "mthompson",
+        "text": "@mbell Amberline Design still owes $278,131.89 on INV-156693, 4 days past due. Olivia hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-23T09:48:00",
+        "user": "mbell",
+        "text": "I think Olivia moved to another team. Try Zoe Lopez, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-25T11:27:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Zoe today."
+      },
+      {
+        "ts": "2026-10-25T13:45:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156720",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-08T09:21:00",
+        "user": "lortega",
+        "text": "Anyone know why Tamarack Foods Inc stopped paying? INV-156720 is 6 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-08T10:46:00",
+        "user": "kwatanabe",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-09T12:10:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-10T12:15:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-156996",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-23T14:32:00",
+        "user": "mthompson",
+        "text": "Anyone know why Larkspur Marine Corp stopped paying? INV-156996 is 5 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-23T14:43:00",
+        "user": "badeyemi",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-25T14:57:00",
+        "user": "mthompson",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-25T17:09:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-25T19:20:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157028",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T13:39:00",
+        "user": "lortega",
+        "text": "@kwatanabe Maple Partners Group still owes $482.20 on INV-157028, 4 days past due. James hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-23T15:20:00",
+        "user": "kwatanabe",
+        "text": "I think James moved to another team. Try James Kelly, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-23T16:02:00",
+        "user": "lortega",
+        "text": "Thanks, emailing James today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157292",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T13:33:00",
+        "user": "mthompson",
+        "text": "@mbell Fieldstone Logistics Corp still owes $133,855.37 on INV-157292, 3 days past due. Sarah hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-22T13:41:00",
+        "user": "mbell",
+        "text": "I think Sarah moved to another team. Try Daniel Dubois, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-22T14:42:00",
+        "user": "mthompson",
+        "text": "Thanks, emailing Daniel today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157338",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-23T08:38:00",
+        "user": "esokolova",
+        "text": "@lortega I have a renewal call with Riverbend Hospitality Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-24T08:49:00",
+        "user": "lortega",
+        "text": "INV-157338 for $104,755.55, 4 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-24T11:46:00",
+        "user": "esokolova",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157369",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T16:51:00",
+        "user": "lortega",
+        "text": "Anyone know why Orchard Systems Co stopped paying? INV-157369 is 3 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-22T18:50:00",
+        "user": "kwatanabe",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-24T19:14:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-24T20:56:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-24T23:29:00",
+        "user": "lortega",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157481",
+    "channel": "#ext-pinecrestenergy",
+    "messages": [
+      {
+        "ts": "2026-10-24T09:18:00",
+        "user": "jreyes",
+        "text": "Hi Maria, checking on INV-157481 ($49.00). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-24T10:23:00",
+        "user": "maria.rossi",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-24T13:11:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-25T14:07:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157482",
+    "channel": "#ext-foxglovemarine",
+    "messages": [
+      {
+        "ts": "2026-10-24T14:39:00",
+        "user": "npatel",
+        "text": "Hi Omar, checking on INV-157482 ($148,176.55). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-24T16:16:00",
+        "user": "omar.becker",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-24T17:04:00",
+        "user": "npatel",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-24T19:44:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157534",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:14:00",
+        "user": "lortega",
+        "text": "Anyone know why Harbor Hospitality LLC stopped paying? INV-157534 is 4 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-24T13:28:00",
+        "user": "kwatanabe",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-24T15:30:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-25T15:57:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157557",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T08:47:00",
+        "user": "lortega",
+        "text": "Anyone know why Juniper Energy Group stopped paying? INV-157557 is 4 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-24T11:28:00",
+        "user": "esokolova",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-24T14:07:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-24T15:07:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157608",
+    "channel": "#ext-westbrookmedia",
+    "messages": [
+      {
+        "ts": "2026-10-24T09:22:00",
+        "user": "linda.chen",
+        "text": "Hi, we can't find INV-157608 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T10:15:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to linda.chen@westbrookmedia.example.com now. It's $179,247.29, due Oct 20."
+      },
+      {
+        "ts": "2026-10-24T13:10:00",
+        "user": "linda.chen",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157699",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-23T12:27:00",
+        "user": "cdonovan",
+        "text": "Anyone know why Juniper Pharmacy Inc stopped paying? INV-157699 is 3 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-23T15:07:00",
+        "user": "hlindqvist",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-23T17:57:00",
+        "user": "cdonovan",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-23T18:05:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      },
+      {
+        "ts": "2026-10-24T20:04:00",
+        "user": "cdonovan",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157717",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T08:24:00",
+        "user": "npatel",
+        "text": "Anyone know why Sandstone Design Group stopped paying? INV-157717 is 4 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-24T10:55:00",
+        "user": "dokafor",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-24T12:04:00",
+        "user": "npatel",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-24T14:36:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157763",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-24T14:11:00",
+        "user": "jreyes",
+        "text": "Anyone know why Applewood Design Inc stopped paying? INV-157763 is 3 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-24T16:01:00",
+        "user": "praman",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-24T17:22:00",
+        "user": "jreyes",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-24T18:19:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157853",
+    "channel": "#ext-cedarridgeprint",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:30:00",
+        "user": "fatima.duarte",
+        "text": "Hi, we can't find INV-157853 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T15:13:00",
+        "user": "npatel",
+        "text": "Sure, sending it to fatima.duarte@cedarridgeprint.example.com now. It's $116,653.03, due Oct 21."
+      },
+      {
+        "ts": "2026-10-24T17:05:00",
+        "user": "fatima.duarte",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      },
+      {
+        "ts": "2026-10-24T18:59:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157889",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-17T16:56:00",
+        "user": "lortega",
+        "text": "Anyone know why Millbrook Foods Inc stopped paying? INV-157889 is 11 days late and they used to pay on time."
+      },
+      {
+        "ts": "2026-10-17T17:41:00",
+        "user": "esokolova",
+        "text": "They moved to a new ERP last month and their AP queue is backed up. I'll ask our champion there to nudge it."
+      },
+      {
+        "ts": "2026-10-17T19:20:00",
+        "user": "lortega",
+        "text": "Appreciate it."
+      },
+      {
+        "ts": "2026-10-19T20:04:00",
+        "user": "dwhitaker",
+        "text": "If nothing lands by month end, loop me in."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-157925",
+    "channel": "#ext-tamarackstaffing",
+    "messages": [
+      {
+        "ts": "2026-10-24T12:08:00",
+        "user": "owen.wright",
+        "text": "Hi, we can't find INV-157925 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T14:33:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to owen.wright@tamarackstaffing.example.com now. It's $127,791.14, due Oct 21."
+      },
+      {
+        "ts": "2026-10-24T16:19:00",
+        "user": "owen.wright",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-158290",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-12T09:19:00",
+        "user": "amensah",
+        "text": "@npatel I have a renewal call with Valleyview Marine Group on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-14T11:11:00",
+        "user": "npatel",
+        "text": "INV-158290 for $1,670.78, 5 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-14T12:14:00",
+        "user": "amensah",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-158335",
+    "channel": "#ext-meadowbrookprint",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:42:00",
+        "user": "andre.larsen",
+        "text": "Hi, we can't find INV-158335 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T14:27:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to andre.larsen@meadowbrookprint.example.com now. It's $185.17, due Oct 22."
+      },
+      {
+        "ts": "2026-10-24T16:51:00",
+        "user": "andre.larsen",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-158427",
+    "channel": "#ext-applewoodstaffing",
+    "messages": [
+      {
+        "ts": "2026-10-19T08:01:00",
+        "user": "raj.brown",
+        "text": "Payment for INV-158427 goes out on Oct 27."
+      },
+      {
+        "ts": "2026-10-19T09:28:00",
+        "user": "npatel",
+        "text": "Thanks Raj, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-158653",
+    "channel": "#ext-fairviewsystems",
+    "messages": [
+      {
+        "ts": "2026-10-24T09:05:00",
+        "user": "priscilla.ramos",
+        "text": "Hi, we can't find INV-158653 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T09:37:00",
+        "user": "npatel",
+        "text": "Sure, sending it to priscilla.ramos@fairviewsystems.example.com now. It's $114.49, due Oct 23."
+      },
+      {
+        "ts": "2026-10-25T10:56:00",
+        "user": "priscilla.ramos",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      },
+      {
+        "ts": "2026-10-25T12:48:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-25T15:29:00",
+        "user": "npatel",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-158731",
+    "channel": "#ext-cascadelogistics",
+    "messages": [
+      {
+        "ts": "2026-10-24T15:20:00",
+        "user": "cdonovan",
+        "text": "Hi Fatima, checking on INV-158731 ($1,588.27). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-25T17:01:00",
+        "user": "fatima.park",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-25T19:36:00",
+        "user": "cdonovan",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-158958",
+    "channel": "#ext-ridgelinesupply",
+    "messages": [
+      {
+        "ts": "2026-10-24T16:11:00",
+        "user": "thomas.price",
+        "text": "Hi, we can't find INV-158958 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T16:39:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to thomas.price@ridgelinesupply.example.com now. It's $24.75, due Oct 24."
+      },
+      {
+        "ts": "2026-10-24T16:49:00",
+        "user": "thomas.price",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-158968",
+    "channel": "#ext-clearwaterdesign",
+    "messages": [
+      {
+        "ts": "2026-10-24T16:29:00",
+        "user": "jreyes",
+        "text": "Hi Felix, checking on INV-158968 ($283.59). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-25T17:00:00",
+        "user": "felix.baker",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-25T17:21:00",
+        "user": "jreyes",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-25T18:03:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-158973",
+    "channel": "#ext-oldmillsystems",
+    "messages": [
+      {
+        "ts": "2026-10-24T08:19:00",
+        "user": "ivan.hayes",
+        "text": "Payment for INV-158973 goes out on Nov 4."
+      },
+      {
+        "ts": "2026-10-25T08:31:00",
+        "user": "jreyes",
+        "text": "Thanks Ivan, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-158992",
+    "channel": "#ext-greenleafpartners",
+    "messages": [
+      {
+        "ts": "2026-10-24T11:12:00",
+        "user": "mthompson",
+        "text": "Hi James, checking on INV-158992 ($1,329.51). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-25T11:49:00",
+        "user": "james.novak",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-25T14:20:00",
+        "user": "mthompson",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159051",
+    "channel": "#ext-fairviewpartners",
+    "messages": [
+      {
+        "ts": "2026-10-24T12:05:00",
+        "user": "andre.cohen",
+        "text": "Hi, we can't find INV-159051 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T14:41:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to andre.cohen@fairviewpartners.example.com now. It's $13.09, due Oct 24."
+      },
+      {
+        "ts": "2026-10-24T16:45:00",
+        "user": "andre.cohen",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159071",
+    "channel": "#ext-aspenpackaging",
+    "messages": [
+      {
+        "ts": "2026-10-24T10:26:00",
+        "user": "mthompson",
+        "text": "Hi Leila, checking on INV-159071 ($141.49). Is anything holding it up?"
+      },
+      {
+        "ts": "2026-10-24T10:38:00",
+        "user": "leila.grant",
+        "text": "It's waiting on a PO match on our side. I'll chase it."
+      },
+      {
+        "ts": "2026-10-24T11:32:00",
+        "user": "mthompson",
+        "text": "Thanks. Happy to resend the PO details if that helps."
+      },
+      {
+        "ts": "2026-10-24T13:38:00",
+        "user": "mthompson",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159144",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-10-24T14:11:00",
+        "user": "praman",
+        "text": "Heads up, Juniper Dental LLC is disputing INV-159144. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-10-25T14:21:00",
+        "user": "jreyes",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-10-25T17:05:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      },
+      {
+        "ts": "2026-10-25T19:56:00",
+        "user": "jreyes",
+        "text": "Any update on this one?"
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159152",
+    "channel": "#ext-thornburytooling",
+    "messages": [
+      {
+        "ts": "2026-10-24T16:35:00",
+        "user": "olivia.nakamura",
+        "text": "Hi, we can't find INV-159152 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-24T17:40:00",
+        "user": "mthompson",
+        "text": "Sure, sending it to olivia.nakamura@thornburytooling.example.com now. It's $2,394.70, due Oct 25."
+      },
+      {
+        "ts": "2026-10-25T18:43:00",
+        "user": "olivia.nakamura",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159212",
+    "channel": "#ext-quarrysoftware",
+    "messages": [
+      {
+        "ts": "2026-10-24T15:27:00",
+        "user": "emily.johnson",
+        "text": "Payment for INV-159212 goes out on Oct 30."
+      },
+      {
+        "ts": "2026-10-24T16:58:00",
+        "user": "jreyes",
+        "text": "Thanks Emily, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159223",
+    "channel": "#ar-disputes",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:51:00",
+        "user": "therrera",
+        "text": "Heads up, Lakeshore Robotics Inc is disputing INV-159223. They say the usage overage was billed twice."
+      },
+      {
+        "ts": "2026-10-24T14:13:00",
+        "user": "jreyes",
+        "text": "Ok, marking it disputed and pausing reminders. Can you confirm with their CSM?"
+      },
+      {
+        "ts": "2026-10-24T16:38:00",
+        "user": "dwhitaker",
+        "text": "If they're right, let's get a credit memo out this week."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159297",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T12:02:00",
+        "user": "npatel",
+        "text": "@dokafor Saltwater Media Inc still owes $7,635.17 on INV-159297, 12 days past due. Natalie hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-22T13:15:00",
+        "user": "dokafor",
+        "text": "I think Natalie moved to another team. Try Daniel Walsh, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-23T13:47:00",
+        "user": "npatel",
+        "text": "Thanks, emailing Daniel today."
+      },
+      {
+        "ts": "2026-10-23T16:47:00",
+        "user": "npatel",
+        "text": "Any update on this one?"
+      },
+      {
+        "ts": "2026-10-23T18:16:00",
+        "user": "npatel",
+        "text": "Bumping this, still open on our side."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159320",
+    "channel": "#ext-harborprint",
+    "messages": [
+      {
+        "ts": "2026-10-24T09:33:00",
+        "user": "olivia.duarte",
+        "text": "Hi, we can't find INV-159320 in our system. Can you resend it?"
+      },
+      {
+        "ts": "2026-10-25T11:33:00",
+        "user": "jreyes",
+        "text": "Sure, sending it to olivia.duarte@harborprint.example.com now. It's $225.31, due Oct 25."
+      },
+      {
+        "ts": "2026-10-25T14:15:00",
+        "user": "olivia.duarte",
+        "text": "Got it, thanks. It will go out in our next payment run."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159692",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T15:42:00",
+        "user": "jreyes",
+        "text": "@praman Cascade Health LLC still owes $347.89 on INV-159692, 4 days past due. Patrick hasn't answered two emails. Is there anyone else in their finance team I should try?"
+      },
+      {
+        "ts": "2026-10-22T17:42:00",
+        "user": "praman",
+        "text": "I think Patrick moved to another team. Try Peter Hughes, they took over AP in the summer."
+      },
+      {
+        "ts": "2026-10-24T19:23:00",
+        "user": "jreyes",
+        "text": "Thanks, emailing Peter today."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159732",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-23T09:44:00",
+        "user": "dokafor",
+        "text": "@npatel I have a renewal call with Foxglove Marine LLC on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-23T12:14:00",
+        "user": "npatel",
+        "text": "INV-159732 for $513.20, 4 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-23T13:27:00",
+        "user": "dokafor",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159733",
+    "channel": "#ar-collections",
+    "messages": [
+      {
+        "ts": "2026-10-22T15:31:00",
+        "user": "kwatanabe",
+        "text": "@lortega I have a renewal call with Whitecap Dental Inc on Thursday. Anything open I should raise?"
+      },
+      {
+        "ts": "2026-10-22T18:21:00",
+        "user": "lortega",
+        "text": "INV-159733 for $49.00, 3 days past due. No reply to the last reminder."
+      },
+      {
+        "ts": "2026-10-23T19:05:00",
+        "user": "kwatanabe",
+        "text": "Got it, I'll bring it up."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159904",
+    "channel": "#ext-oldmillrobotics",
+    "messages": [
+      {
+        "ts": "2026-10-24T13:41:00",
+        "user": "linda.jensen",
+        "text": "Payment for INV-159904 goes out on Nov 5."
+      },
+      {
+        "ts": "2026-10-24T14:54:00",
+        "user": "npatel",
+        "text": "Thanks Linda, noted."
+      }
+    ]
+  },
+  {
+    "invoice_id": "INV-159932",
+    "channel": "#ext-southportoutfitters",
+    "messages": [
+      {
+        "ts": "2026-10-24T10:57:00",
+        "user": "rachel.zhang",
+        "text": "Payment for INV-159932 goes out on Oct 30."
+      },
+      {
+        "ts": "2026-10-24T12:28:00",
+        "user": "npatel",
+        "text": "Thanks Rachel, noted."
+      }
+    ]
+  }
+]
