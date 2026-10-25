@@ -148,7 +148,7 @@ def problems(item, queue, draft, pay_by):
     found = {}
     for field, text in draft.items():
         stray = set(MONEY.findall(text)) - known
-        leaked = sorted(w for w in insider_words if re.search(rf"(?<![\w#]){re.escape(w)}", text))
+        leaked = sorted(w for w in insider_words if re.search(r"(?<![\w#])" + re.escape(w) + r"(?!\w)", text))
         if not checks[field](text):
             found[field] = rules[field]
         elif field in CUSTOMER_FIELDS and leaked:
