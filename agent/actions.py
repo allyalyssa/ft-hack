@@ -27,6 +27,7 @@ FIELDS = {
 }
 THREATS = re.compile(r"\b(legal action|lawsuit|attorney|lawyer|court|sue|suing|collections? agency|credit bureau"
                      r"|credit report\w*|late fee|penalt\w*)\b", re.I)
+CUSTOMER_FIELDS = ("email_subject", "email_body", "slack_message")
 MONEY = re.compile(r"\$\s?([\d,]+\.\d{2})")
 WORKERS = 4
 TIMEOUT = 300
@@ -123,7 +124,7 @@ def problems(item, queue, draft, pay_by):
     checks = {
         "email_subject": lambda t: iid in t and len(t) < 150,
         "email_body": lambda t: iid in t and balance in t and pay_by_text in t,
-        "slack_message": lambda t: iid in t and len(t) <= 600,
+        "slack_message": lambda t: iid in t and pay_by_text in t and len(t) <= 600,
         "internal_note": lambda t: iid in t and "?" in t,
         "memo_rationale": lambda t: len(t) > 40,
         "case_summary": lambda t: 0 < len(t) <= 500,
@@ -132,17 +133,26 @@ def problems(item, queue, draft, pay_by):
     rules = {
         "email_subject": f"must name {iid}",
         "email_body": f"must state {iid}, the balance {balance} and the pay_by date {pay_by_text}",
-        "slack_message": f"must name {iid} and stay under 600 characters",
+        "slack_message": f"must name {iid} and the pay_by date {pay_by_text}, under 600 characters",
         "internal_note": f"must name {iid} and ask the owner one question",
         "memo_rationale": "two or three sentences",
         "case_summary": "one or two sentences",
         "next_action": "one sentence",
     }
+    thread = item.get("slack_thread") or {}
+    insiders = {item["account_owner"]} | {n["collector"] for n in item.get("sheet_notes") or [] if n.get("collector")}
+    insiders |= {m["user"] for m in thread.get("messages", [])}
+    insider_words = {w for name in insiders for w in name.split() if len(w) > 2}
+    if thread:
+        insider_words.add(thread["channel"])
     found = {}
     for field, text in draft.items():
         stray = set(MONEY.findall(text)) - known
+        leaked = sorted(w for w in insider_words if re.search(rf"(?<![\w#]){re.escape(w)}", text))
         if not checks[field](text):
             found[field] = rules[field]
+        elif field in CUSTOMER_FIELDS and leaked:
+            found[field] = f"customer messages must not mention internal people or channels: {', '.join(leaked)}"
         elif THREATS.search(text):
             found[field] = "no threats, legal language or fees"
         elif stray:
