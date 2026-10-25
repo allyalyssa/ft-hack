@@ -299,7 +299,7 @@ def write_bundle(folder, invoices, notes, slack, manifest):
         json.dump(manifest, f, indent=2)
 
 
-def build_delta(invoices, accounts, as_of, seed):
+def build_delta(invoices, accounts, as_of, seed, notes=(), slack=()):
     rng = random.Random(seed)
     stale_before = as_of - timedelta(days=8)
 
@@ -322,11 +322,47 @@ def build_delta(invoices, accounts, as_of, seed):
     ]
     paid = [{**i, "status": "paid", "paid_cents": i["cents"], "touch": as_of - timedelta(days=1)} for i in rng.sample(paid, 10)]
 
+    # The invoices the agent drafts first change under it, so revalidation has something real to withdraw:
+    # paid, disputed, new billing contact, a collector's note, a partial payment.
+    taken = {i["invoice_id"] for i in aging + paid}
+    first = [i for i in first_in_line(invoices, notes, slack) if i["invoice_id"] not in taken][:5]
+    changed, delta_notes = [], []
+    if first:
+        changed.append({**first[0], "status": "paid", "paid_cents": first[0]["cents"]})
+    if len(first) > 1:
+        changed.append({**first[1], "status": "disputed", "dispute": True})
+    if len(first) > 2:
+        changed.append({**first[2], "billing_contact_email": "accounts.payable@" + first[2]["billing_contact_email"].split("@", 1)[1]})
+    if len(first) > 3:
+        changed.append(first[3])
+        delta_notes.append({"invoice_id": first[3]["invoice_id"], "collector": "Grace Kim",
+                            "touch_date": as_of - timedelta(days=1), "note": "Spoke with AP, they are paying this Friday"})
+    if len(first) > 4:
+        changed.append({**first[4], "status": "partially_paid", "paid_cents": first[4]["cents"] // 2})
+
     fresh = [
         make_invoice(rng, f"INV-{100000 + N_INVOICES + n}", rng.choice(accounts), as_of, days_past_due=rng.randint(0, 10))
-        for n in range(200 - len(aging) - len(paid))
+        for n in range(200 - len(aging) - len(paid) - len(changed))
     ]
-    return aging + paid + fresh
+    return aging + paid + changed + fresh, delta_notes
+
+
+def first_in_line(invoices, notes, slack):
+    """The agent-bucket invoices in the order triage queues them (oldest first, then largest)."""
+    latest = {}
+    for n in notes:
+        latest[n["invoice_id"]] = max(latest.get(n["invoice_id"], n["touch_date"]), n["touch_date"])
+    for t in slack:
+        d = date.fromisoformat(t["last_message_date"])
+        latest[t["invoice_id"]] = max(latest.get(t["invoice_id"], d), d)
+    out = []
+    for i in invoices:
+        balance = i["cents"] - i["paid_cents"]
+        touch = max([d for d in (i["touch"], latest.get(i["invoice_id"])) if d], default=None)
+        if (i["status"] in ("open", "partially_paid") and not i["dispute"] and 500 < balance <= 50_000
+                and (AS_OF - i["due"]).days >= 30 and (touch is None or (AS_OF - touch).days >= 8)):
+            out.append(i)
+    return sorted(out, key=lambda i: (-(AS_OF - i["due"]).days, -(i["cents"] - i["paid_cents"]), i["invoice_id"]))
 
 
 def main():
@@ -339,10 +375,11 @@ def main():
 
     if args.delta:
         as_of = AS_OF + timedelta(days=2)
-        delta = build_delta(invoices, accounts, as_of, SEED + 1)
+        delta, delta_notes = build_delta(invoices, accounts, as_of, SEED + 1, notes, slack)
         folder = args.out or ROOT / "data" / "delta"
-        write_bundle(folder, delta, [], [], {"kind": "delta", "as_of": as_of.isoformat(), "base_as_of": AS_OF.isoformat(), "seed": SEED + 1})
-        print(f"delta: {len(delta)} invoices as of {as_of} -> {folder}")
+        write_bundle(folder, delta, delta_notes, [], {"kind": "delta", "as_of": as_of.isoformat(), "base_as_of": AS_OF.isoformat(), "seed": SEED + 1})
+        print(f"delta: {len(delta)} invoices as of {as_of} -> {folder}; the first five agent invoices change "
+              f"(paid, disputed, new contact, collector note, partial payment)")
         return
 
     folder = args.out or ROOT / "data" / "exports"

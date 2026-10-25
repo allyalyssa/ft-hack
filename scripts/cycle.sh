@@ -43,6 +43,7 @@ step() {
 
 echo "$(date -u +%FT%TZ) cycle start"
 step triage   "$PYTHON" triage/triage.py
+step recheck  "$PYTHON" triage/revalidate.py
 step disputes "$PYTHON" disputes/disputes.py
 step draft    "$PYTHON" agent/actions.py --limit "$LIMIT"
 step post     "$PYTHON" channel/post.py
