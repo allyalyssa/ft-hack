@@ -138,7 +138,8 @@ def packet(item, as_of, account_queue, concede_max):
     bal = f"${item['balance']:,.2f}"
     owner_name = (item.get("account_owner") or "").split()
     first = owner_name[0] if owner_name and route_email == owner_email else "team"
-    evidence_text = "\n".join(f"- {d} ({src}): {text}" for d, src, text in hits) or "- nothing recorded"
+    evidence_text = "\n".join(f"- {d} ({src}): {text}" for d, src, text in hits)
+    evidence_block = f"\n\nWhat the notes say:\n{evidence_text}" if hits else ""
     others_text = (f"\n{item['account_name']} also has {len(others)} other "
                    f"invoice{'s' if len(others) > 1 else ''} in the queue, "
                    f"${sum(i['balance'] for i in others):,.2f} in total." if others else "")
@@ -174,7 +175,7 @@ def packet(item, as_of, account_queue, concede_max):
             "priority": {"P1": "High", "P2": "Medium", "P3": "Low"}[prio],
             "subject": f"Dispute: {item['invoice_id']} {item['account_name']} {bal} ({play['label'].lower()})"[:255],
             "description": f"{item['days_past_due']} days past due. Reason: {play['label']}.\n"
-                           f"Recommended: {resolution}\nEvidence:\n{evidence_text}",
+                           f"Recommended: {resolution}\nEvidence:\n{evidence_text or 'none recorded'}",
         },
         "owner_note": {
             "to": route_email,
@@ -182,7 +183,7 @@ def packet(item, as_of, account_queue, concede_max):
             "subject": f"[{prio}] Disputed invoice {item['invoice_id']}, {item['account_name']}, {bal}: respond by {respond_by:%b} {respond_by.day}",
             "body": f"Hi {first},\n\n"
                     f"{item['invoice_id']} for {item['account_name']} ({bal}, {item['days_past_due']} days past due) is "
-                    f"disputed. Reason: {play['label']}.\n\n{evidence_text}\n\n"
+                    f"disputed. Reason: {play['label']}.{evidence_block}\n\n"
                     f"Recommended next step: {resolution}{others_text}\n\n"
                     f"Case {cid} is open. Please reply by {respond_by:%A}, {long_date(respond_by)}.\n\nOurCo Collections",
         },
