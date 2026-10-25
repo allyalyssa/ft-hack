@@ -199,7 +199,7 @@ const num = n => Number(n || 0).toLocaleString();
 const pl = (n, one, many) => `${num(n)} ${Number(n) === 1 ? one : (many || one + "s")}`;
 const PROMPTS = ["What's waiting for my approval?", "Has INV-112347 been approved?", "Why hasn't INV-100036 been drafted?",
                  "Which PO cases are ready?", "Was anything withdrawn?", "Which write-offs need a controller?"];
-let ov = null, view = "today", selected = null, cache = {};
+let ov = null, view = "today", selected = null, cache = {}, seq = 0, dseq = 0;
 
 async function api(path, body) {
   const r = await fetch(path, body ? {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)} : undefined);
@@ -247,17 +247,17 @@ async function render() {
   const m = $("#main");
   try {
     if (view === "today") return today(m);
-    if (view === "approvals") return listView(m, "Approvals", "Drafts the agent made, waiting for you. Anything the stale-draft check pulled is at the top in red.",
+    if (view === "approvals") return await listView(m, "Approvals", "Drafts the agent made, waiting for you. Anything the stale-draft check pulled is at the top in red.",
       "/api/drafts", approvalRow, r => r.invoice_id);
-    if (view === "accounts") return listView(m, "Accounts", "Queued invoices grouped by customer, so one conversation covers every small balance on the account.",
+    if (view === "accounts") return await listView(m, "Accounts", "Queued invoices grouped by customer, so one conversation covers every small balance on the account.",
       "/api/packages", accountRow, r => r.package_id, packageDetail);
-    if (view === "cases") return listView(m, "PO cases", "Disputes blocked on a missing purchase order. The agent keeps each one open until the PO checks out against the invoice.",
+    if (view === "cases") return await listView(m, "PO cases", "Disputes blocked on a missing purchase order. The agent keeps each one open until the PO checks out against the invoice.",
       "/api/cases", caseRow, r => r.invoice_id);
-    if (view === "disputes") return listView(m, "Disputes", "Disputed small invoices with a reason, an owner and a reply-by date. Highest priority first.",
+    if (view === "disputes") return await listView(m, "Disputes", "Disputed small invoices with a reason, an owner and a reply-by date. Highest priority first.",
       "/api/disputes", disputeRow, r => r.invoice_id);
-    if (view === "writeoffs") return listView(m, "Write-offs", "Balances under the write-off limit. Batches and large account totals wait for a controller.",
+    if (view === "writeoffs") return await listView(m, "Write-offs", "Balances under the write-off limit. Batches and large account totals wait for a controller.",
       "/api/writeoffs", writeoffRow, r => r.invoice_id);
-    if (view === "invoice") return invoiceOnly(m);
+    if (view === "invoice") return await invoiceOnly(m);
   } catch (e) {
     m.innerHTML = `<div class="empty">Couldn't load this view: ${esc(e.message)}. The agent's files may be mid-update; try again in a moment.</div>`;
   }
@@ -302,8 +302,9 @@ function today(m) {
 async function listView(m, title, sub, url, rowFn, idOf, detailFn) {
   m.innerHTML = `<div class="head"><div><h1>${esc(title)}</h1><p>${esc(sub)}</p></div></div>
     <div class="split"><div class="list" id="list">${'<div class="skel"></div>'.repeat(5)}</div><div class="detail" id="detail"><div class="empty">Pick one from the list.</div></div></div>`;
+  const my = ++seq;
   const rows = cache[url] = await api(url);
-  if (view !== m.dataset.view && m.dataset.view) {}
+  if (my !== seq || !$("#list")) return;  // the user moved on while this list loaded
   const shown = rows.slice(0, 150);
   $("#list").innerHTML = shown.length ? shown.map(r => rowFn(r, idOf(r) === selected)).join("")
     + (rows.length > shown.length ? `<div class="more">Showing ${num(shown.length)} of ${num(rows.length)}. Ask the agent about any invoice or account by name.</div>` : "")
@@ -343,9 +344,13 @@ async function openDetail(id, detailFn) {
   document.querySelectorAll("#list .row").forEach(r => r.setAttribute("aria-current", r.dataset.id === id ? "true" : "false"));
   history.replaceState(null, "", `#${view}/${id}`);
   const d = $("#detail");
+  if (!d) return;
+  const my = ++dseq;
   d.innerHTML = '<div class="empty">Loading.</div>';
-  try { d.innerHTML = await (detailFn || invoiceDetail)(id); }
-  catch (e) { d.innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+  let html;
+  try { html = await (detailFn || invoiceDetail)(id); }
+  catch (e) { html = `<div class="empty">${esc(e.message)}</div>`; }
+  if (my === dseq && $("#detail")) $("#detail").innerHTML = html;
 }
 
 async function packageDetail(id) {
@@ -362,7 +367,7 @@ async function invoiceDetail(id) {
   const q = d.queue || {}, a = d.action || {}, s = a.status || {}, r = a.recheck || {};
   let box = "";
   if (r.verdict === "withdraw") box = `<div class="suggest stop"><div class="k">Don't send this</div>${esc((r.reasons || []).join("; "))}. Withdrawn by the stale-draft check against the ${esc(r.checked_against)} export.</div>`;
-  else if (d.case && d.case.state === "ready") box = `<div class="suggest"><div class="k">Ready to send</div>${esc(d.case.history.at(-1).detail)}</div>`;
+  else if (d.case && d.case.state === "ready") box = `<div class="suggest"><div class="k">Ready to send</div>${esc((d.case.history || []).at(-1)?.detail || "The PO checked out against the invoice.")}</div>`;
   else if (d.case && d.case.state === "blocked") box = `<div class="suggest stop"><div class="k">Blocked</div>${esc((d.case.open_questions || []).join("; "))}</div>`;
   else if (q.coordinate) box = `<div class="suggest hot"><div class="k">Go through the owner</div>${esc(q.coordinate.reason)}</div>`;
   else if (d.dispute) box = `<div class="suggest hot"><div class="k">Suggested action</div>${esc(d.dispute.resolution)}</div>`;
@@ -371,8 +376,8 @@ async function invoiceDetail(id) {
 
   const drafts = Object.entries(d.drafts || {}).map(([k, v]) => `<div class="section"><h3>${esc({customer_email: "Email to the customer", customer_slack: "Slack to the customer", internal_note: "Note to the account owner", writeoff_memo: "Write-off memo"}[k] || k)}</h3><div class="doc">${esc(v)}</div></div>`).join("");
   const casePart = d.case ? `<div class="section"><h3>PO case: ${esc(d.case.label)}</h3><ul class="timeline">${(d.case.history || []).map(h => `<li><span class="muted">${esc(h.at)}</span><span>${esc(h.detail)} <span class="muted" style="font-size:12px">${esc(h.source)}</span></span></li>`).join("")}</ul></div>`
-    + (d.case.package ? `<div class="section"><h3>Corrected invoice email</h3><div class="doc">${esc(d.case.package.customer_email.body)}</div></div>` : "") : "";
-  const disputePart = d.dispute && !d.case ? `<div class="section"><h3>Note to ${esc(d.dispute.route_email)}</h3><div class="doc">${esc(d.dispute.owner_note.body)}</div></div>` : "";
+    + (d.case.package?.customer_email?.body ? `<div class="section"><h3>Corrected invoice email</h3><div class="doc">${esc(d.case.package.customer_email.body)}</div></div>` : "") : "";
+  const disputePart = d.dispute?.owner_note?.body && !d.case ? `<div class="section"><h3>Note to ${esc(d.dispute.route_email)}</h3><div class="doc">${esc(d.dispute.owner_note.body)}</div></div>` : "";
 
   let actions = "";
   const canDecide = ["drafted", "edited"].includes(s.state) && r.verdict !== "withdraw";
@@ -387,8 +392,11 @@ async function invoiceDetail(id) {
 }
 
 async function invoiceOnly(m) {
-  m.innerHTML = `<div class="head"><div><h1>Invoice</h1><p>Everything the agent knows about it.</p></div></div><div class="detail" id="detail"></div>`;
-  $("#detail").innerHTML = await invoiceDetail(selected);
+  m.innerHTML = `<div class="head"><div><h1>Invoice</h1><p>Everything the agent knows about it.</p></div></div><div class="detail" id="detail"><div class="empty">Loading.</div></div>`;
+  const my = ++dseq;
+  let html;
+  try { html = await invoiceDetail(selected); } catch (e) { html = `<div class="empty">${esc(e.message)}</div>`; }
+  if (my === dseq && $("#detail")) $("#detail").innerHTML = html;
 }
 
 /* ---------- decisions ---------- */

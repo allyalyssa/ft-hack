@@ -157,7 +157,12 @@ def invoice(iid):
 
 
 def decide(iid, action, by):
-    """Forward a decision to the approval dashboard, which owns approvals."""
+    """Forward a decision to the approval dashboard, which owns approvals.
+
+    Its success path for approve/reject is a redirect with no message; any ?msg= there is an error (for example
+    "has no drafts yet"). Drafting always redirects with a message, so success is read from the draft on disk.
+    """
+    before = ask.read_json(OUT / "actions" / iid / "status.json")
     body = urlencode({"by": by or "collector"})
     conn = http.client.HTTPConnection(*APPROVALS, timeout=650)
     try:
@@ -171,9 +176,14 @@ def decide(iid, action, by):
                                         f"channel/dashboard.py and try again."}
     finally:
         conn.close()
-    msg = unquote(location.split("msg=", 1)[1]) if "msg=" in location else ""
-    ok = 300 <= resp.status < 400 and not msg.lower().startswith(("drafting failed", "no ", "cannot", "not "))
-    return {"ok": ok, "message": msg or {"approve": "Approved.", "reject": "Rejected.", "draft": "Drafted."}[action]}
+    msg = unquote(location.split("msg=", 1)[1].split("&", 1)[0]) if "msg=" in location else ""
+    redirected = 300 <= resp.status < 400
+    if action == "draft":
+        after = ask.read_json(OUT / "actions" / iid / "status.json")
+        ok = redirected and isinstance(after, dict) and after != before
+        return {"ok": ok, "message": msg or ("Drafted." if ok else "Drafting didn't produce a draft.")}
+    ok = redirected and not msg
+    return {"ok": ok, "message": msg or {"approve": "Approved.", "reject": "Rejected."}[action]}
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -215,24 +225,40 @@ class Handler(BaseHTTPRequestHandler):
             if path.startswith("/api/invoice/"):
                 rec = invoice(unquote(path.rsplit("/", 1)[-1]).upper())
                 return self.send(200, rec) if rec else self.send(404, {"error": "That invoice isn't in the latest export."})
-        except (OSError, ValueError, KeyError) as e:
-            return self.send(500, {"error": f"Couldn't read the agent's files: {e}"})
+        except Exception as e:  # one bad file must not drop the connection
+            return self.send(500, {"error": f"Couldn't read the agent's files: {type(e).__name__}: {e}"})
         self.send(404, {"error": "not found"})
+
+    def same_origin(self):
+        origin = self.headers.get("Origin")
+        if not origin:
+            return True
+        return urlsplit(origin).netloc == (self.headers.get("Host") or "")
 
     def do_POST(self):
         path = urlsplit(self.path).path
+        # JSON-only plus same-origin: a page elsewhere can't send a "simple" cross-site POST that approves an invoice.
+        if (self.headers.get("Content-Type") or "").split(";")[0].strip().lower() != "application/json":
+            return self.send(415, {"error": "send application/json"})
+        if not self.same_origin():
+            return self.send(403, {"error": "cross-origin requests are refused"})
         try:
-            body = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
+            length = max(0, min(int(self.headers.get("Content-Length") or 0), 65536))
+            body = json.loads(self.rfile.read(length) or b"{}")
         except ValueError:
             return self.send(400, {"error": "bad JSON"})
-        if path == "/api/ask":
-            q = str(body.get("q") or "")[:500]
-            return self.send(200, ask.answer(WORLD, q))
-        if path == "/api/decide":
-            iid, action = str(body.get("invoice_id") or "").upper(), body.get("action")
-            if action not in ("approve", "reject", "draft") or not ask.INVOICE.fullmatch(iid):
-                return self.send(400, {"error": "need an invoice id and approve, reject or draft"})
-            return self.send(200, decide(iid, action, str(body.get("by") or "")[:60]))
+        if not isinstance(body, dict):
+            return self.send(400, {"error": "send a JSON object"})
+        try:
+            if path == "/api/ask":
+                return self.send(200, ask.answer(WORLD, str(body.get("q") or "")[:500]))
+            if path == "/api/decide":
+                iid, action = str(body.get("invoice_id") or "").upper(), body.get("action")
+                if action not in ("approve", "reject", "draft") or not ask.INVOICE.fullmatch(iid):
+                    return self.send(400, {"error": "need an invoice id and approve, reject or draft"})
+                return self.send(200, decide(iid, action, str(body.get("by") or "")[:60]))
+        except Exception as e:
+            return self.send(500, {"error": f"{type(e).__name__}: {e}"})
         self.send(404, {"error": "not found"})
 
 

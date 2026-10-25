@@ -7,6 +7,7 @@ matches; it never invents a fact the lookups did not return.
 import json
 import re
 import sys
+import threading
 import time
 from datetime import date
 from pathlib import Path
@@ -16,7 +17,7 @@ sys.path.insert(0, str(ROOT / "triage"))
 import triage  # noqa: E402
 
 OUT = ROOT / "out"
-INVOICE = re.compile(r"\bINV-?\d{5,}\b", re.I)
+INVOICE = re.compile(r"\bINV-\d{5,}\b", re.I)
 
 
 def read_json(path):
@@ -36,16 +37,29 @@ def count(n, one, many=None):
     return f"{n:,} {one if n == 1 else (many or one + 's')}"
 
 
+def obj(value):
+    return value if isinstance(value, dict) else None
+
+
 class World:
-    """The agent's state on disk, reloaded when the snapshot changes."""
+    """The agent's state on disk, reloaded when anything it reads changes. A failed reload keeps the last good state."""
 
     def __init__(self):
         self.key = None
+        self.lock = threading.Lock()
+        self.policy = {"min_days_past_due": 30, "stale_touch_days": 8, "agent_max_amount": 500.0,
+                       "write_off_max_amount": 5.0, "minutes_per_touch": 6.0}
+        self.invoices, self.notes, self.slack, self.as_of = {}, [], {}, date.today()
+        self.queue, self.items, self.order = {"items": [], "totals": {}, "packages": []}, {}, []
+        self.summary, self.disputes, self.recheck, self.touch, self.accounts = {}, {}, {}, {}, {}
         self.load()
 
     def fingerprint(self):
         parts = []
-        for p in (OUT / "queue.json", OUT / "summary.json", OUT / "revalidation.json", OUT / "disputes" / "summary.json"):
+        watched = (OUT / "queue.json", OUT / "summary.json", OUT / "revalidation.json", OUT / "disputes" / "summary.json",
+                   ROOT / "data" / "exports" / "salesforce_invoices.csv", ROOT / "data" / "inbox" / "salesforce_invoices.csv",
+                   ROOT / "policy.yaml")
+        for p in watched:
             try:
                 parts.append(p.stat().st_mtime_ns)
             except OSError:
@@ -57,43 +71,51 @@ class World:
         return tuple(parts)
 
     def load(self):
-        key = self.fingerprint()
-        if key == self.key:
-            return
-        self.key = key
-        self.policy = triage.load_policy(ROOT / "policy.yaml")
-        self.invoices, self.notes, self.slack, self.as_of = triage.load_sources(
-            triage.pick_sources(ROOT / "data" / "inbox", ROOT / "data" / "exports"))
-        self.queue = read_json(OUT / "queue.json") or {"items": [], "totals": {}, "packages": []}
-        self.items = {i["invoice_id"]: i for i in self.queue.get("items", [])}
-        self.order = [i["invoice_id"] for i in self.queue.get("items", []) if i["bucket"] == "agent"]
-        self.summary = read_json(OUT / "summary.json") or {}
-        self.disputes = read_json(OUT / "disputes" / "summary.json") or {}
-        self.recheck = read_json(OUT / "revalidation.json") or {}
-        self.touch = {}
-        for n in self.notes:
-            d = n.get("touch_date")
-            if d and d > self.touch.get(n.get("invoice_id"), ("", ""))[0]:
-                self.touch[n["invoice_id"]] = (d, f"collector sheet ({n.get('collector') or 'unknown'})")
-        self.accounts = {}
-        for iid, inv in self.invoices.items():
-            name = (inv.get("account_name") or "").lower()
-            if name:
-                self.accounts.setdefault(name, inv.get("account_id"))
+        with self.lock:
+            key = self.fingerprint()
+            if key == self.key:
+                return
+            try:
+                policy = triage.load_policy(ROOT / "policy.yaml")
+                invoices, notes, slack, as_of = triage.load_sources(
+                    triage.pick_sources(ROOT / "data" / "inbox", ROOT / "data" / "exports"))
+            except (OSError, ValueError, KeyError, SystemExit) as e:
+                print(f"warning: couldn't reload the export ({e}); keeping the last good state")
+                return
+            queue = obj(read_json(OUT / "queue.json")) or {"items": [], "totals": {}, "packages": []}
+            rows = [i for i in queue.get("items") or [] if isinstance(i, dict) and i.get("invoice_id")]
+            touch = {}
+            for n in notes:
+                d = n.get("touch_date")
+                if d and d > touch.get(n.get("invoice_id"), ("", ""))[0]:
+                    touch[n["invoice_id"]] = (d, f"collector sheet ({n.get('collector') or 'unknown'})")
+            accounts = {}
+            for inv in invoices.values():
+                name = (inv.get("account_name") or "").lower()
+                if name:
+                    accounts.setdefault(name, inv.get("account_id"))
+            self.policy, self.invoices, self.notes, self.slack, self.as_of = policy, invoices, notes, slack, as_of
+            self.queue, self.items = queue, {i["invoice_id"]: i for i in rows}
+            self.order = [i["invoice_id"] for i in rows if i.get("bucket") == "agent"]
+            self.summary = obj(read_json(OUT / "summary.json")) or {}
+            self.disputes = obj(read_json(OUT / "disputes" / "summary.json")) or {}
+            self.recheck = obj(read_json(OUT / "revalidation.json")) or {}
+            self.touch, self.accounts = touch, accounts
+            self.key = key
 
     def action(self, iid):
         folder = OUT / "actions" / iid
         return {
-            "status": read_json(folder / "status.json"),
-            "recheck": read_json(folder / "revalidation.json"),
-            "case": read_json(folder / "salesforce_case.json"),
+            "status": obj(read_json(folder / "status.json")),
+            "recheck": obj(read_json(folder / "revalidation.json")),
+            "case": obj(read_json(folder / "salesforce_case.json")),
         } if folder.is_dir() else None
 
     def dispute(self, iid):
-        return read_json(OUT / "disputes" / f"{iid}.json")
+        return obj(read_json(OUT / "disputes" / f"{iid}.json"))
 
     def blocker(self, iid):
-        return read_json(OUT / "disputes" / "cases" / f"{iid}.json")
+        return obj(read_json(OUT / "disputes" / "cases" / f"{iid}.json"))
 
 
 def latest_touch(w, iid, inv):
@@ -280,7 +302,7 @@ def answer(w, question):
     w.load()
     started = time.perf_counter()
     q = question.strip()
-    ids = [m.upper().replace("INV", "INV-").replace("--", "-") for m in INVOICE.findall(q)]
+    ids = [m.upper() for m in INVOICE.findall(q)]
     parts, steps, sources = [], [], []
     for iid in dict.fromkeys(ids):
         a, s, src = about_invoice(w, iid)
