@@ -1,0 +1,4 @@
+invoice_id,account_id,account_name,account_owner,owner_email,billing_contact_email,currency,amount,amount_paid,status,issue_date,due_date,last_touch_date,dispute_flag
+INV-UPLOAD-TEST-001,ACC-UPLOAD-TEST-001,Upload Test Alpha,Demo Owner,owner@example.com,billing-alpha@example.com,USD,75.00,0.00,open,2026-07-01,2026-08-01,2026-09-01,false
+INV-UPLOAD-TEST-002,ACC-UPLOAD-TEST-002,Upload Test Beta,Demo Owner,owner@example.com,billing-beta@example.com,USD,249.00,0.00,open,2026-07-01,2026-08-01,2026-09-01,false
+INV-UPLOAD-TEST-003,ACC-UPLOAD-TEST-003,Upload Test Large Balance,Demo Owner,owner@example.com,billing-large@example.com,USD,1500.00,0.00,open,2026-07-01,2026-08-01,2026-09-01,false
