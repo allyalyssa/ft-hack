@@ -1,155 +1,190 @@
 # Collex
 
-A collections agent that runs offline on an NVIDIA GB10. It finds the small invoices that collectors have lost track
-of, drafts the follow-ups and proposes write-offs, all for a person to approve.
+### Small invoices. Real work. Local AI.
 
-## Run it
+Collex works the small-balance collections backlog: find neglected invoices, prepare follow-ups, track payment blockers, and give collectors an evidence-backed decision to review. Inference stays on your machine.
 
-```
-ollama pull qwen3:8b               # once, on a machine with internet; see platform/RUNBOOK.md for the offline box
-python platform/preflight.py       # tests, local model, one full cycle, dashboard; all under the offline guard
-python platform/run.py             # dashboard on http://localhost:8080 plus a cycle every 2 minutes
-```
+Built for the [Dell x NVIDIA AI Hackathon, San Francisco](https://luma.com/builde-ixyz), targeting the **Dell Pro Max with GB10** and **NemoClaw, OpenClaw, and OpenShell**.
 
-### The collector workspace
+[Demo walkthrough](docs/DEMO.md) · [Run locally](#run-locally) · [Architecture](#architecture) · [GB10 deployment](gb10/platform/NEMOCLAW.md)
 
-```
-python app/server.py               # http://<box>:8000 ; approvals are forwarded to channel/dashboard.py on :8080
-```
+## Why this exists
 
-The invoice board covers the complete export, with search across invoice IDs, accounts and owners, status and owner
-filters, sortable columns, and 50 invoices per page. Portfolio totals reflect the full snapshot. On phones, invoice
-identity and balance stay visible together; remaining columns scroll horizontally.
+A $40 invoice can require the same context gathering as a $40,000 invoice. Collections teams prioritize the larger balance. Smaller invoices accumulate while distributed collectors and onsite finance teams reconcile exports, notes, message history, and handoffs across time zones.
 
-Approvals, Accounts (invoices grouped by customer), PO cases, Disputes and Write-offs retain their review workflows.
-**Ask Collex** uses the plush companion as its face and opens a persistent chat sidebar beside the ledger on desktop.
-On smaller screens it opens as a collapsible panel. Escape or the close button collapses chat.
-Ask "Has INV-112347 been approved?", "Why hasn't INV-100036 been drafted?", "Which PO cases are ready?" or an account
-name; every answer comes from lookups on the agent's own files and lists them under "How I found this". Approve,
-reject and "draft it now" go through the approval dashboard, which owns those decisions.
+Collex gives that neglected work a dedicated workflow. It prepares routine small-balance actions and routes exceptions to people, letting collectors spend their attention on larger balances and complex customer conversations.
 
-`platform/RUNBOOK.md` covers the GB10: copying models to a box with no internet, always-on services, the live drop
-and pulling the cable. Drafting and approval are in `agent/README.md`.
+**Why buy instead of build?** Finance engineering can build collections tools, but higher-value projects compete for the same capacity. The commercial proposition is a locally deployed small-balance workflow with policy controls and review built in. This is the buyer hypothesis; the prototype does not establish customer adoption or measured cash recovery.
 
-## Role B: data and triage
+## What a collector can do
 
-No model is used anywhere in this part. Python 3.10+ and the standard library only (PyYAML is used if installed).
-
-```
-python data/generate.py            # 20,000-invoice fake world -> data/exports/
-python triage/triage.py            # -> out/queue.json and out/headline.json
-python -m pytest triage/           # or: python triage/test_triage.py
-```
-
-### Live drop
-
-```
-python data/generate.py --delta    # 200 invoices, two days later -> data/delta/
-cp data/delta/* data/inbox/
-python triage/triage.py            # queue goes from 5,332 to 5,688
-```
-
-Triage reads `data/inbox/` when it holds a `salesforce_invoices.csv`, otherwise `data/exports/`. A bundle whose
-`manifest.json` says `"kind": "delta"` is laid over `data/exports/` instead of replacing it. Empty the inbox afterwards.
-
-### Inputs (one export bundle)
-
-| File | What it is |
+| Workflow | What Collex does |
 |---|---|
-| `salesforce_invoices.csv` | One row per invoice: account, owner, amount, amount_paid, status, due date, last touch, dispute flag |
-| `collector_sheet.csv` | Collector notes, one row per touch: invoice_id, collector, touch_date, note |
-| `slack_threads.json` | Slack threads about an invoice, with last_message_date |
-| `manifest.json` | `kind` (full or delta) and `as_of`, the snapshot date that all ageing is measured from |
+| Import a portfolio | Upload thousands of invoice rows with optional notes and exported message history. Inspect each eligibility filter's results. |
+| Find neglected balances | Apply deterministic overdue, last-touch, and balance rules. The latest touch across sources wins. |
+| Coordinate across the account | Group invoices by customer and flag small balances alongside a recently managed large invoice. |
+| Prepare follow-ups | Use a local model to draft a customer message, internal note, and mock Salesforce case. Validate fields and label template fallbacks. |
+| Work a missing-PO case | Track owner responses and check PO account, amount, expiry, and invoice coverage before preparing a corrected package. |
+| Review decisions | Inspect evidence, edit, approve, or reject. Tiny write-offs carry policy and aggregate account controls. |
+| Recheck changed facts | Withdraw outdated drafts after payment, changed balance/contact, disputes, or newer human touches. |
+| Ask about the work | Use companion chat with live desk context through OpenClaw in the configured sandbox; inspect recent activity. |
 
-### Policy (`policy.yaml`)
+**Human approval remains a boundary:** the demo records local decisions and mock CRM cases. It does not send customer emails, post a real accounting write-off, or prove payment was collected.
 
-An invoice is queued when it is not paid, at least `min_days_past_due` past due, untouched for at least
-`stale_touch_days` (or never touched), and its remaining balance is at most `agent_max_amount`.
-Buckets: `writeoff` if the balance is at most `write_off_max_amount`, `escalate` if disputed, otherwise `agent`.
+## A reproducible 20,000-invoice world
 
-The latest touch across Salesforce, the collector sheet and Slack wins. When sources disagree by `stale_touch_days`
-or more, the invoice is listed under `conflicts`.
+The root fixture is synthetic, generated with seed 42 and snapshot date **2026-10-25**. With the committed policy:
 
-### Outputs
+| Baseline result | Count |
+|---|---:|
+| Invoices evaluated | 20,000 |
+| Queued invoices | 5,332 |
+| Routine collection follow-ups | 4,180 |
+| Write-off candidates | 391 |
+| Disputes routed for review | 761 |
+| Account work packages | 1,071 |
 
-- `out/queue.json`: `as_of`, `policy`, `totals`, `items` (oldest first, with sheet notes and the Slack thread so the
-  drafting step has context) and `conflicts`.
-- `out/headline.json`: the slide numbers, including hours at `minutes_per_touch` per queued invoice.
+Reproduce with `python triage/triage.py`; inspect `out/queue.json` and `out/headline.json`. These are eligibility results, not 5,332 model-generated drafts. The configured six minutes per touch is a planning assumption, not measured time saved.
 
-### Whole-account context
+A [second 20,000-invoice fixture](data/batches/role-b-20000/README.md) uses distinct IDs and its own schema. The upload adapter accepts that Role B layout. Its original triage totals come from the GB10 implementation and should not be substituted for root-pipeline results.
 
-Before anyone chases a $40 invoice, triage looks at the whole account. Every queued item carries
-`account_context` (open invoices and balance on the account, the largest other invoice, open disputes, the last touch
-anywhere on the account) and a `package_id`; `queue.json` lists `packages`, the queued invoices grouped by account
-(5,332 invoices become 1,071 packages). `coordinate` is set when a person touched an open invoice over $100,000 on
-the same account in the last `stale_touch_days`: fold the small one into that conversation instead of sending a
-separate reminder (1,814 invoices).
+## Architecture
 
-Write-offs carry `writeoff_controls`: what the whole account would write off, the `account_writeoff_max` limit
-(default $25), a batch of 5 or more on one account, and the `policy_version` the decision used. `tiny_origin`
-separates leftovers after partial payments from invoices issued for cents; `billing_leads` lists accounts with 3+ tiny
-balances as questions for billing operations, not proven errors.
-
-### Stale drafts
-
-`python triage/revalidate.py` re-checks every drafted, edited or approved action against the newest export and
-withdraws it when the invoice was paid, its balance changed, the customer disputed it, the billing contact changed, a
-person touched it after the draft, or it left the queue. It writes `out/actions/<id>/revalidation.json` beside each
-draft and `out/revalidation.json`; it never edits the draft itself. The live drop (`generate.py --delta`) changes the
-first five invoices the agent drafts, so the demo shows withdrawals with their reasons.
-
-## Disputes (the escalate bucket)
-
-The drafting agent leaves disputed invoices for a person. This step makes sure that person gets a worked case
-instead of a bare flag. No model; it runs right after triage.
-
-```
-python disputes/disputes.py        # -> out/disputes/
-python -m pytest disputes/         # or: python disputes/test_disputes.py
+```mermaid
+flowchart TD
+    Files["Local invoice CSV + optional notes/history"] --> Upload["Upload and validation"]
+    Upload --> Rules["Deterministic triage + account context"]
+    Rules --> Draft["Local model: draft and validate"]
+    Rules --> Disputes["Dispute routing + PO evidence checks"]
+    Draft --> Review["Collector: review / edit / approve / reject"]
+    Disputes --> Review
+    Review --> State["Local files + SQLite mock CRM"]
+    Upload --> Recheck["Revalidate previous drafts"]
+    Recheck --> State
+    UI["Collex workspace"] --> Desk["Agent desk: live context + chat jobs"]
+    Desk --> Sandbox["OpenClaw in NemoClaw / OpenShell sandbox"]
+    Sandbox --> Model["Local model server via configured bridge"]
 ```
 
+Rules decide eligibility and calculate financial facts; the model writes language. Validation checks required facts and unsupported amounts, retries failing fields, and records template fallbacks. State, evidence, and decisions stay inspectable on disk.
+
+| Layer | Implementation |
+|---|---|
+| Workspace | Local HTML/CSS/JavaScript served by Python; no frontend build required |
+| Data and workflow | Python 3.10+ standard library; CSV/JSON inputs and outputs |
+| Model serving | Local OpenAI-compatible endpoint, such as Ollama |
+| Agent runtime | OpenClaw inside the configured NemoClaw/OpenShell sandbox |
+| Approval records | Local files and SQLite mock Salesforce cases |
+
+## Run locally
+
+### 1. Prepare the runtime
+
+You need **Python 3.10+**, the repository, and a running local model server with the selected model downloaded. The core Python application requires no pip installation. PyYAML is optional; the policy reader has a fallback.
+
+Full sandbox chat also needs **Docker, NemoClaw, OpenShell, OpenClaw, the collections skill, and model/API access from the sandbox**. Starting the web UI does not provision these. Follow the [GB10 integration notes](gb10/platform/NEMOCLAW.md) for the sandbox, relay, permissions, and known issues.
+
+**Model selection:** set `MODEL_NAME` and `MODEL_BASE_URL` in `platform/model.env`, or override them in the process environment. Use the exact locally served identifier from `ollama list`, including for your chosen DeepSeek model. The checked-in Qwen default and older GPT-OSS notes do not establish the current model on a team's box.
+
+```dotenv
+MODEL_BASE_URL=http://127.0.0.1:11434/v1
+MODEL_NAME=your-installed-model-tag
 ```
-python disputes/board.py           # dispute desk, read-only, http://<box>:8090
+
+Replace the tag before running. Drafting reads these settings. Sandbox chat uses the provider/model configured **inside OpenClaw**; `FT_AGENT_MODEL` labels the desk's model but does not switch that provider. Configure and test both paths.
+
+### 2. Build the queue
+
+Run from the repository root. Use `python3` instead of `python` if required by your installation.
+
+```bash
+python triage/triage.py
+python disputes/disputes.py
+python agent/actions.py --limit 3
 ```
 
-## The whole cycle
+The committed fixture is ready to use. `python data/generate.py` regenerates it when needed. Three drafts are a startup sample, not the entire queue.
 
-`scripts/cycle.sh` runs one cycle: triage, disputes, drafting (`LIMIT`, default 5), posting and the summary. It logs
-each step with its time, stops on the first failure or after `STEP_TIMEOUT` seconds (default 900), and skips a run
-while the previous one is still going. On the box:
+### 3. Start the services
 
+Open a terminal for each process, all from the repository root. These ports match the integrated GB10 layout and avoid OpenShell's gateway on 8080.
+
+```bash
+# Terminal 1: approvals and uploads
+python channel/dashboard.py --host 127.0.0.1 --port 8092
 ```
-*/2 * * * * cd /path/to/ft-hack && mkdir -p out && sh scripts/cycle.sh >> out/cycle.log 2>&1
+
+```bash
+# Terminal 2: agent desk (sandbox must already be configured)
+python channel/agent_desk.py --host 127.0.0.1 --port 8091
 ```
 
-Cron starts with a bare environment, so put `PYTHON=/usr/bin/python3` (and any `MODEL_*` overrides) at the top of
-the crontab if the defaults are wrong.
+```bash
+# Terminal 3: collector workspace
+python app/server.py --host 127.0.0.1 --port 8090 --approvals-port 8092
+```
 
-For each disputed invoice in `out/queue.json`:
+Open **http://127.0.0.1:8090**. Uploads open on **http://127.0.0.1:8092/upload**. The workspace expects the agent desk on **8091**. Keep the terminals open while recording. The core laptop workflow can run without sandbox chat, but that does not demonstrate the complete hackathon stack.
 
-- **Reason**, read from the collector-sheet notes and Slack messages triage attached: already paid, usage overage,
-  missing PO or vendor portal, invoice paperwork, payment since promised (a stale dispute flag), or no reason recorded.
-  The matching lines are kept as evidence.
-- **Owner**: deal desk for usage overages, billing ops for "already paid" and paperwork, otherwise the account owner.
-- **Priority and deadline**: P1 if the balance is $250+ or 90+ days past due, P2 at 60+ days, else P3; respond within
-  2, 5 or 10 business days of the snapshot date.
-- **Recommendation**: the playbook step for the reason, or a credit memo when the balance is at or under
-  `--concede-max` (default $25), except when the customer says it was paid or has promised to pay.
-- **Drafts**: a Salesforce dispute case, a note to the owning team (cc the account owner), and a holding reply to the
-  customer that never asks for payment.
+### 4. Test the upload button
 
-Outputs: `out/disputes/<invoice_id>.json`, `out/disputes/salesforce_cases.csv` (one row per case, Data Loader
-columns) and `out/disputes/summary.json` (counts and dollars by reason, owner and priority, for the deck).
+1. Click **Upload export → Choose files**.
+2. Select [the three-invoice CSV](data/demo/upload-test/salesforce_invoices.csv).
+3. Give the upload a name and click **Upload and run the rules**.
+4. Expect **3 received, 2 eligible** under the committed policy and snapshot: $75 and $249 qualify; $1,500 exceeds the agent threshold.
 
-### Payment blockers (missing PO)
+For the 20,000-invoice demo, select the export files in `data/exports/`, then separately the supported files in `data/batches/role-b-20000/`. Select only `salesforce_invoices.csv`, `collector_sheet.csv`, `slack_threads.json`, and `manifest.json`; omit README, validation reports, and output files.
 
-A missing-PO dispute becomes a case the agent carries until there is evidence: asked the owner, owner accepted, PO
-received, PO checked against the invoice (same account, covers the balance, not expired, lists this invoice). A
-matching PO gives a corrected package (reissued invoice email, Salesforce update); a contradicting one keeps the case
-open with each mismatch. Cases live in `out/disputes/cases/` across runs and close only when the invoice leaves the
-dispute queue. Owner replies are read from `data/responses/*.json`; for the offline demo,
-`python disputes/make_responses.py` writes clearly labelled synthetic replies (one matching PO, one for the wrong
-account, one accept with no PO yet). The dispute desk shows each case's timeline; open one directly with
-`http://<box>:8090/#INV-118955`.
+**One CSV row is one invoice. One upload can contain all 20,000 rows.** Matching IDs update previous records. A `kind: full` manifest replaces earlier uploaded bundles; delta bundles merge with the baseline. Two 20,000-row uploads do not automatically produce 40,000 unique active invoices. Read the actual reports.
 
-All names are invented and every email domain uses the reserved `.example` TLD.
+## Verify it
+
+```bash
+# Deterministic tests, triage and dashboard checks; no model generation
+python platform/preflight.py --no-model
+
+# Additional workspace ledger tests
+python app/test_ledger.py
+
+# Local model check and one real drafting cycle
+python platform/preflight.py
+```
+
+Full preflight writes demo state and may post notifications if a channel is configured. For the offline demo, leave optional channel credentials unconfigured. The Python offline guard blocks connections leaving the machine during checks; it is not a whole-system firewall or an audit of every sandbox process.
+
+## Local execution and demo boundaries
+
+- Download installers, weights, and required container images **before** disconnecting. Copy repo, data, and model assets by external drive or local cable; disconnected runtime needs no cloud LLM.
+- Imports, drafts, and mock CRM state live on disk. Notes and message-history files are exports, not live Gmail or Slack connectors.
+- Approval does not deliver an email or execute a real write-off. A validated PO is supporting evidence, not payment received.
+- All supplied customers and invoices are synthetic. Optional external notifications are outside the zero-network demo.
+- Reboot startup configuration is provided, but the GB10 notes leave the reboot test unverified. Test it on the box before claiming it.
+- This is a hackathon prototype. Authentication, enterprise identity, production accounting integrations, and deployment hardening require further work.
+
+## Explore the repository
+
+| Path | Purpose |
+|---|---|
+| [app/](app/) | Invoice workspace, APIs, companion presentation |
+| [triage/](triage/) | Eligibility, account context, write-off controls, revalidation |
+| [agent/](agent/) | Prompts, drafting, validation, mock CRM, uploads |
+| [disputes/](disputes/) | Dispute evidence, owner routing, persistent PO cases |
+| [channel/](channel/) | Approvals, sandbox chat desk, optional notifications |
+| [platform/](platform/) | Checks, offline guard, cycle runner, deployment |
+| [data/](data/) | Synthetic exports, generators, fixtures |
+| [gb10/](gb10/) | Box integration and earlier parallel implementation |
+
+The **root application** is the integrated workspace; `gb10/` also contains an earlier implementation with different schemas and commands. Use its platform notes for the box; do not mix queue outputs without the adapter.
+
+## Judge walkthrough
+
+See [the 1:55 demo plan](docs/DEMO.md): upload → queue → account context → PO blocker → approve → withdraw an outdated draft → disconnected GB10 proof.
+
+| Event criterion | Evidence to inspect |
+|---|---|
+| Technical execution | Deterministic tests, draft validation, PO checks, persisted review state, withdrawal |
+| Business value | Dedicated small-balance workflow with oversight and account coordination |
+| Local-first design | Local inference, file/SQLite state, self-contained UI, disconnected-box demo |
+| Demo quality | Visible imports, traceable IDs, readable before/after states, synthetic-data labels |
+
+More detail: [implementation reference](docs/IMPLEMENTATION.md), [drafting and approval](agent/README.md), [offline runbook](platform/RUNBOOK.md), [GB10 sandbox integration](gb10/platform/NEMOCLAW.md).
