@@ -354,7 +354,12 @@ def plural(n, word, plural_word=None):
 
 
 def short_date(value):
-    d = date.fromisoformat(value[:10]) if isinstance(value, str) else value
+    if isinstance(value, str) and len(value.strip()) < 10:
+        return ""
+    try:
+        d = date.fromisoformat(value[:10]) if isinstance(value, str) else value
+    except ValueError:
+        return ""
     return f"{d:%b} {d.day}, {d.year}"
 
 
