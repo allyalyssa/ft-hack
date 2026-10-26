@@ -50,6 +50,8 @@ def from_role_b(files):
         w = csv.DictWriter(sheet, fieldnames=SHEET_REQUIRED)
         w.writeheader()
         for n in notes:
+            if not (n.get("touch_date") or n.get("note_date") or "").strip():
+                continue
             if (n.get("dispute_flag") or "").strip().lower() in {"true", "1", "yes"}:
                 disputed.add(n.get("invoice_id"))
             w.writerow({"invoice_id": n.get("invoice_id", ""), "collector": n.get("collector", ""),
